@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<template id="report_product">
+			<t t-call="report.html_container">
+			
+			
+				    <div class="page">
+				<br/><br/><br/>
+					<h2><center>CANTIDAD DE PRODUCTOS</center></h2>
+			
+					<br/>
+<t t-foreach="docs" t-as="o">	
+<span t-field="o.users"/>
+			
+					</t>
+
+<t t-foreach="docs" t-as="o">	
+<h5><span t-field="o.fechas"/></h5>
+			
+					</t>
+					<h5>Cnt       Producto</h5>
+	    				<t t-foreach="docs" t-as="o">	
+<h5><span t-field="o.productos_vendidos"/></h5>
+			
+					</t>
+			                </div>
+				
+
+				
+			    
+			</t>
+		</template>
+	</data>
+</openerp>

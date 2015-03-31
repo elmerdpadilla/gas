@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<template id="mcheck_print">
+			<t t-call="report.html_container">
+
+				<t t-foreach="docs" t-as="o">
+    <t t-if="o and 'company_id' in o">
+        <t t-set="company" t-value="o.company_id"></t>
+    </t>
+    <t t-if="not o or not 'company_id' in o">
+        <t t-set="company" t-value="res_company"></t>
+    </t>
+
+    <div class="header">
+
+<p class="text-right">CHEQUE # </p>
+
+</div>				
+						<div class="page">
+
+</div>
+
+					</t>
+				
+			</t>
+		</template>
+	</data>
+</openerp>

@@ -1,0 +1,1124 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* gasoline
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-03-12 22:55+0000\n"
+"PO-Revision-Date: 2015-03-12 22:55+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: gasoline
+#: field:account.invoice,plaque:0
+msgid " plaque"
+msgstr " Placa"
+
+#. module: gasoline
+#: model:ir.actions.act_window,help:gasoline.product_action_form_template
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"					Click to add a new Product.\n"
+"				  </p><p>\n"
+"					With just a quick glance on the OpenERP Product screen, you\n"
+"					can easily find all the information about your each turn;					\n"
+"				  </p>\n"
+"				"
+msgstr "<p class=\"oe_view_nocontent_create\">Click to add a new Product.  </p><p>With just a quick glance on the OpenERP Product screen, youcan easily find all the information about your each turn;  </p>"
+
+#. module: gasoline
+#: model:ir.actions.act_window,help:gasoline.gasoline_action_form_side
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"					Click to add a new Side.\n"
+"				  </p><p>\n"
+"					With just a quick glance on the OpenERP Side screen, you\n"
+"					can easily find all the information about your each day dispenser;					\n"
+"				  </p>\n"
+"				"
+msgstr "<p class=\"oe_view_nocontent_create\">Click to add a new Side.  </p><p>With just a quick glance on the OpenERP Side screen, youcan easily find all the information about your each day dispenser;  </p>"
+
+#. module: gasoline
+#: model:ir.actions.act_window,help:gasoline.gasoline_action_form_dispenser
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"					Click to add a new dispenser.\n"
+"				  </p>\n"
+"				  <p>\n"
+"					With just a quick glance on the OpenERP dispenser screen, you\n"
+"					can easily find all the information about your each day dispenser;					\n"
+"				  </p>\n"
+"				"
+msgstr "<p class=\"oe_view_nocontent_create\">Click to add a new dispenser.  </p>  <p>With just a quick glance on the OpenERP dispenser screen, youcan easily find all the information about your each day dispenser;  </p>"
+
+#. module: gasoline
+#: model:ir.actions.act_window,help:gasoline.gasoline_action_form_product
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"					Click to add a new product.\n"
+"				  </p><p>\n"
+"					With just a quick glance on the OpenERP product screen, you\n"
+"					can easily find all the information about your each user;					\n"
+"				  </p>\n"
+"				"
+msgstr "<p class=\"oe_view_nocontent_create\">Click to add a new product.  </p><p>With just a quick glance on the OpenERP product screen, youcan easily find all the information about your each user;  </p>"
+
+#. module: gasoline
+#: model:ir.actions.act_window,help:gasoline.gasoline_action_form_reading2
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"					Click to add a new reading.\n"
+"				  </p><p>\n"
+"					With just a quick glance on the OpenERP reading screen, you\n"
+"					can easily find all the information about your each user;					\n"
+"				  </p>\n"
+"				"
+msgstr "<p class=\"oe_view_nocontent_create\">Click to add a new reading.  </p><p>With just a quick glance on the OpenERP reading screen, youcan easily find all the information about your each user;  </p>"
+
+#. module: gasoline
+#: model:ir.actions.act_window,help:gasoline.gasoline_action_form_side_product
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"					Click to add a new side_product.\n"
+"				  </p>\n"
+"				  <p>\n"
+"					With just a quick glance on the OpenERP  Side product screen, you\n"
+"					can easily find all the information about your each day dispenser;					\n"
+"				  </p>\n"
+"				"
+msgstr "<p class=\"oe_view_nocontent_create\">Click to add a new side_product.  </p>  <p>With just a quick glance on the OpenERP  Side product screen, youcan easily find all the information about your each day dispenser;  </p>"
+
+#. module: gasoline
+#: model:ir.actions.act_window,help:gasoline.gasoline_action_form_turn
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"					Click to add a new turn.\n"
+"				  </p><p>\n"
+"					With just a quick glance on the OpenERP turn screen, you\n"
+"					can easily find all the information about your each turn;					\n"
+"				  </p>\n"
+"				"
+msgstr "<p class=\"oe_view_nocontent_create\">Click to add a new turn.  </p><p>With just a quick glance on the OpenERP turn screen, youcan easily find all the information about your each turn;  </p>"
+
+#. module: gasoline
+#: model:ir.actions.act_window,help:gasoline.gasoline_action_form_user
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"					Click to add a new user.\n"
+"				  </p><p>\n"
+"					With just a quick glance on the OpenERP user screen, you\n"
+"					can easily find all the information about your each user;					\n"
+"				  </p>\n"
+"				"
+msgstr "<p class=\"oe_view_nocontent_create\">Click to add a new user.  </p><p>With just a quick glance on the OpenERP user screen, youcan easily find all the information about your each user;  </p>"
+
+#. module: gasoline
+#: selection:gasoline.dispenser,status:0
+#: selection:gasoline.user,status:0
+msgid "Active"
+msgstr "Activo"
+
+#. module: gasoline
+#: view:gasoline.turn:gasoline.gasoline_turn_form_view
+msgid "Amount total"
+msgstr "Monto Total"
+
+#. module: gasoline
+#: field:gasoline.reading2,qty_available:0
+msgid "Available"
+msgstr "Disponible"
+
+#. module: gasoline
+#: view:website:gasoline.report_invoice
+msgid "Base"
+msgstr "Base"
+
+#. module: gasoline
+#: view:website:gasoline.report_invoice
+msgid "Cancelled Factura"
+msgstr "Cancelled Factura"
+
+#. module: gasoline
+#: view:website:gasoline.report_invoice
+msgid "Cantidad"
+msgstr "Cantidad"
+
+#. module: gasoline
+#: help:pos.config,combustible:0
+#: help:pos.order,is_gasoline:0
+#: help:product.template,is_gasoline:0
+msgid "Check if, this is a product is Gasoline."
+msgstr "Marque la Casilla si el producto es un Combustible"
+
+#. module: gasoline
+#: view:website:gasoline.report_closing
+msgid "Cierre de Turno"
+msgstr "Cierre de Turno"
+
+#. module: gasoline
+#: view:website:gasoline.report_invoice
+msgid "Cliente:"
+msgstr "Cliente:"
+
+#. module: gasoline
+#: selection:gasoline.turn,state:0
+msgid "Closed"
+msgstr "Cerrado"
+
+#. module: gasoline
+#: view:website:gasoline.report_closing
+msgid "Colaborador :"
+msgstr "Colaborador :"
+
+#. module: gasoline
+#: view:website:gasoline.report_invoice
+msgid "Comentario:"
+msgstr "Comentario:"
+
+#. module: gasoline
+#: view:gasoline.turn:gasoline.gasoline_turn_form_view
+msgid "Confirm"
+msgstr "Confirmada"
+
+#. module: gasoline
+#: view:gasoline.turn:gasoline.gasoline_turn_form_view
+msgid "Crear Factura"
+msgstr "Crear Factura"
+
+#. module: gasoline
+#: field:gasoline.dispenser,create_uid:0
+#: field:gasoline.journal,create_uid:0
+#: field:gasoline.product,create_uid:0
+#: field:gasoline.reading,create_uid:0
+#: field:gasoline.reading2,create_uid:0
+#: field:gasoline.side,create_uid:0
+#: field:gasoline.side_product,create_uid:0
+#: field:gasoline.turn,create_uid:0
+#: field:gasoline.user,create_uid:0
+msgid "Created by"
+msgstr "Creada Por"
+
+#. module: gasoline
+#: field:gasoline.dispenser,create_date:0
+#: field:gasoline.journal,create_date:0
+#: field:gasoline.product,create_date:0
+#: field:gasoline.reading,create_date:0
+#: field:gasoline.reading2,create_date:0
+#: field:gasoline.side,create_date:0
+#: field:gasoline.side_product,create_date:0
+#: field:gasoline.turn,create_date:0
+#: field:gasoline.user,create_date:0
+msgid "Created on"
+msgstr "Creada el"
+
+#. module: gasoline
+#: view:website:gasoline.report_closing
+msgid "Descripcion"
+msgstr "Descripción"
+
+#. module: gasoline
+#: view:website:gasoline.report_invoice
+msgid "Descripción"
+msgstr "Descripción"
+
+#. module: gasoline
+#: field:gasoline.reading,description:0
+#: field:gasoline.reading2,description:0
+msgid "Description"
+msgstr "Descripción"
+
+#. module: gasoline
+#: view:website:gasoline.report_invoice
+msgid "Descuento (%)"
+msgstr "Descuento (%)"
+
+#. module: gasoline
+#: view:website:gasoline.report_closing
+msgid "Diario"
+msgstr "Diario"
+
+#. module: gasoline
+#: field:pos.order,difference:0
+msgid "Diferencia"
+msgstr "Diferencia"
+
+#. module: gasoline
+#: view:website:gasoline.report_closing
+msgid "Diferencia :"
+msgstr "Diferencia :"
+
+#. module: gasoline
+#: view:website:gasoline.report_closing
+msgid "Diferencia Final"
+msgstr "Diferencia Final"
+
+#. module: gasoline
+#: view:website:gasoline.report_closing
+msgid "Diferencia por precio :"
+msgstr "Diferencia por precio :"
+
+#. module: gasoline
+#: field:gasoline.reading2,qty_virtual:0
+#: field:gasoline.turn,difference:0
+msgid "Difference"
+msgstr "Diferencia"
+
+#. module: gasoline
+#: field:gasoline.turn,pdifference:0
+msgid "Difference of price"
+msgstr "Diferencia por Precio"
+
+#. module: gasoline
+#: view:website:gasoline.external_layout_cierre
+#: view:website:gasoline.report_closing
+msgid "Dirección:"
+msgstr "Dirección:"
+
+#. module: gasoline
+#: view:gasoline.dispenser:gasoline.gasoline_dispenser_form_view
+#: field:gasoline.side,product_id:0
+#: field:gasoline.turn,dispenser_ids:0
+#: model:ir.actions.act_window,name:gasoline.gasoline_action_form_dispenser
+#: model:ir.ui.menu,name:gasoline.dispenser_edit
+msgid "Dispenser"
+msgstr "Dispensadores"
+
+#. module: gasoline
+#: selection:gasoline.reading2,state:0
+#: selection:gasoline.turn,state:0
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: gasoline
+#: field:gasoline.turn,user_id:0
+#: field:gasoline.user,employee_id:0
+#: model:ir.model,name:gasoline.model_hr_employee
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: gasoline
+#: view:website:gasoline.report_closing
+msgid "Esperado Combustible :"
+msgstr "Esperado Combustible :"
+
+#. module: gasoline
+#: view:website:gasoline.report_closing
+msgid "Esperado otros :"
+msgstr "Esperado otros :"
+
+#. module: gasoline
+#: view:account.invoice:gasoline.view_account_invoice_tree_inherit
+#: view:website:gasoline.report_closing
+#: view:website:gasoline.report_invoice
+msgid "Factura"
+msgstr "Factura"
+
+#. module: gasoline
+#: view:website:gasoline.report_invoice
+msgid "Factura Borrador"
+msgstr "Factura Borrador"
+
+#. module: gasoline
+#: view:website:gasoline.report_closing
+msgid "Fecha :"
+msgstr "Fecha :"
+
+#. module: gasoline
+#: view:website:gasoline.report_invoice
+msgid "Fecha de Factura:"
+msgstr "Fecha de Factura:"
+
+#. module: gasoline
+#: selection:gasoline.reading2,state:0
+#: view:gasoline.turn:gasoline.view_gasoline_turn_search
+#: selection:gasoline.turn,state:0
+msgid "Finish"
+msgstr "Finalizado"
+
+#. module: gasoline
+#: view:gasoline.turn:gasoline.gasoline_turn_form_view
+msgid "Finish Turn"
+msgstr "Finalizar Turno"
+
+#. module: gasoline
+#: view:website:gasoline.report_invoice
+msgid "Fiscal Position:"
+msgstr "Posición fiscal"
+
+#. module: gasoline
+#: model:ir.ui.menu,name:gasoline.main_menu_gasoline
+#: view:product.template:gasoline.product_template_form_view
+msgid "Gasoline"
+msgstr "Combustibles"
+
+#. module: gasoline
+#: model:res.groups,name:gasoline.group_gasoline_manager
+msgid "Gasoline / Manager"
+msgstr "Gasoline / Manager"
+
+#. module: gasoline
+#: model:ir.ui.menu,name:gasoline.dispenser_menu
+msgid "Gasoline Control"
+msgstr "Gasoline Control"
+
+#. module: gasoline
+#: view:gasoline.turn:gasoline.view_gasoline_turn_search
+msgid "Group By"
+msgstr "Agrupar Por"
+
+#. module: gasoline
+#: field:gasoline.dispenser,id:0
+#: field:gasoline.journal,id:0
+#: field:gasoline.product,id:0
+#: field:gasoline.reading,id:0
+#: field:gasoline.reading2,id:0
+#: field:gasoline.side,id:0
+#: field:gasoline.side_product,id:0
+#: field:gasoline.turn,id:0
+#: field:gasoline.user,id:0
+#: field:report.gasoline.report_closing,id:0
+#: field:report.gasoline.report_invoice,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: gasoline
+#: view:website:gasoline.report_invoice
+msgid "ISV"
+msgstr "ISV"
+
+#. module: gasoline
+#: view:pos.order:gasoline.view_pos_pos_form1
+msgid "Imprimir Factura"
+msgstr "Imprimir Factura"
+
+#. module: gasoline
+#: view:website:gasoline.report_invoice
+msgid "Impuesto"
+msgstr "Impuesto"
+
+#. module: gasoline
+#: selection:gasoline.dispenser,status:0
+#: selection:gasoline.user,status:0
+msgid "Inactive"
+msgstr "Inactiva"
+
+#. module: gasoline
+#: model:ir.model,name:gasoline.model_fleet_vehicle
+msgid "Information on a vehicle"
+msgstr "Información en un vehículo"
+
+#. module: gasoline
+#: model:ir.model,name:gasoline.model_account_invoice
+#: view:pos.order:gasoline.view_pos_order_tree_inherit
+#: view:pos.order:gasoline.view_pos_pos_form1
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: gasoline
+#: field:gasoline.turn,invoiced:0
+msgid "Invoiced"
+msgstr "Venta Crédito"
+
+#. module: gasoline
+#: field:pos.order,is_gasoline:0
+#: field:product.template,is_gasoline:0
+msgid "Is Gasoline"
+msgstr "¿Es Combustible?"
+
+#. module: gasoline
+#: field:pos.config,combustible:0
+msgid "Is TPV for gasoline"
+msgstr "Is TPV for gasoline"
+
+#. module: gasoline
+#: field:hr.employee,is_dispenser:0
+msgid "Is dispenser?"
+msgstr "¿Es Dispensador?"
+
+#. module: gasoline
+#: field:gasoline.turn,journal:0
+#: model:ir.model,name:gasoline.model_account_journal
+msgid "Journal"
+msgstr "Diario"
+
+#. module: gasoline
+#: view:gasoline.dispenser:gasoline.gasoline_dispenser_form_view
+#: field:gasoline.dispenser,product_ids:0
+msgid "Lados"
+msgstr "Lados"
+
+#. module: gasoline
+#: field:gasoline.dispenser,write_uid:0
+#: field:gasoline.journal,write_uid:0
+#: field:gasoline.product,write_uid:0
+#: field:gasoline.reading,write_uid:0
+#: field:gasoline.reading2,write_uid:0
+#: field:gasoline.side,write_uid:0
+#: field:gasoline.side_product,write_uid:0
+#: field:gasoline.turn,write_uid:0
+#: field:gasoline.user,write_uid:0
+msgid "Last Updated by"
+msgstr "Última actualización realizada por"
+
+#. module: gasoline
+#: field:gasoline.dispenser,write_date:0
+#: field:gasoline.journal,write_date:0
+#: field:gasoline.product,write_date:0
+#: field:gasoline.reading,write_date:0
+#: field:gasoline.reading2,write_date:0
+#: field:gasoline.side,write_date:0
+#: field:gasoline.side_product,write_date:0
+#: field:gasoline.turn,write_date:0
+#: field:gasoline.user,write_date:0
+msgid "Last Updated on"
+msgstr "Última actualización realizada el"
+
+#. module: gasoline
+#: view:website:gasoline.report_closing
+msgid "Lectura del Turno"
+msgstr "Lectura del Turno"
+
+#. module: gasoline
+#: view:gasoline.product:gasoline.gasoline_product_form_view
+msgid "Lecturas"
+msgstr "Lecturas"
+
+#. module: gasoline
+#: field:gasoline.product,level:0
+#: field:gasoline.side,level:0
+msgid "Level"
+msgstr "Nivel"
+
+#. module: gasoline
+#: help:gasoline.product,level:0
+msgid "Level for product"
+msgstr "Nivel del producto"
+
+#. module: gasoline
+#: model:ir.model,name:gasoline.model_pos_order_line
+msgid "Lines of Point of Sale"
+msgstr "Líneas del Terminal Punto de Venta"
+
+#. module: gasoline
+#: view:gasoline.turn:gasoline.view_gasoline_turn_search
+msgid "Maintenance"
+msgstr "Mantenimiento"
+
+#. module: gasoline
+#: view:gasoline.turn:gasoline.gasoline_turn_form_view
+msgid "Mark as done"
+msgstr "Cerrar Turno"
+
+#. module: gasoline
+#: field:gasoline.product,measure:0
+msgid "Mesure Unit"
+msgstr "Unidad de Medida"
+
+#. module: gasoline
+#: help:gasoline.product,measure:0
+msgid "Mesure Unit of Dispenser"
+msgstr "Unidad de medida del Dispensador"
+
+#. module: gasoline
+#: view:website:gasoline.report_closing
+msgid "Metodos de pago"
+msgstr "Metodos de pago"
+
+#. module: gasoline
+#: field:gasoline.journal,money:0
+msgid "Money"
+msgstr "Dinero"
+
+#. module: gasoline
+#: view:website:gasoline.report_invoice
+msgid "Monto"
+msgstr "Monto"
+
+#. module: gasoline
+#: field:gasoline.dispenser,name:0
+#: field:gasoline.side,name:0
+#: field:gasoline.side_product,name:0
+#: field:gasoline.turn,name:0
+msgid "Name"
+msgstr "Nombre"
+
+#. module: gasoline
+#: help:gasoline.dispenser,name:0
+msgid "Name of Dispenser"
+msgstr "Nombre del Dispensador"
+
+#. module: gasoline
+#: view:website:gasoline.report_closing
+msgid "Nivel Final"
+msgstr "Nivel Final"
+
+#. module: gasoline
+#: code:addons/gasoline/model/gasoline.py:588
+#, python-format
+msgid "No Pricelist!"
+msgstr "No Pricelist!"
+
+#. module: gasoline
+#: field:gasoline.turn,note:0
+msgid "Note"
+msgstr "Nota"
+
+#. module: gasoline
+#: view:gasoline.turn:gasoline.gasoline_turn_form_view
+msgid "Notes"
+msgstr "Notas"
+
+#. module: gasoline
+#: view:gasoline.product:gasoline.gasoline_product_form_view
+msgid "Nueva Lectura"
+msgstr "Nueva Lectura"
+
+#. module: gasoline
+#: field:pos.order,odometer:0
+msgid "Odometer"
+msgstr "cuentakilómetros"
+
+#. module: gasoline
+#: view:website:gasoline.report_invoice
+msgid "Orden N:"
+msgstr "Orden N:"
+
+#. module: gasoline
+#: model:ir.actions.act_window,name:gasoline.product_action_form_template
+#: model:ir.ui.menu,name:gasoline.product_edit2
+msgid "Order"
+msgstr "Factura"
+
+#. module: gasoline
+#: field:gasoline.turn,other:0
+msgid "Other product"
+msgstr "Esperado Otros"
+
+#. module: gasoline
+#: view:website:gasoline.report_invoice
+msgid "PRO-FORMA"
+msgstr "PRO-FORMA"
+
+#. module: gasoline
+#: view:website:gasoline.report_closing
+msgid "Pagos"
+msgstr "Pagos"
+
+#. module: gasoline
+#: field:gasoline.turn,paid:0
+msgid "Paid"
+msgstr "Venta Contado"
+
+#. module: gasoline
+#: field:fleet.vehicle,partner_id:0
+msgid "Partner"
+msgstr "Cliente"
+
+#. module: gasoline
+#: view:website:gasoline.report_invoice
+msgid "Placa:"
+msgstr "Placa:"
+
+#. module: gasoline
+#: model:ir.model,name:gasoline.model_pos_order
+msgid "Point of Sale"
+msgstr "Terminal Punto de Venta"
+
+#. module: gasoline
+#: model:ir.model,name:gasoline.model_pos_make_payment
+msgid "Point of Sale Payment"
+msgstr "Punto de venta. Pago"
+
+#. module: gasoline
+#: field:product.template,porcentaje_price:0
+msgid "Porcentaje"
+msgstr "Porcentaje"
+
+#. module: gasoline
+#: view:website:gasoline.report_invoice
+msgid "Precio Unitario"
+msgstr "Precio Unitario"
+
+#. module: gasoline
+#: model:ir.actions.act_window,name:gasoline.gasoline_action_form_product
+#: model:ir.ui.menu,name:gasoline.product_edit
+msgid "Product"
+msgstr "Productos"
+
+#. module: gasoline
+#: model:ir.model,name:gasoline.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: gasoline
+#: field:gasoline.product,product_id:0
+#: field:gasoline.reading,product_id:0
+msgid "Productos"
+msgstr "Productos"
+
+#. module: gasoline
+#: field:gasoline.side,product_ids:0
+msgid "Products"
+msgstr "Productos"
+
+#. module: gasoline
+#: view:gasoline.turn:gasoline.view_gasoline_turn_search
+#: selection:gasoline.turn,state:0
+msgid "Progress"
+msgstr "En Progreso"
+
+#. module: gasoline
+#: view:website:gasoline.report_invoice
+msgid "Página:"
+msgstr "Página:"
+
+#. module: gasoline
+#: view:website:gasoline.report_closing
+#: view:website:gasoline.report_invoice
+msgid "RTN :"
+msgstr "RTN :"
+
+#. module: gasoline
+#: view:website:gasoline.external_layout_cierre
+msgid "RTN:"
+msgstr "RTN:"
+
+#. module: gasoline
+#: field:gasoline.turn,reading:0
+msgid "Reading"
+msgstr "Lectura"
+
+#. module: gasoline
+#: view:gasoline.reading2:gasoline.gasoline_reading2_form_view
+#: view:gasoline.reading2:gasoline.gasoline_reading2_tree_view
+msgid "Reading Product"
+msgstr "lectura del Producto"
+
+#. module: gasoline
+#: view:website:gasoline.report_invoice
+msgid "Recibí Conforme"
+msgstr "Recibí Conforme"
+
+#. module: gasoline
+#: field:account.invoice,nreference:0
+msgid "Reference"
+msgstr "Referencia"
+
+#. module: gasoline
+#: field:pos.order,nreference:0
+msgid "Reference Number"
+msgstr "Número de referencia"
+
+#. module: gasoline
+#: view:website:gasoline.report_closing
+msgid "Referencia"
+msgstr "Referencia"
+
+#. module: gasoline
+#: view:website:gasoline.report_invoice
+msgid "Refund"
+msgstr "Nota de credito"
+
+#. module: gasoline
+#: model:ir.actions.report.xml,name:gasoline.gasoline_report_closing
+msgid "Report Closing"
+msgstr "Report Closing"
+
+#. module: gasoline
+#: model:ir.actions.report.xml,name:gasoline.gasoline_report_invoice
+msgid "Report invoice"
+msgstr "Imprimir Factura"
+
+#. module: gasoline
+#: view:gasoline.turn:gasoline.view_gasoline_turn_search
+msgid "Search turn"
+msgstr "Buscar Turno"
+
+#. module: gasoline
+#: view:gasoline.side:gasoline.gasoline_side_form_view
+#: model:ir.actions.act_window,name:gasoline.gasoline_action_form_side
+msgid "Side"
+msgstr "Lado"
+
+#. module: gasoline
+#: view:gasoline.side_product:gasoline.gasoline_side_dispenser_form_view
+#: view:gasoline.user:gasoline.gasoline_user_form_view
+msgid "Side-Product"
+msgstr "Producto por lado"
+
+#. module: gasoline
+#: model:ir.actions.act_window,name:gasoline.gasoline_action_form_side_product
+msgid "Side_Product"
+msgstr "Producto por lado"
+
+#. module: gasoline
+#: field:gasoline.turn,sold:0
+msgid "Sold"
+msgstr "Esperado Combustible"
+
+#. module: gasoline
+#: view:gasoline.turn:gasoline.view_gasoline_turn_search
+msgid "Status"
+msgstr "Estado"
+
+#. module: gasoline
+#: view:website:gasoline.report_invoice
+msgid "Subtotal"
+msgstr "Subtotal"
+
+#. module: gasoline
+#: view:website:gasoline.report_invoice
+msgid "Supplier Factura"
+msgstr "Supplier Factura"
+
+#. module: gasoline
+#: view:website:gasoline.report_invoice
+msgid "Supplier Refund"
+msgstr "Nota de Credito de Proveedor"
+
+#. module: gasoline
+#: view:website:gasoline.external_layout_cierre
+#: view:website:gasoline.report_closing
+#: view:website:gasoline.report_invoice
+msgid "Tel:"
+msgstr "Tel:"
+
+#. module: gasoline
+#: view:website:gasoline.report_invoice
+msgid "Teléfono:"
+msgstr "Teléfono:"
+
+#. module: gasoline
+#: field:gasoline.reading,price_list:0
+#: view:gasoline.turn:gasoline.gasoline_turn_form_view
+#: view:website:gasoline.report_closing
+#: view:website:gasoline.report_invoice
+msgid "Total"
+msgstr "Total"
+
+#. module: gasoline
+#: view:gasoline.turn:gasoline.gasoline_turn_form_view
+#: view:website:gasoline.report_closing
+msgid "Totales"
+msgstr "Totales"
+
+#. module: gasoline
+#: field:gasoline.journal,turn_id:0
+#: view:gasoline.turn:gasoline.view_gasoline_turn_search
+#: field:gasoline.turn,type:0
+#: model:ir.actions.act_window,name:gasoline.gasoline_action_form_turn
+#: model:ir.actions.act_window,name:gasoline.gasoline_action_new_turn
+#: model:ir.ui.menu,name:gasoline.turn_edit
+#: field:pos.order,turn_id:0
+msgid "Turn"
+msgstr "Turnos"
+
+#. module: gasoline
+#: view:website:gasoline.report_closing
+msgid "Turno :"
+msgstr "Turno :"
+
+#. module: gasoline
+#: field:pos.order,type_id2:0
+msgid "Type"
+msgstr "Tipo"
+
+#. module: gasoline
+#: view:website:gasoline.report_invoice
+msgid "Términos de Pago:"
+msgstr "Términos de Pago:"
+
+#. module: gasoline
+#: code:addons/gasoline/model/gasoline.py:63
+#: code:addons/gasoline/model/gasoline.py:453
+#, python-format
+msgid "Unable to Delete!"
+msgstr "¡No se puede eliminar!"
+
+#. module: gasoline
+#: view:pos.order:gasoline.view_pos_pos_form1
+#: field:pos.order,vehicle_id:0
+msgid "Vehicle"
+msgstr "vehículo"
+
+#. module: gasoline
+#: view:website:gasoline.report_invoice
+msgid "Vehiculo:"
+msgstr "Vehiculo:"
+
+#. module: gasoline
+#: view:website:gasoline.report_closing
+msgid "Venta Contado :"
+msgstr "Venta Contado :"
+
+#. module: gasoline
+#: view:website:gasoline.report_closing
+msgid "Venta Credito :"
+msgstr "Venta Credito :"
+
+#. module: gasoline
+#: view:gasoline.turn:gasoline.gasoline_turn_form_view
+msgid "Ver Factura"
+msgstr "Ver Factura"
+
+#. module: gasoline
+#: code:addons/gasoline/model/gasoline.py:589
+#, python-format
+msgid "You have to select a pricelist in the sale form !\n"
+"Please set one before choosing a product."
+msgstr "You have to select a pricelist in the sale form !Please set one before choosing a product."
+
+#. module: gasoline
+#: view:website:gasoline.report_invoice
+msgid "___________________"
+msgstr "___________________"
+
+#. module: gasoline
+#: field:gasoline.reading,assign:0
+msgid "assign"
+msgstr "asignar"
+
+#. module: gasoline
+#: field:hr.employee,assigned:0
+msgid "assigned"
+msgstr "Asignado"
+
+#. module: gasoline
+#: field:gasoline.reading,bit:0
+#: field:gasoline.reading2,bit:0
+msgid "bit"
+msgstr "bit"
+
+#. module: gasoline
+#: field:gasoline.reading2,date:0
+#: field:gasoline.turn,date:0
+msgid "date"
+msgstr "Fecha"
+
+#. module: gasoline
+#: field:gasoline.reading,date:0
+msgid "date Init"
+msgstr "Fecha Inicial"
+
+#. module: gasoline
+#: field:gasoline.reading,datef:0
+msgid "date end"
+msgstr "Fecha Final"
+
+#. module: gasoline
+#: field:gasoline.reading,levelf:0
+#: field:gasoline.reading2,levelf:0
+msgid "finish levels"
+msgstr "Niveles Finales"
+
+#. module: gasoline
+#: view:website:gasoline.report_invoice
+msgid "firma"
+msgstr "firma"
+
+#. module: gasoline
+#: field:gasoline.product,reading_id:0
+msgid "id"
+msgstr "id"
+
+#. module: gasoline
+#: view:pos.order:gasoline.view_pos_pos_form1
+msgid "invoice"
+msgstr "Factura"
+
+#. module: gasoline
+#: field:account.journal,combustible:0
+msgid "is payment of combustible?"
+msgstr "es el pago de combustible?"
+
+#. module: gasoline
+#: field:gasoline.product,locale:0
+#: field:gasoline.reading2,level:0
+#: field:gasoline.side_product,level:0
+#: field:product.template,level:0
+msgid "level"
+msgstr "Nivel"
+
+#. module: gasoline
+#: field:gasoline.reading,level:0
+#: field:gasoline.reading,leveldiff:0
+msgid "level Init"
+msgstr "Nivel Inicial"
+
+#. module: gasoline
+#: field:gasoline.reading,levelt:0
+#: field:gasoline.reading2,levelt:0
+msgid "level end"
+msgstr "Nivel Final"
+
+#. module: gasoline
+#: help:gasoline.product,locale:0
+msgid "level for product"
+msgstr "Nivel de los productos"
+
+#. module: gasoline
+#: field:gasoline.reading,side_product_id:0
+msgid "level id"
+msgstr "id de Nivel"
+
+#. module: gasoline
+#: help:gasoline.side,level:0
+msgid "level of Dispenser"
+msgstr "Nivel del Dispensador"
+
+#. module: gasoline
+#: field:gasoline.product,name:0
+#: field:gasoline.reading,name:0
+#: field:gasoline.user,name:0
+msgid "name"
+msgstr "Nombre"
+
+#. module: gasoline
+#: field:account.invoice,odometer:0
+msgid "odometer"
+msgstr "odometer"
+
+#. module: gasoline
+#: field:gasoline.turn,order_ids:0
+msgid "orders"
+msgstr "Facturas"
+
+#. module: gasoline
+#: field:gasoline.journal,journal_id:0
+msgid "payment method"
+msgstr "Métodos de Pago / Contado"
+
+#. module: gasoline
+#: field:gasoline.turn,journal_ids:0
+msgid "payment methods"
+msgstr "Métodos de Pago"
+
+#. module: gasoline
+#: field:pos.order.line,price2:0
+msgid "price2"
+msgstr "price2"
+
+#. module: gasoline
+#: view:gasoline.product:gasoline.gasoline_product_form_view
+#: field:gasoline.reading2,product_id2:0
+msgid "product"
+msgstr "producto"
+
+#. module: gasoline
+#: field:gasoline.side_product,product_id:0
+msgid "product "
+msgstr "producto"
+
+#. module: gasoline
+#: model:ir.actions.act_window,name:gasoline.gasoline_action_form_reading2
+#: model:ir.ui.menu,name:gasoline.reading2_edit
+msgid "reading"
+msgstr "Lectura"
+
+#. module: gasoline
+#: field:gasoline.product,reading_finish:0
+#: field:gasoline.turn,reading_finish:0
+msgid "reading Finish"
+msgstr "Lectura Final"
+
+#. module: gasoline
+#: field:gasoline.product,reading_init:0
+#: field:gasoline.turn,reading_init:0
+msgid "reading Init"
+msgstr "Lectura Inicial"
+
+#. module: gasoline
+#: field:gasoline.product,reading_end:0
+#: field:gasoline.turn,reading_end:0
+msgid "reading end"
+msgstr "Lectura Final"
+
+#. module: gasoline
+#: field:gasoline.side_product,side_id:0
+msgid "side id"
+msgstr "id de lado"
+
+#. module: gasoline
+#: field:gasoline.reading2,state:0
+#: field:gasoline.turn,state:0
+msgid "state"
+msgstr "Estado"
+
+#. module: gasoline
+#: field:gasoline.dispenser,status:0
+#: field:gasoline.side_product,status:0
+#: field:gasoline.user,status:0
+msgid "status"
+msgstr "Estado"
+
+#. module: gasoline
+#: sql_constraint:gasoline.reading:0
+msgid "the final level must be greater than the initial"
+msgstr "El nivel Final debe ser mayor que el inicial"
+
+#. module: gasoline
+#: field:product.template,levelt:0
+msgid "theorical level"
+msgstr "Nivel teórico"
+
+#. module: gasoline
+#: view:gasoline.turn:gasoline.gasoline_turn_form_view
+msgid "turn"
+msgstr "turnos"
+
+#. module: gasoline
+#: field:gasoline.turn,maintenance:0
+msgid "turn of maintenance"
+msgstr "Turno de Mantenimiento"
+
+#. module: gasoline
+#: field:gasoline.reading,turn_id:0
+msgid "turn_id"
+msgstr "id de turno"
+
+#. module: gasoline
+#: field:gasoline.dispenser,turn_id:0
+#: field:gasoline.product,side_ids:0
+#: field:hr.employee,gasoline_user_ids:0
+msgid "unknown"
+msgstr "Desconocida"
+
+#. module: gasoline
+#: model:ir.actions.act_window,name:gasoline.gasoline_action_form_user
+#: model:ir.ui.menu,name:gasoline.user_edit
+msgid "user"
+msgstr "Empleado"
+
+#. module: gasoline
+#: field:account.invoice,vehicle:0
+msgid "vehicle"
+msgstr "Vehículo"
+
+#. module: gasoline
+#: code:addons/gasoline/model/gasoline.py:453
+#, python-format
+msgid "you cannot delete a reading Created"
+msgstr "No Puede Borrar Una Lectura Creada"
+
+#. module: gasoline
+#: code:addons/gasoline/model/gasoline.py:63
+#, python-format
+msgid "you cannot delete a turn initiated"
+msgstr "No se puede Borrar un Turno una vez que Inicio"
+
+#. module: gasoline
+#: view:website:gasoline.report_invoice
+msgid "|\n"
+"Email:"
+msgstr "|Email:"
+
+#. module: gasoline
+#: view:website:gasoline.report_invoice
+msgid "|\n"
+"RTN:"
+msgstr "|RTN:"
+
+#. module: gasoline
+#: view:website:gasoline.report_invoice
+msgid "|\n"
+"Website:"
+msgstr "|Website:"
+

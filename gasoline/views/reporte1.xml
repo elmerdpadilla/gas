@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<template id="report_closing">
+			<t t-call="report.html_container">
+						<t t-foreach="docs" t-as="o">
+    <t t-if="o and 'company_id' in o">
+        <t t-set="company" t-value="o.company_id"></t>
+    </t>
+    <t t-if="not o or not 'company_id' in o">
+        <t t-set="company" t-value="res_company"></t>
+    </t>
+    <div class="header">
+
+
+
+</div>	
+				
+						<div class="page">
+
+              <div class="row">
+            <div class="col-xs-3">
+                <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="height: 80px;"/>
+            </div>
+            <div class="col-xs-9 text-right" style="margin-top:20px;" t-field="company.rml_header1"/>
+        </div>
+        <div>
+            <div class="col-xs-12">
+                <div style="border-bottom: 1px solid black;"></div>
+            </div>
+        </div>
+        <div class="row">
+                  <p>
+                	<strong>Dirección:</strong>
+                	<span t-field="company.street"/>
+			<br/>
+			<strong>RTN :</strong>
+                	<span t-field="company.company_registry"/>
+			<br/>
+			<strong>Tel:</strong>
+                	<span t-field="company.phone"/>
+           	  </p>
+        </div>
+
+           
+
+
+
+<style>
+tr.box {
+    width: 300px;
+    padding: 25px;
+    border: 2px solid black;
+    margin: 25px;
+}
+td.box3 {
+    text-align: right;
+}
+th.box3 {
+    text-align: right;
+	font-size:15px;
+}
+tr.box2 {
+    width: 300px;
+    padding: 25px;
+    border: 1px solid black;
+    margin: 25px;
+}
+</style>
+
+
+<table  style="width:100%; font-size:20px">
+	<tbody>
+<tr >
+<td colspan="3">
+<center>
+<h2>Cierre de Turno</h2>
+</center>
+</td>
+</tr>
+
+<tr>
+<td style="width:50%;">Turno :</td><td style="width:50%;"><span t-field="o.type"/></td><td></td>
+</tr>
+<tr>
+<td>Colaborador :</td><td><span t-field="o.user_id.name"/></td><td></td>
+</tr>
+<tr>
+<td>Fecha :</td><td><span t-field="o.date"/></td><td></td>
+</tr>
+	</tbody>
+</table>
+
+<br/>
+
+<table summary="Lecturas de los Turnos" style="width:100%; font-size:20px cellspacing='2'">
+	<caption><h3>Lectura del Turno</h3></caption>
+	<thead>
+	<tr>
+		<th scope="col" class="box3" style="width:10%;">Descripcion</th>
+		<th scope="col" class="box3" style="width:33%;">Nivel Final</th>
+		<th scope="col" class="box3" style="width:28%;">Diferencia Final</th>
+		<th scope="col" class="box3" style="width:28%;">Total</th>
+	</tr>
+	</thead>
+	<tbody style="align='center'">
+	<t t-foreach="o.reading_finish" t-as="a">
+    <tr>
+      <td scope="row" colspan="4"><span t-field="a.description"/>-<span t-field="a.name"/></td>
+</tr>
+<tr>
+<td></td>
+			<td class="box3"><span t-field="a.levelt"/></td>
+			<td class="box3"><span t-field="a.levelf"/></td>
+			<td class="box3"><span t-field="a.price_list"/></td>
+    </tr>
+</t>
+    <tr>
+      <th>	Total</th>
+			<td></td>
+			<td></td>
+			<th class="box3"><span t-field="o.reading"/></th>
+    </tr>
+  </tbody>
+</table>
+<br/>
+
+<table summary="Lecturas de los Turnos" style="width:100%; font-size:20px cellspacing='2'">
+  <caption><h3>Metodos de pago</h3></caption>
+  <thead>
+    <tr>
+      <th rowspan="2" scope="col">Diario</th>
+      <th colspan="2" scope="col"></th>
+    </tr>
+    <tr>
+      <th scope="col" class="box3">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+<t t-foreach="o.journal_ids" t-as="a">
+    <tr t-if="a.money &lt;&gt; 0.0">
+      <td scope="row" >	<span t-field="a.journal_id.name"/></td>
+			<td class="box3"><span t-field="a.money"/></td>
+    </tr>
+</t>
+
+
+
+    <tr>
+      <th scope="row">	Total</th>
+			<th class="box3"><span t-field="o.paid"/></th>
+    </tr>
+  </tbody>
+</table>
+
+<br/>
+<table summary="Pedidos" style="width:100%; font-size:20px cellspacing='2'">
+  <caption><h3>Pagos</h3></caption>
+  <thead>
+    <tr>
+      <th  scope="col">Referencia</th>
+      <th scope="col">Factura</th>
+      <th class="box3" scope="col">Total</th>
+    </tr>
+
+  </thead>
+  <tbody>
+
+<t t-foreach="o.order_ids" t-as="a">
+    <tr>
+      <td scope="row" >	<span t-field="a.name"/></td>
+			<td><span t-field="a.invoice_id"/></td>
+			<td class="box3"><span t-field="a.amount_total"/></td>
+    </tr>
+</t>
+      <th scope="row">	Total</th><th></th>
+			<th class="box3" ><span t-field="o.journal"/></th>
+  </tbody>
+</table>
+<table style="width:100%; font-size:25px;">
+<tr>
+<th colspan="2" class="text-center">
+<h2>Totales</h2>
+</th>
+</tr>
+
+<tr>
+<td  style="width:60%; font-size:15px;" >Venta Credito :</td>
+<td class="box3"><span t-field="o.invoiced"/></td>
+</tr>
+<tr>
+<td  style="font-size:15px;">Venta Contado :</td>
+<td class="box3"> <span t-field="o.paid"/></td>
+</tr>
+<tr>
+<td style="font-size:15px;"> Esperado Combustible :</td>
+<td class="box3"><span t-field="o.sold"/></td>
+</tr>
+<tr>
+<td style="font-size:15px;">Esperado otros :</td>
+<td class="box3"> <span t-field="o.other"/></td>
+</tr>
+<tr>
+<td style="font-size:15px;">Diferencia por precio :</td>
+<td class="box3"><span t-field="o.pdifference"/></td>
+</tr>
+<tr>
+<td style="font-size:15px;">Diferencia :</td>
+<td class="box3"><span t-field="o.difference"/></td>
+</tr>
+</table>
+<br/>
+<br/>
+<br/>
+<table>
+<tbody>
+<tr>
+<td>
+<span t-field="o.note"/>
+</td>
+</tr>
+</tbody>
+</table>
+
+						</div>
+					</t>
+				
+			</t>
+		</template>
+	</data>
+</openerp>

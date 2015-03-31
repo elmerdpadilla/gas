@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+  	<report
+    	id="gasoline_report_closing"
+    	model="gasoline.turn"
+    	string="Report Closing"
+   	 report_type="qweb-pdf"
+    	name="gasoline.report_closing"
+   	 file="gasoline.report_closing"
+        attachment="(object.state in ('finish'))"
+/>
+	<report
+    	id="gasoline_report_invoice"
+    	model="account.invoice"
+    	string="Report invoice"
+   	 report_type="qweb-pdf"
+    	name="gasoline.report_invoice"
+   	 file="gasoline.report_invoice"
+        attachment="(object.state in ('finish'))"
+/>
+    </data>
+</openerp>

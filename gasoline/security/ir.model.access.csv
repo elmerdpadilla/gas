@@ -1,0 +1,18 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_gasoline_dispenser,gasoline.dispenser,model_gasoline_dispenser,group_gasoline_manager,1,1,1,1
+access_gasoline_side,gasoline.side,model_gasoline_side,group_gasoline_manager,1,1,1,1
+access_gasoline_side_product,gasoline.side_product,model_gasoline_side_product,group_gasoline_manager,1,1,1,1
+access_gasoline_turn,gasoline.turn,model_gasoline_turn,group_gasoline_manager,1,1,1,1
+access_gasoline_product,gasoline.product,model_gasoline_product,group_gasoline_manager,1,1,1,1
+access_gasoline_reading,gasoline.reading,model_gasoline_reading,group_gasoline_manager,1,1,1,1
+access_gasoline_user,gasoline.user,model_gasoline_user,group_gasoline_manager,1,1,1,1
+access_gasoline_reading2,gasoline.reading2,model_gasoline_reading2,group_gasoline_manager,1,1,1,1
+access_gasoline_journal,gasoline.journal,model_gasoline_journal,group_gasoline_manager,1,1,1,1
+access_hr_employee2,hr.employee,model_hr_employee,group_gasoline_manager,1,1,1,1
+access_product_template2,product.template,model_product_template,group_gasoline_manager,1,1,1,1
+access_pos_order2,pos.order,model_pos_order,group_gasoline_manager,1,1,1,1
+access_pos_session_user2,pos.session user,model_pos_session,group_gasoline_manager,1,1,1,1
+access_pos_order_line2,pos.order.line,model_pos_order_line,group_gasoline_manager,1,1,1,1
+access_pos_config,pos.config,model_pos_config,group_gasoline_manager,1,1,1,1
+access_account_journal,account.journal,model_account_journal,group_gasoline_manager,1,1,1,1
+access_pos_make_payment,pos.make.payment,model_pos_make_payment,group_gasoline_manager,1,1,1,1
