@@ -81,12 +81,33 @@ tr.box2 {
 </center>
 </td>
 </tr>
-
-
 	</tbody>
 </table>
 
 <br/>
+<table summary="Fecha" style="width:100%; font-size:20px cellspacing='2'">
+  <caption><h3>Fecha</h3></caption>
+  <tbody>
+
+<tr>
+<td scope="row" ><span t-esc="d"/></td>
+</tr>
+
+  </tbody>
+</table>
+<br/>
+<table summary="Usuarios" style="width:100%; font-size:20px cellspacing='2'">
+  <caption><h3>Usuarios</h3></caption>
+  <tbody>
+<t t-foreach="u" t-as="a">
+<tr>
+<td scope="row" ><span t-esc="a['name']"/></td>
+</tr>
+</t>
+  </tbody>
+</table>
+<br/>
+
 
 <table summary="Lecturas de los Turnos" style="width:100%; font-size:20px cellspacing='2'">
 	<caption><h3>Lectura del Turno</h3></caption>

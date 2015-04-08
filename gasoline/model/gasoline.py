@@ -293,8 +293,6 @@ class turn(osv.Model):
 				for line in order.lines:
 					if line.product_id.id not in arrayproduct:
 						totalmoney+=line.price_subtotal_incl
-						print totalmoney
-						print "#"*50
 		for turn in self.browse(cr, uid, ids, context=context):
 			result[turn.id] = totalmoney
 		return result
@@ -363,8 +361,8 @@ class turn(osv.Model):
 		obj_journal=self.pool.get('gasoline.journal')
 		journal_ids=obj_journal.search(cr,uid,[('turn_id','in',ids),('money','>',0.0)],context=context)
 		journals=obj_journal.browse(cr,uid,journal_ids,context=context)
-		for a in obj_journal.read(cr,uid,journal_ids,['money'],context=context):
-			print a
+		#for a in obj_journal.read(cr,uid,journal_ids,['money'],context=context):
+		#	print a
 		for turn in self.browse(cr, uid, ids, context=context):
 			result[turn.id] =journals
 
@@ -667,7 +665,6 @@ class pos_order(osv.osv):
 		result={}
 		values={}
 		values['odometer']=None
-		print vehicle_id
 		if not vehicle_id:
 			return {'value':values}
 		obj_vehicle=self.pool.get('fleet.vehicle').browse(cr,uid,vehicle_id,context=context)

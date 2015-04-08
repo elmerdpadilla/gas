@@ -1,4 +1,5 @@
 from openerp.osv import osv,fields
+from openerp.tools.translate import _
 class PrintReportWizard(osv.TransientModel):
 	_name = 'gasoline.print.report.order'
 	_columns = {
@@ -12,4 +13,7 @@ class PrintReportWizard(osv.TransientModel):
 			turn_ids=obj_turn.search(cr,uid,[('date','=',context['date1'])],context=context)
 		if context['date1'] and context['date2']:
 			turn_ids=obj_turn.search(cr,uid,[('date','>=',context['date1']),('date','<=',context['date2'])],context=context)
-		return self.pool['report'].get_action(cr, uid, turn_ids, 'gasoline.report_closing_total', context=context)		
+		if len( turn_ids)>0:
+			return self.pool['report'].get_action(cr, uid, turn_ids, 'gasoline.report_closing_total', context=context)
+		else:
+			raise osv.except_osv(_('Error!'), _('dont exist turn in the date'))

@@ -29,7 +29,6 @@ class reporte3(osv.AbstractModel):
 		report = report_obj._get_report_from_name(cr, uid, 'gasoline.report_closing_total')
 		printer=self.pool[report.model].browse(cr, uid, ids, context=context)
 		a=[]
-		print "#"*50
 		if len(printer)==1:
 			a=printer
 		if len(printer)>1:
@@ -43,6 +42,8 @@ class reporte3(osv.AbstractModel):
 			'o':a,
 			'p':self._get_payment(a),
 			'q':self._get_reading(a),
+			'u':self._get_user(printer),
+			'd':self._get_date(printer),
 			}
 		return report_obj.render(cr, uid, ids, 'gasoline.report_closing_total',docargs, context=context)
 	def _get_payment(self,printer=None):
@@ -71,9 +72,27 @@ class reporte3(osv.AbstractModel):
 				if res[a]['levelt']<reading.levelt:
 					res[a]['levelt']=reading.levelt
 		return res
-
-
-
-
+	def _get_user(self,printer=None):
+		res=[]
+		ides=[]
+		for turn in printer:
+			if turn.user_id.id not in ides:
+				ides.append(turn.user_id.id)
+				res.append({'name':turn.user_id.name,})
+		return res
+	def _get_date(self,printer=None):
+		res=[]
+		ides=[]
+		ret=""
+		for turn in printer:
+			if turn.date not in ides:
+				ides.append(turn.date)
+				res.append({'date':turn.date,})
+		ides= sorted(ides)
+		if(len(ides)==1):
+			ret=ides[0]
+		if(len(ides)>1):
+			ret="Del "+ides[0]+" Al "+ides[len(ides)-1]
+		return ret
 
 
