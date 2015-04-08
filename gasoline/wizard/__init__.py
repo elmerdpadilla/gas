@@ -1,2 +1,1 @@
-# -*- coding: utf-8 -*-
-import wizard
+import print_report_wizard

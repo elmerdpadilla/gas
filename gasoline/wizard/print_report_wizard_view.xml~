@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record model="ir.actions.act_window" id="print_report_wizard_action">
+			<field name="name">Print Report</field>
+			<field name="res_model">gasoline.print.report.order</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+	<menuitem name="Print report" parent="dispenser_menu" 
+id="print_report_wizard_menu"
+action="print_report_wizard_action"/>
+
+
+<record model="ir.ui.view" id="print_report_form_view">
+<field name="name">gasoline.print.report.order.form</field>
+<field name="model">gasoline.print.report.order</field>
+<field name="type">form</field>
+<field name="arch" type="xml">
+<form string="Print Report" col="2">
+<group colspan="2">
+<field name="date1" colspan="2"/>
+<field name="date2"  colspan="2"/>
+</group>
+
+<footer>
+<button type="special" special="cancel"
+string="Cancel" icon="gtk-cancel"/>
+<button type="object" name="action_print_report"
+string="Print Report" icon="gtk-ok"
+confirm="Are you sure you want to Print Report?"/>
+</footer>
+</form>
+</field>
+</record>
+
+	</data>
+</openerp>

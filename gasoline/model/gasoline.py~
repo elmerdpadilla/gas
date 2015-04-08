@@ -194,6 +194,21 @@ class turn(osv.Model):
 				totalcash+= line.price_list
 			result[turn.id] = -totalcash+totalmoney+turn.pdifference-turn.other
 		return result
+	def _get_diff_total(self, cr, uid, ids, field, arg, context=None):
+		result = {}
+
+		total_diff=0
+		for turn in self.browse(cr, uid, ids, context=context):
+			totalmoney=0
+			totalcash=0
+			for order in turn.order_ids:
+				totalmoney+=order.amount_total
+			for line in turn.reading_end:
+				totalcash+= line.price_list
+			total_diff += -totalcash+totalmoney+turn.pdifference-turn.other
+		for turn in self.browse(cr, uid, ids, context=context):
+			result[turn.id]=total_diff
+		return result
 	def _get_inv(self, cr, uid, ids, field, arg, context=None):
 		result = {}
 		for turn in self.browse(cr, uid, ids, context=context):
@@ -201,6 +216,15 @@ class turn(osv.Model):
 			totalcash=0
 			for order in turn.order_ids:
 				totalmoney+=order.invoice_id.amount_total
+			result[turn.id] = totalmoney
+		return result
+	def _get_inv_total(self, cr, uid, ids, field, arg, context=None):
+		result = {}
+		totalmoney=0
+		for turn in self.browse(cr, uid, ids, context=context):
+			for order in turn.order_ids:
+				totalmoney+=order.invoice_id.amount_total
+		for turn in self.browse(cr, uid, ids, context=context):
 			result[turn.id] = totalmoney
 		return result
 	def _get_order_diff(self, cr, uid, ids, field, arg, context=None):
@@ -212,6 +236,16 @@ class turn(osv.Model):
 				totalmoney+=order.difference
 			result[turn.id] = totalmoney
 		return result
+	def _get_order_diff_total(self, cr, uid, ids, field, arg, context=None):
+		result = {}
+		totalmoney=0
+		totalcash=0
+		for turn in self.browse(cr, uid, ids, context=context):
+			for order in turn.order_ids:
+				totalmoney+=order.difference
+		for turn in self.browse(cr, uid, ids, context=context):
+			result[turn.id] = totalmoney
+		return result
 	def _get_paid(self, cr, uid, ids, field, arg, context=None):
 		result = {}
 		for turn in self.browse(cr, uid, ids, context=context):
@@ -219,6 +253,15 @@ class turn(osv.Model):
 			totalcash=0
 			for journal in turn.journal_ids:
 				totalmoney+=journal.money
+			result[turn.id] = totalmoney
+		return result
+	def _get_paid_total(self, cr, uid, ids, field, arg, context=None):
+		result = {}
+		totalmoney=0
+		for turn in self.browse(cr, uid, ids, context=context):
+			for journal in turn.journal_ids:
+				totalmoney+=journal.money
+		for turn in self.browse(cr, uid, ids, context=context):
 			result[turn.id] = totalmoney
 		return result
 	def _get_other(self, cr, uid, ids, field, arg, context=None):
@@ -237,6 +280,24 @@ class turn(osv.Model):
 				#totalmoney+=journal.money
 			result[turn.id] = totalmoney
 		return result
+	def _get_other_total(self, cr, uid, ids, field, arg, context=None):
+		result = {}
+		totalmoney=0
+		totalcash=0
+		for turn in self.browse(cr, uid, ids, context=context):
+			arrayproduct = []
+			idsproduct=self.pool.get('gasoline.product').search(cr,uid,[],context=context)
+			for product in self.pool.get('gasoline.product').browse(cr,uid,idsproduct,context=context):
+				arrayproduct.append(product.product_id.id)
+			for order in turn.order_ids:
+				for line in order.lines:
+					if line.product_id.id not in arrayproduct:
+						totalmoney+=line.price_subtotal_incl
+						print totalmoney
+						print "#"*50
+		for turn in self.browse(cr, uid, ids, context=context):
+			result[turn.id] = totalmoney
+		return result
 	def _get_sold(self, cr, uid, ids, field, arg, context=None):
 		result = {}
 		for turn in self.browse(cr, uid, ids, context=context):
@@ -244,6 +305,16 @@ class turn(osv.Model):
 			totalcash=0
 			for line in turn.reading_end:
 				totalcash+= line.price_list
+			result[turn.id] = totalcash
+		return result
+	def _get_sold_total(self, cr, uid, ids, field, arg, context=None):
+		result = {}
+		totalmoney=0
+		totalcash=0
+		for turn in self.browse(cr, uid, ids, context=context):
+			for line in turn.reading_end:
+				totalcash+= line.price_list
+		for turn in self.browse(cr, uid, ids, context=context):
 			result[turn.id] = totalcash
 		return result
 	def _get_reading(self, cr, uid, ids, field, arg, context=None):
@@ -254,6 +325,15 @@ class turn(osv.Model):
 				totalcash+= line.price_list
 			result[turn.id] = totalcash
 		return result
+	def _get_reading_total(self, cr, uid, ids, field, arg, context=None):
+		result = {}
+		totalcash=0
+		for turn in self.browse(cr, uid, ids, context=context):
+			for line in turn.reading_end:
+				totalcash+= line.price_list
+		for turn in self.browse(cr, uid, ids, context=context):
+			result[turn.id] = totalcash
+		return result
 	def _get_journal(self, cr, uid, ids, field, arg, context=None):
 		result = {}
 		for turn in self.browse(cr, uid, ids, context=context):
@@ -261,6 +341,40 @@ class turn(osv.Model):
 			for journal in turn.order_ids:
 				totalmoney+=journal.amount_total
 			result[turn.id] =totalmoney
+		return result
+	def _get_journal_total(self, cr, uid, ids, field, arg, context=None):
+		result = {}
+		totalmoney=0
+		for turn in self.browse(cr, uid, ids, context=context):
+			for journal in turn.order_ids:
+				totalmoney+=journal.amount_total
+		for turn in self.browse(cr, uid, ids, context=context):
+			result[turn.id] =totalmoney
+		return result
+	def _get_reading_total2(self, cr, uid, ids, field, arg, context=None):
+		result = {}
+		obj_reading=self.pool.get('gasoline.reading')
+		reading_ids=obj_reading.search(cr,uid,[('turn_id','in',ids)],context=context)
+		for turn in self.browse(cr, uid, ids, context=context):
+			result[turn.id] =obj_reading.browse(cr,uid,reading_ids,context=context)
+		return result
+	def _get_journal_ids(self, cr, uid, ids, field, arg, context=None):
+		result = {}
+		obj_journal=self.pool.get('gasoline.journal')
+		journal_ids=obj_journal.search(cr,uid,[('turn_id','in',ids),('money','>',0.0)],context=context)
+		journals=obj_journal.browse(cr,uid,journal_ids,context=context)
+		for a in obj_journal.read(cr,uid,journal_ids,['money'],context=context):
+			print a
+		for turn in self.browse(cr, uid, ids, context=context):
+			result[turn.id] =journals
+
+		return result
+	def _get_order_ids(self, cr, uid, ids, field, arg, context=None):
+		result = {}
+		obj_journal=self.pool.get('pos.order')
+		journal_ids=obj_journal.search(cr,uid,[('turn_id','in',ids)],context=context)
+		for turn in self.browse(cr, uid, ids, context=context):
+			result[turn.id] =obj_journal.browse(cr,uid,journal_ids,context=context)
 		return result
 	_columns = {
 	    'name' :fields.function(_get_name,type='char', string='Name'),
@@ -274,17 +388,28 @@ class turn(osv.Model):
             'reading_init' :fields.one2many('gasoline.reading','turn_id',string="reading Init"),
 	    'reading_end' :fields.one2many('gasoline.reading','turn_id',string="reading end"),
 	    'reading_finish' :fields.one2many('gasoline.reading','turn_id',string="reading Finish"),
+		'reading_total2' : fields.function(_get_reading_total2, type='one2many', obj = 'gasoline.reading',  string='Reading Total'),
 	    'journal_ids' : fields.one2many('gasoline.journal','turn_id',string="payment methods",domain=[('money','>',0.0)]),
+	    'journal_ids_total' : fields.function(_get_journal_ids, type='one2many', obj = 'gasoline.journal',  string='journal Total'),
 	    'note':fields.text(string='Note'),
 	    'difference':fields.function(_get_diff,type='float', string='Difference'),
+	    'difference_total':fields.function(_get_diff_total,type='float', string='Difference'),
 	    'pdifference':fields.function(_get_order_diff,type='float', string='Difference of price'),
+	    'pdifference_total':fields.function(_get_order_diff_total,type='float', string='Difference of price'),
 	    'invoiced':fields.function(_get_inv,type='float', string='Invoiced'),
+	    'invoiced_total':fields.function(_get_inv_total,type='float', string='Invoiced'),
 	    'paid':fields.function(_get_paid,type='float', string='Paid'),
+	    'paid_total':fields.function(_get_paid_total,type='float', string='Paid'),
 	    'other':fields.function(_get_other,type='float', string='Other product'),
+	    'other_total':fields.function(_get_other_total,type='float', string='Other product'),
 	    'sold':fields.function(_get_sold,type='float', string='Sold'),
+	    'sold_total':fields.function(_get_sold_total,type='float', string='Sold'),
 	    'reading':fields.function(_get_reading,type='float', string='Reading'),
+		'reading_total':fields.function(_get_reading_total,type='float', string='Reading'),
 	    'journal':fields.function(_get_journal,type='float', string='Journal'),
+	    'journal_total':fields.function(_get_journal_total,type='float', string='Journal'),
 	    'order_ids':fields.one2many('pos.order','turn_id',string="orders"),
+	    'order_ids_total' : fields.function(_get_order_ids, type='one2many', obj = 'pos.order',  string='order Total'),
 }
 	_order = 'date desc'
 	_defaults = {

@@ -12,6 +12,9 @@
 			'views/layouts.xml' ,
 			'views/gasoline_report1.xml',
 			'views/report_invoice.xml',
+			'wizard/print_report_wizard_view.xml',
+			'reports/report_closing_total.xml',
+
 	],
 	'update_xml' : [
 			'security/groups.xml',

@@ -10,6 +10,17 @@
    	 file="gasoline.report_closing"
         attachment="(object.state in ('finish'))"
 />
+  	<report
+    	id="gasoline_report_closing_total"
+    	model="gasoline.turn"
+    	string="Report Closing Total"
+   	 report_type="qweb-pdf"
+    	name="gasoline.report_closing_total"
+   	 file="gasoline.report_closing_total"
+        attachment="(object.state in ('finish'))"
+/>
+
+
 	<report
     	id="gasoline_report_invoice"
     	model="account.invoice"
@@ -19,6 +30,5 @@
    	 file="gasoline.report_invoice"
         attachment="(object.state in ('finish'))"
 />
-
     </data>
 </openerp>
