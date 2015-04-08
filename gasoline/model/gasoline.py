@@ -189,7 +189,8 @@ class turn(osv.Model):
 			totalmoney=0
 			totalcash=0
 			for order in turn.order_ids:
-				totalmoney+=order.amount_total
+				if order.state not in ['draft','cancel']:
+					totalmoney+=order.amount_total
 			for line in turn.reading_end:
 				totalcash+= line.price_list
 			result[turn.id] = -totalcash+totalmoney+turn.pdifference-turn.other
@@ -202,7 +203,8 @@ class turn(osv.Model):
 			totalmoney=0
 			totalcash=0
 			for order in turn.order_ids:
-				totalmoney+=order.amount_total
+				if order.state not in ['draft','cancel']:
+					totalmoney+=order.amount_total
 			for line in turn.reading_end:
 				totalcash+= line.price_list
 			total_diff += -totalcash+totalmoney+turn.pdifference-turn.other
@@ -690,6 +692,15 @@ class pos_order(osv.osv):
 				text="Factura Contado"
 			res[order.id]=text
 		return res
+	def unlink(self, cr, uid, ids, context=None):
+		for rec in self.browse(cr, uid, ids, context=context):
+			if rec.state in ('invoiced','draft'):
+				self.pool.get('pos.order').write(cr,uid,ids,{'state':'cancel'},context=context)
+				return
+			if rec.state not in ('draft','cancel'):
+				raise osv.except_osv(_('Unable to Delete!'), _('In order to delete a sale, it must be new or cancelled.'))
+		return self.pool.get('pos.order').write(cr,uid,ids,{'state':'cancel'},context=context)
+		return super(pos_order, self).unlink(cr, uid, ids, context=context)
 	_columns = {
         'is_gasoline': fields.boolean('Is Gasoline', help="Check if, this is a product is Gasoline."),
 	'turn_id':fields.many2one('gasoline.turn',string="Turn"),
@@ -699,7 +710,6 @@ class pos_order(osv.osv):
 	'vehicle_id':fields.many2one('fleet.vehicle',string="Vehicle"),
 	'type_id2':fields.function(_get_type_id,type='char', string='Type'),
 	}
-
 class gasoline_pos_order_line(osv.osv):
 	_inherit = 'pos.order.line'
 	def onchange_product_id(self, cr, uid, ids, pricelist, product_id, qty=0, partner_id=False, context=None):

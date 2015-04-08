@@ -237,11 +237,18 @@ tr.box2 {
 <br/>
 <table>
 <tbody>
+
+<t t-foreach="docs" t-as="a">
+<t  t-if="a.note">
 <tr>
 <td>
-<span t-field="o.note"/>
+<span t-field="a.note"/>-
+<span t-field="a.note"/>
+
 </td>
 </tr>
+</t>
+</t>
 </tbody>
 </table>
 
