@@ -29,7 +29,7 @@ action="print_report_wizard_action"/>
 string="Cancel" icon="gtk-cancel"/>
 <button type="object" name="action_print_report"
 string="Print Report" icon="gtk-ok"
-confirm="Are you sure you want to Print Report?"/>
+confirm="Are you sure you want to Print Report?" context="{'date1':date1,'date2':date2}"/>
 </footer>
 </form>
 </field>

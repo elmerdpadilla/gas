@@ -124,11 +124,8 @@ tr.box2 {
 
 <t t-foreach="q" t-as="a">
  <tr>
-      <td scope="row" colspan="4"><span t-esc="a['description']"/>-<span t-esc="a['name']"/></td>
-</tr>
-<tr>
-<td></td>
-			<td class="box3"><span t-esc="'{:20,.4f}'.format(a['levelt'])"/></td>
+      <td scope="row"  style="width:33%;"><span t-esc="a['description']"/>-<span t-esc="a['name']"/></td>
+		<td class="box3"><span t-esc="'{:20,.4f}'.format(a['levelt'])"/></td>
 			<td class="box3"><span t-esc="'{:20,.4f}'.format(a['levelf'])"/></td>
 			<td class="box3"><span t-esc="'{:20,.2f}'.format(a['price_list'])"/></td>
     </tr>
@@ -242,7 +239,7 @@ tr.box2 {
 <t  t-if="a.note">
 <tr>
 <td>
-<span t-field="a.note"/>-
+<span t-field="a.date"/>-
 <span t-field="a.note"/>
 
 </td>

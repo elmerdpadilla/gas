@@ -194,6 +194,10 @@
 				<field name="view_id" eval="False"/>            
 		</record>
 
+
+
+
+
         <record id="gasoline_turn_tree_view" model="ir.ui.view">
             <field name="name">gasoline.turn.tree</field>
             <field name="model">gasoline.turn</field>
@@ -211,7 +215,7 @@
             <field name="arch" type="xml">
 		 <form string="turn" >
 <header>
-<button name="action_new" type="object" string="Crear Factura" class="oe_highlight"  attrs="{'invisible' : [('state', 'not in', ['progress','closed','finish'])] }"/>
+<button name="action_new" type="object" string="Crear Factura" class="oe_highlight"  attrs="{'invisible' : [('state', 'not in', ['progress','closed',])] }"/>
 <button name="action_view" type="object" string="Ver Factura" class="oe_highlight"  attrs="{'invisible' : [('state', 'not in', ['progress','closed','finish'])] }"/>
 <button name="action_confirm" type="object" string="Confirm"
 states="draft" class="oe_highlight" />

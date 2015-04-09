@@ -136,6 +136,22 @@ class turn(osv.Model):
 	def action_done(self, cr, uid, ids, context=None):
 		return self.write(cr, uid, ids, {'state':'closed'}, context=context)
 	def action_close(self, cr, uid, ids, context=None):
+		obj_order=self.pool.get('pos.order')
+		for turn in self.browse(cr,uid,ids,context=context):
+			if not turn.maintenance:
+				if turn.sold>0:
+					if len(turn.order_ids)<1:
+						raise osv.except_osv(_('you cannot Finish the Turn'), _('dont Exist orders'))
+		for turn in self.browse(cr,uid,ids,context=context):
+			for order in turn.order_ids:
+				if not order.invoice_id and len(order.statement_ids)<1 and order.state not in ['cancel']:
+					raise osv.except_osv(_('you cannot Finish the Turn'), _('draft orders exist'))
+		for turn in self.browse(cr,uid,ids,context=context):
+			for order in turn.order_ids:
+				if order.invoice_id:
+					obj_order.write(cr, uid, order.id, {'state':'invoiced'}, context=context)
+				if len(order.statement_ids)>0:
+					obj_order.write(cr, uid, order.id, {'state':'paid'}, context=context)
 		for dispenser in self.pool.get('gasoline.turn').browse(cr,uid,ids,context=context).dispenser_ids:
 			self.pool.get('gasoline.dispenser').write(cr,uid,dispenser.id,{'status':'inactive'},context=context)
 		for turn in self.browse(cr,uid,ids,context=context):
@@ -197,13 +213,12 @@ class turn(osv.Model):
 		return result
 	def _get_diff_total(self, cr, uid, ids, field, arg, context=None):
 		result = {}
-
 		total_diff=0
 		for turn in self.browse(cr, uid, ids, context=context):
 			totalmoney=0
 			totalcash=0
 			for order in turn.order_ids:
-				if order.state not in ['draft','cancel']:
+				if order.state not in ['cancel']:
 					totalmoney+=order.amount_total
 			for line in turn.reading_end:
 				totalcash+= line.price_list
@@ -692,15 +707,89 @@ class pos_order(osv.osv):
 				text="Factura Contado"
 			res[order.id]=text
 		return res
+
 	def unlink(self, cr, uid, ids, context=None):
 		for rec in self.browse(cr, uid, ids, context=context):
-			if rec.state in ('invoiced','draft'):
-				self.pool.get('pos.order').write(cr,uid,ids,{'state':'cancel'},context=context)
-				return
 			if rec.state not in ('draft','cancel'):
 				raise osv.except_osv(_('Unable to Delete!'), _('In order to delete a sale, it must be new or cancelled.'))
-		return self.pool.get('pos.order').write(cr,uid,ids,{'state':'cancel'},context=context)
+		self.pool.get('pos.order').write(cr,uid,ids,{'state':'cancel'},context=context)
+		return
 		return super(pos_order, self).unlink(cr, uid, ids, context=context)
+
+	def action_paid(self, cr, uid, ids, context=None):
+		for order in self.browse(cr,uid,ids,context=context):
+			if not order.turn_id:
+				self.write(cr, uid, ids, {'state': 'paid'}, context=context)
+		self.create_picking(cr, uid, ids, context=context)
+		return True
+	def action_invoice(self, cr, uid, ids, context=None):
+		inv_ref = self.pool.get('account.invoice')
+		inv_line_ref = self.pool.get('account.invoice.line')
+		product_obj = self.pool.get('product.product')
+		inv_ids = []
+		for order in self.pool.get('pos.order').browse(cr, uid, ids, context=context):
+			if order.invoice_id:
+				inv_ids.append(order.invoice_id.id)
+				continue
+			if not order.partner_id:
+				raise osv.except_osv(_('Error!'), _('Please provide a partner for the sale.'))
+			acc = order.partner_id.property_account_receivable.id
+			inv = {
+                'name': order.name,
+                'origin': order.name,
+                'account_id': acc,
+                'journal_id': order.sale_journal.id or None,
+                'type': 'out_invoice',
+                'reference': order.name,
+                'partner_id': order.partner_id.id,
+                'comment': order.note or '',
+                'currency_id': order.pricelist_id.currency_id.id, # considering partner's sale pricelist's currency
+            }
+			inv.update(inv_ref.onchange_partner_id(cr, uid, [], 'out_invoice', order.partner_id.id)['value'])
+			if not inv.get('account_id', None):
+				inv['account_id'] = acc
+			inv_id = inv_ref.create(cr, uid, inv, context=context)
+
+			self.write(cr, uid, [order.id], {'invoice_id': inv_id,}, context=context)
+			inv_ids.append(inv_id)
+			for line in order.lines:
+				inv_line = {
+                    'invoice_id': inv_id,
+                    'product_id': line.product_id.id,
+                    'quantity': line.qty,
+                }
+				inv_name = product_obj.name_get(cr, uid, [line.product_id.id], context=context)[0][1]
+				inv_line.update(inv_line_ref.product_id_change(cr, uid, [],
+                                                               line.product_id.id,
+                                                               line.product_id.uom_id.id,
+                                                               line.qty, partner_id = order.partner_id.id,
+                                                               fposition_id=order.partner_id.property_account_position.id)['value'])
+				inv_line['price_unit'] = line.price_unit
+				inv_line['discount'] = line.discount
+				inv_line['name'] = inv_name
+				inv_line['invoice_line_tax_id'] = [(6, 0, [x.id for x in line.product_id.taxes_id] )]
+				inv_line_ref.create(cr, uid, inv_line, context=context)
+			inv_ref.button_reset_taxes(cr, uid, [inv_id], context=context)
+			self.signal_workflow(cr, uid, [order.id], 'invoice')
+			inv_ref.signal_workflow(cr, uid, [inv_id], 'validate')
+		if not inv_ids: return {}
+		mod_obj = self.pool.get('ir.model.data')
+		res = mod_obj.get_object_reference(cr, uid, 'account', 'invoice_form')
+		res_id = res and res[1] or False
+		return {
+            'name': _('Customer Invoice'),
+            'view_type': 'form',
+            'view_mode': 'form',
+            'view_id': [res_id],
+            'res_model': 'account.invoice',
+            'context': "{'type':'out_invoice'}",
+            'type': 'ir.actions.act_window',
+            'nodestroy': True,
+            'target': 'current',
+            'res_id': inv_ids and inv_ids[0] or False,
+        }
+		
+
 	_columns = {
         'is_gasoline': fields.boolean('Is Gasoline', help="Check if, this is a product is Gasoline."),
 	'turn_id':fields.many2one('gasoline.turn',string="Turn"),
