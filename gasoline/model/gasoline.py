@@ -205,7 +205,7 @@ class turn(osv.Model):
 			totalmoney=0
 			totalcash=0
 			for order in turn.order_ids:
-				if order.state not in ['draft','cancel']:
+				if order.state not in ['cancel']:
 					totalmoney+=order.amount_total
 			for line in turn.reading_end:
 				totalcash+= line.price_list
@@ -713,7 +713,7 @@ class pos_order(osv.osv):
 			if rec.state not in ('draft','cancel'):
 				raise osv.except_osv(_('Unable to Delete!'), _('In order to delete a sale, it must be new or cancelled.'))
 		self.pool.get('pos.order').write(cr,uid,ids,{'state':'cancel'},context=context)
-		return
+		return True
 		return super(pos_order, self).unlink(cr, uid, ids, context=context)
 
 	def action_paid(self, cr, uid, ids, context=None):
@@ -836,6 +836,28 @@ class pos_config(osv.osv):
 }
 class pos_session(osv.osv):
 	_inherit = 'pos.session'
+	def _confirm_orders(self, cr, uid, ids, context=None):
+		account_move_obj = self.pool.get('account.move')
+		pos_order_obj = self.pool.get('pos.order')
+		for session in self.browse(cr, uid, ids, context=context):
+			local_context = dict(context or {}, force_company=session.config_id.journal_id.company_id.id)
+			order_ids = [order.id for order in session.order_ids if order.state == 'paid']
+
+			move_id = account_move_obj.create(cr, uid, {'ref' : session.name, 'journal_id' : session.config_id.journal_id.id, }, context=local_context)
+
+			pos_order_obj._create_account_move_line(cr, uid, order_ids, session, move_id, context=local_context)
+
+			for order in session.order_ids:
+				if order.state == 'done':
+					continue
+				if order.state not in ('paid', 'invoiced','cancel'):
+					raise osv.except_osv(
+						_('Error!'),
+						_("You cannot confirm all orders of this session, because they have not the 'paid' status"))
+				else:
+					pos_order_obj.signal_workflow(cr, uid, [order.id], 'done')
+
+		return True
 class pos_order_line(osv.osv):
 	_inherit = 'pos.order.line'
 class pos_account_invoice(osv.osv):
