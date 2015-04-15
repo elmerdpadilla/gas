@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-12 22:55+0000\n"
-"PO-Revision-Date: 2015-03-12 22:55+0000\n"
+"POT-Creation-Date: 2015-04-10 22:00+0000\n"
+"PO-Revision-Date: 2015-04-10 22:00+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,13 @@ msgid "<p class=\"oe_view_nocontent_create\">\n"
 "					can easily find all the information about your each turn;					\n"
 "				  </p>\n"
 "				"
-msgstr "<p class=\"oe_view_nocontent_create\">Click to add a new Product.  </p><p>With just a quick glance on the OpenERP Product screen, youcan easily find all the information about your each turn;  </p>"
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"					Click to add a new Product.\n"
+"				  </p><p>\n"
+"					With just a quick glance on the OpenERP Product screen, you\n"
+"					can easily find all the information about your each turn;					\n"
+"				  </p>\n"
+"				"
 
 #. module: gasoline
 #: model:ir.actions.act_window,help:gasoline.gasoline_action_form_side
@@ -40,7 +46,13 @@ msgid "<p class=\"oe_view_nocontent_create\">\n"
 "					can easily find all the information about your each day dispenser;					\n"
 "				  </p>\n"
 "				"
-msgstr "<p class=\"oe_view_nocontent_create\">Click to add a new Side.  </p><p>With just a quick glance on the OpenERP Side screen, youcan easily find all the information about your each day dispenser;  </p>"
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"					Click to add a new Side.\n"
+"				  </p><p>\n"
+"					With just a quick glance on the OpenERP Side screen, you\n"
+"					can easily find all the information about your each day dispenser;					\n"
+"				  </p>\n"
+"				"
 
 #. module: gasoline
 #: model:ir.actions.act_window,help:gasoline.gasoline_action_form_dispenser
@@ -52,7 +64,14 @@ msgid "<p class=\"oe_view_nocontent_create\">\n"
 "					can easily find all the information about your each day dispenser;					\n"
 "				  </p>\n"
 "				"
-msgstr "<p class=\"oe_view_nocontent_create\">Click to add a new dispenser.  </p>  <p>With just a quick glance on the OpenERP dispenser screen, youcan easily find all the information about your each day dispenser;  </p>"
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"					Click to add a new dispenser.\n"
+"				  </p>\n"
+"				  <p>\n"
+"					With just a quick glance on the OpenERP dispenser screen, you\n"
+"					can easily find all the information about your each day dispenser;					\n"
+"				  </p>\n"
+"				"
 
 #. module: gasoline
 #: model:ir.actions.act_window,help:gasoline.gasoline_action_form_product
@@ -63,7 +82,13 @@ msgid "<p class=\"oe_view_nocontent_create\">\n"
 "					can easily find all the information about your each user;					\n"
 "				  </p>\n"
 "				"
-msgstr "<p class=\"oe_view_nocontent_create\">Click to add a new product.  </p><p>With just a quick glance on the OpenERP product screen, youcan easily find all the information about your each user;  </p>"
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"					Click to add a new product.\n"
+"				  </p><p>\n"
+"					With just a quick glance on the OpenERP product screen, you\n"
+"					can easily find all the information about your each user;					\n"
+"				  </p>\n"
+"				"
 
 #. module: gasoline
 #: model:ir.actions.act_window,help:gasoline.gasoline_action_form_reading2
@@ -74,7 +99,13 @@ msgid "<p class=\"oe_view_nocontent_create\">\n"
 "					can easily find all the information about your each user;					\n"
 "				  </p>\n"
 "				"
-msgstr "<p class=\"oe_view_nocontent_create\">Click to add a new reading.  </p><p>With just a quick glance on the OpenERP reading screen, youcan easily find all the information about your each user;  </p>"
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"					Click to add a new reading.\n"
+"				  </p><p>\n"
+"					With just a quick glance on the OpenERP reading screen, you\n"
+"					can easily find all the information about your each user;					\n"
+"				  </p>\n"
+"				"
 
 #. module: gasoline
 #: model:ir.actions.act_window,help:gasoline.gasoline_action_form_side_product
@@ -97,7 +128,13 @@ msgid "<p class=\"oe_view_nocontent_create\">\n"
 "					can easily find all the information about your each turn;					\n"
 "				  </p>\n"
 "				"
-msgstr "<p class=\"oe_view_nocontent_create\">Click to add a new turn.  </p><p>With just a quick glance on the OpenERP turn screen, youcan easily find all the information about your each turn;  </p>"
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"					Click to add a new turn.\n"
+"				  </p><p>\n"
+"					With just a quick glance on the OpenERP turn screen, you\n"
+"					can easily find all the information about your each turn;					\n"
+"				  </p>\n"
+"				"
 
 #. module: gasoline
 #: model:ir.actions.act_window,help:gasoline.gasoline_action_form_user
@@ -108,7 +145,13 @@ msgid "<p class=\"oe_view_nocontent_create\">\n"
 "					can easily find all the information about your each user;					\n"
 "				  </p>\n"
 "				"
-msgstr "<p class=\"oe_view_nocontent_create\">Click to add a new user.  </p><p>With just a quick glance on the OpenERP user screen, youcan easily find all the information about your each user;  </p>"
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"					Click to add a new user.\n"
+"				  </p><p>\n"
+"					With just a quick glance on the OpenERP user screen, you\n"
+"					can easily find all the information about your each user;					\n"
+"				  </p>\n"
+"				"
 
 #. module: gasoline
 #: selection:gasoline.dispenser,status:0
@@ -122,6 +165,11 @@ msgid "Amount total"
 msgstr "Monto Total"
 
 #. module: gasoline
+#: view:gasoline.print.report.order:gasoline.print_report_form_view
+msgid "Are you sure you want to Print Report?"
+msgstr "¿Desea imprimir este reporte?"
+
+#. module: gasoline
 #: field:gasoline.reading2,qty_available:0
 msgid "Available"
 msgstr "Disponible"
@@ -132,9 +180,14 @@ msgid "Base"
 msgstr "Base"
 
 #. module: gasoline
+#: view:gasoline.print.report.order:gasoline.print_report_form_view
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: gasoline
 #: view:website:gasoline.report_invoice
 msgid "Cancelled Factura"
-msgstr "Cancelled Factura"
+msgstr "Factura cancelada"
 
 #. module: gasoline
 #: view:website:gasoline.report_invoice
@@ -150,6 +203,7 @@ msgstr "Marque la Casilla si el producto es un Combustible"
 
 #. module: gasoline
 #: view:website:gasoline.report_closing
+#: view:website:gasoline.report_closing_total
 msgid "Cierre de Turno"
 msgstr "Cierre de Turno"
 
@@ -186,6 +240,7 @@ msgstr "Crear Factura"
 #. module: gasoline
 #: field:gasoline.dispenser,create_uid:0
 #: field:gasoline.journal,create_uid:0
+#: field:gasoline.print.report.order,create_uid:0
 #: field:gasoline.product,create_uid:0
 #: field:gasoline.reading,create_uid:0
 #: field:gasoline.reading2,create_uid:0
@@ -199,6 +254,7 @@ msgstr "Creada Por"
 #. module: gasoline
 #: field:gasoline.dispenser,create_date:0
 #: field:gasoline.journal,create_date:0
+#: field:gasoline.print.report.order,create_date:0
 #: field:gasoline.product,create_date:0
 #: field:gasoline.reading,create_date:0
 #: field:gasoline.reading2,create_date:0
@@ -210,7 +266,24 @@ msgid "Created on"
 msgstr "Creada el"
 
 #. module: gasoline
+#: code:addons/gasoline/model/gasoline.py:780
+#, python-format
+msgid "Customer Invoice"
+msgstr "Factura"
+
+#. module: gasoline
+#: field:gasoline.print.report.order,date2:0
+msgid "Date End"
+msgstr "Hasta"
+
+#. module: gasoline
+#: field:gasoline.print.report.order,date1:0
+msgid "Date Start"
+msgstr "Desde"
+
+#. module: gasoline
 #: view:website:gasoline.report_closing
+#: view:website:gasoline.report_closing_total
 msgid "Descripcion"
 msgstr "Descripción"
 
@@ -232,6 +305,7 @@ msgstr "Descuento (%)"
 
 #. module: gasoline
 #: view:website:gasoline.report_closing
+#: view:website:gasoline.report_closing_total
 msgid "Diario"
 msgstr "Diario"
 
@@ -242,33 +316,39 @@ msgstr "Diferencia"
 
 #. module: gasoline
 #: view:website:gasoline.report_closing
+#: view:website:gasoline.report_closing_total
 msgid "Diferencia :"
 msgstr "Diferencia :"
 
 #. module: gasoline
 #: view:website:gasoline.report_closing
+#: view:website:gasoline.report_closing_total
 msgid "Diferencia Final"
 msgstr "Diferencia Final"
 
 #. module: gasoline
 #: view:website:gasoline.report_closing
+#: view:website:gasoline.report_closing_total
 msgid "Diferencia por precio :"
 msgstr "Diferencia por precio :"
 
 #. module: gasoline
 #: field:gasoline.reading2,qty_virtual:0
 #: field:gasoline.turn,difference:0
+#: field:gasoline.turn,difference_total:0
 msgid "Difference"
 msgstr "Diferencia"
 
 #. module: gasoline
 #: field:gasoline.turn,pdifference:0
+#: field:gasoline.turn,pdifference_total:0
 msgid "Difference of price"
 msgstr "Diferencia por Precio"
 
 #. module: gasoline
 #: view:website:gasoline.external_layout_cierre
 #: view:website:gasoline.report_closing
+#: view:website:gasoline.report_closing_total
 msgid "Dirección:"
 msgstr "Dirección:"
 
@@ -295,18 +375,28 @@ msgid "Employee"
 msgstr "Empleado"
 
 #. module: gasoline
+#: code:addons/gasoline/model/gasoline.py:735
+#: code:addons/gasoline/wizard/print_report_wizard.py:19
+#, python-format
+msgid "Error!"
+msgstr "Error!"
+
+#. module: gasoline
 #: view:website:gasoline.report_closing
+#: view:website:gasoline.report_closing_total
 msgid "Esperado Combustible :"
 msgstr "Esperado Combustible :"
 
 #. module: gasoline
 #: view:website:gasoline.report_closing
+#: view:website:gasoline.report_closing_total
 msgid "Esperado otros :"
 msgstr "Esperado otros :"
 
 #. module: gasoline
 #: view:account.invoice:gasoline.view_account_invoice_tree_inherit
 #: view:website:gasoline.report_closing
+#: view:website:gasoline.report_closing_total
 #: view:website:gasoline.report_invoice
 msgid "Factura"
 msgstr "Factura"
@@ -315,6 +405,16 @@ msgstr "Factura"
 #: view:website:gasoline.report_invoice
 msgid "Factura Borrador"
 msgstr "Factura Borrador"
+
+#. module: gasoline
+#: view:pos.order:gasoline.view_pos_pos_form1
+msgid "Factura Credito"
+msgstr "Factura Credito"
+
+#. module: gasoline
+#: view:website:gasoline.report_closing_total
+msgid "Fecha"
+msgstr "Fecha"
 
 #. module: gasoline
 #: view:website:gasoline.report_closing
@@ -367,6 +467,7 @@ msgstr "Agrupar Por"
 #. module: gasoline
 #: field:gasoline.dispenser,id:0
 #: field:gasoline.journal,id:0
+#: field:gasoline.print.report.order,id:0
 #: field:gasoline.product,id:0
 #: field:gasoline.reading,id:0
 #: field:gasoline.reading2,id:0
@@ -375,6 +476,7 @@ msgstr "Agrupar Por"
 #: field:gasoline.turn,id:0
 #: field:gasoline.user,id:0
 #: field:report.gasoline.report_closing,id:0
+#: field:report.gasoline.report_closing_total,id:0
 #: field:report.gasoline.report_invoice,id:0
 msgid "ID"
 msgstr "ID"
@@ -395,6 +497,12 @@ msgid "Impuesto"
 msgstr "Impuesto"
 
 #. module: gasoline
+#: code:addons/gasoline/model/gasoline.py:714
+#, python-format
+msgid "In order to delete a sale, it must be new or cancelled."
+msgstr "In order to delete a sale, it must be new or cancelled."
+
+#. module: gasoline
 #: selection:gasoline.dispenser,status:0
 #: selection:gasoline.user,status:0
 msgid "Inactive"
@@ -408,12 +516,12 @@ msgstr "Información en un vehículo"
 #. module: gasoline
 #: model:ir.model,name:gasoline.model_account_invoice
 #: view:pos.order:gasoline.view_pos_order_tree_inherit
-#: view:pos.order:gasoline.view_pos_pos_form1
 msgid "Invoice"
 msgstr "Factura"
 
 #. module: gasoline
 #: field:gasoline.turn,invoiced:0
+#: field:gasoline.turn,invoiced_total:0
 msgid "Invoiced"
 msgstr "Venta Crédito"
 
@@ -426,7 +534,7 @@ msgstr "¿Es Combustible?"
 #. module: gasoline
 #: field:pos.config,combustible:0
 msgid "Is TPV for gasoline"
-msgstr "Is TPV for gasoline"
+msgstr "Punto de ventas de combustible"
 
 #. module: gasoline
 #: field:hr.employee,is_dispenser:0
@@ -435,6 +543,7 @@ msgstr "¿Es Dispensador?"
 
 #. module: gasoline
 #: field:gasoline.turn,journal:0
+#: field:gasoline.turn,journal_total:0
 #: model:ir.model,name:gasoline.model_account_journal
 msgid "Journal"
 msgstr "Diario"
@@ -448,6 +557,7 @@ msgstr "Lados"
 #. module: gasoline
 #: field:gasoline.dispenser,write_uid:0
 #: field:gasoline.journal,write_uid:0
+#: field:gasoline.print.report.order,write_uid:0
 #: field:gasoline.product,write_uid:0
 #: field:gasoline.reading,write_uid:0
 #: field:gasoline.reading2,write_uid:0
@@ -461,6 +571,7 @@ msgstr "Última actualización realizada por"
 #. module: gasoline
 #: field:gasoline.dispenser,write_date:0
 #: field:gasoline.journal,write_date:0
+#: field:gasoline.print.report.order,write_date:0
 #: field:gasoline.product,write_date:0
 #: field:gasoline.reading,write_date:0
 #: field:gasoline.reading2,write_date:0
@@ -473,6 +584,7 @@ msgstr "Última actualización realizada el"
 
 #. module: gasoline
 #: view:website:gasoline.report_closing
+#: view:website:gasoline.report_closing_total
 msgid "Lectura del Turno"
 msgstr "Lectura del Turno"
 
@@ -519,6 +631,7 @@ msgstr "Unidad de medida del Dispensador"
 
 #. module: gasoline
 #: view:website:gasoline.report_closing
+#: view:website:gasoline.report_closing_total
 msgid "Metodos de pago"
 msgstr "Metodos de pago"
 
@@ -547,11 +660,12 @@ msgstr "Nombre del Dispensador"
 
 #. module: gasoline
 #: view:website:gasoline.report_closing
+#: view:website:gasoline.report_closing_total
 msgid "Nivel Final"
 msgstr "Nivel Final"
 
 #. module: gasoline
-#: code:addons/gasoline/model/gasoline.py:588
+#: code:addons/gasoline/model/gasoline.py:809
 #, python-format
 msgid "No Pricelist!"
 msgstr "No Pricelist!"
@@ -574,7 +688,7 @@ msgstr "Nueva Lectura"
 #. module: gasoline
 #: field:pos.order,odometer:0
 msgid "Odometer"
-msgstr "cuentakilómetros"
+msgstr "Odómetro"
 
 #. module: gasoline
 #: view:website:gasoline.report_invoice
@@ -585,10 +699,11 @@ msgstr "Orden N:"
 #: model:ir.actions.act_window,name:gasoline.product_action_form_template
 #: model:ir.ui.menu,name:gasoline.product_edit2
 msgid "Order"
-msgstr "Factura"
+msgstr "Pedido"
 
 #. module: gasoline
 #: field:gasoline.turn,other:0
+#: field:gasoline.turn,other_total:0
 msgid "Other product"
 msgstr "Esperado Otros"
 
@@ -599,11 +714,13 @@ msgstr "PRO-FORMA"
 
 #. module: gasoline
 #: view:website:gasoline.report_closing
+#: view:website:gasoline.report_closing_total
 msgid "Pagos"
 msgstr "Pagos"
 
 #. module: gasoline
 #: field:gasoline.turn,paid:0
+#: field:gasoline.turn,paid_total:0
 msgid "Paid"
 msgstr "Venta Contado"
 
@@ -618,6 +735,12 @@ msgid "Placa:"
 msgstr "Placa:"
 
 #. module: gasoline
+#: code:addons/gasoline/model/gasoline.py:735
+#, python-format
+msgid "Please provide a partner for the sale."
+msgstr "Seleccione un cliente para la venta."
+
+#. module: gasoline
 #: model:ir.model,name:gasoline.model_pos_order
 msgid "Point of Sale"
 msgstr "Terminal Punto de Venta"
@@ -628,20 +751,26 @@ msgid "Point of Sale Payment"
 msgstr "Punto de venta. Pago"
 
 #. module: gasoline
-#: field:product.template,porcentaje_price:0
-msgid "Porcentaje"
-msgstr "Porcentaje"
-
-#. module: gasoline
 #: view:website:gasoline.report_invoice
 msgid "Precio Unitario"
 msgstr "Precio Unitario"
 
 #. module: gasoline
+#: view:gasoline.print.report.order:gasoline.print_report_form_view
+#: model:ir.actions.act_window,name:gasoline.print_report_wizard_action
+msgid "Print Report"
+msgstr "Imprmir"
+
+#. module: gasoline
+#: model:ir.ui.menu,name:gasoline.print_report_wizard_menu
+msgid "Print report"
+msgstr "Reporte de cierres"
+
+#. module: gasoline
 #: model:ir.actions.act_window,name:gasoline.gasoline_action_form_product
 #: model:ir.ui.menu,name:gasoline.product_edit
 msgid "Product"
-msgstr "Productos"
+msgstr "Producto"
 
 #. module: gasoline
 #: model:ir.model,name:gasoline.model_product_template
@@ -672,6 +801,7 @@ msgstr "Página:"
 
 #. module: gasoline
 #: view:website:gasoline.report_closing
+#: view:website:gasoline.report_closing_total
 #: view:website:gasoline.report_invoice
 msgid "RTN :"
 msgstr "RTN :"
@@ -683,6 +813,7 @@ msgstr "RTN:"
 
 #. module: gasoline
 #: field:gasoline.turn,reading:0
+#: field:gasoline.turn,reading_total:0
 msgid "Reading"
 msgstr "Lectura"
 
@@ -691,6 +822,11 @@ msgstr "Lectura"
 #: view:gasoline.reading2:gasoline.gasoline_reading2_tree_view
 msgid "Reading Product"
 msgstr "lectura del Producto"
+
+#. module: gasoline
+#: field:gasoline.turn,reading_total2:0
+msgid "Reading Total"
+msgstr "Total en lectura"
 
 #. module: gasoline
 #: view:website:gasoline.report_invoice
@@ -709,6 +845,7 @@ msgstr "Número de referencia"
 
 #. module: gasoline
 #: view:website:gasoline.report_closing
+#: view:website:gasoline.report_closing_total
 msgid "Referencia"
 msgstr "Referencia"
 
@@ -720,7 +857,12 @@ msgstr "Nota de credito"
 #. module: gasoline
 #: model:ir.actions.report.xml,name:gasoline.gasoline_report_closing
 msgid "Report Closing"
-msgstr "Report Closing"
+msgstr "Reporte de cierre"
+
+#. module: gasoline
+#: model:ir.actions.report.xml,name:gasoline.gasoline_report_closing_total
+msgid "Report Closing Total"
+msgstr "Reporte de cierres consolidado"
 
 #. module: gasoline
 #: model:ir.actions.report.xml,name:gasoline.gasoline_report_invoice
@@ -751,6 +893,7 @@ msgstr "Producto por lado"
 
 #. module: gasoline
 #: field:gasoline.turn,sold:0
+#: field:gasoline.turn,sold_total:0
 msgid "Sold"
 msgstr "Esperado Combustible"
 
@@ -777,6 +920,7 @@ msgstr "Nota de Credito de Proveedor"
 #. module: gasoline
 #: view:website:gasoline.external_layout_cierre
 #: view:website:gasoline.report_closing
+#: view:website:gasoline.report_closing_total
 #: view:website:gasoline.report_invoice
 msgid "Tel:"
 msgstr "Tel:"
@@ -790,6 +934,7 @@ msgstr "Teléfono:"
 #: field:gasoline.reading,price_list:0
 #: view:gasoline.turn:gasoline.gasoline_turn_form_view
 #: view:website:gasoline.report_closing
+#: view:website:gasoline.report_closing_total
 #: view:website:gasoline.report_invoice
 msgid "Total"
 msgstr "Total"
@@ -797,6 +942,7 @@ msgstr "Total"
 #. module: gasoline
 #: view:gasoline.turn:gasoline.gasoline_turn_form_view
 #: view:website:gasoline.report_closing
+#: view:website:gasoline.report_closing_total
 msgid "Totales"
 msgstr "Totales"
 
@@ -828,16 +974,22 @@ msgstr "Términos de Pago:"
 
 #. module: gasoline
 #: code:addons/gasoline/model/gasoline.py:63
-#: code:addons/gasoline/model/gasoline.py:453
+#: code:addons/gasoline/model/gasoline.py:593
+#: code:addons/gasoline/model/gasoline.py:714
 #, python-format
 msgid "Unable to Delete!"
 msgstr "¡No se puede eliminar!"
 
 #. module: gasoline
+#: view:website:gasoline.report_closing_total
+msgid "Usuarios"
+msgstr "Usuarios"
+
+#. module: gasoline
 #: view:pos.order:gasoline.view_pos_pos_form1
 #: field:pos.order,vehicle_id:0
 msgid "Vehicle"
-msgstr "vehículo"
+msgstr "Vehículo"
 
 #. module: gasoline
 #: view:website:gasoline.report_invoice
@@ -846,11 +998,13 @@ msgstr "Vehiculo:"
 
 #. module: gasoline
 #: view:website:gasoline.report_closing
+#: view:website:gasoline.report_closing_total
 msgid "Venta Contado :"
 msgstr "Venta Contado :"
 
 #. module: gasoline
 #: view:website:gasoline.report_closing
+#: view:website:gasoline.report_closing_total
 msgid "Venta Credito :"
 msgstr "Venta Credito :"
 
@@ -860,7 +1014,7 @@ msgid "Ver Factura"
 msgstr "Ver Factura"
 
 #. module: gasoline
-#: code:addons/gasoline/model/gasoline.py:589
+#: code:addons/gasoline/model/gasoline.py:810
 #, python-format
 msgid "You have to select a pricelist in the sale form !\n"
 "Please set one before choosing a product."
@@ -874,7 +1028,7 @@ msgstr "___________________"
 #. module: gasoline
 #: field:gasoline.reading,assign:0
 msgid "assign"
-msgstr "asignar"
+msgstr "Asignar"
 
 #. module: gasoline
 #: field:hr.employee,assigned:0
@@ -904,6 +1058,24 @@ msgid "date end"
 msgstr "Fecha Final"
 
 #. module: gasoline
+#: code:addons/gasoline/model/gasoline.py:144
+#, python-format
+msgid "dont Exist orders"
+msgstr "No existen facturas"
+
+#. module: gasoline
+#: code:addons/gasoline/wizard/print_report_wizard.py:19
+#, python-format
+msgid "dont exist turn in the date"
+msgstr "No hay venta para esta fecha"
+
+#. module: gasoline
+#: code:addons/gasoline/model/gasoline.py:148
+#, python-format
+msgid "draft orders exist"
+msgstr "Existen facturas que aun no ha cobrado o marcado como de cŕedito"
+
+#. module: gasoline
 #: field:gasoline.reading,levelf:0
 #: field:gasoline.reading2,levelf:0
 msgid "finish levels"
@@ -928,6 +1100,11 @@ msgstr "Factura"
 #: field:account.journal,combustible:0
 msgid "is payment of combustible?"
 msgstr "es el pago de combustible?"
+
+#. module: gasoline
+#: field:gasoline.turn,journal_ids_total:0
+msgid "journal Total"
+msgstr "journal Total"
 
 #. module: gasoline
 #: field:gasoline.product,locale:0
@@ -974,7 +1151,12 @@ msgstr "Nombre"
 #. module: gasoline
 #: field:account.invoice,odometer:0
 msgid "odometer"
-msgstr "odometer"
+msgstr "Odómetro"
+
+#. module: gasoline
+#: field:gasoline.turn,order_ids_total:0
+msgid "order Total"
+msgstr "Total"
 
 #. module: gasoline
 #: field:gasoline.turn,order_ids:0
@@ -1034,7 +1216,7 @@ msgstr "Lectura Final"
 #. module: gasoline
 #: field:gasoline.side_product,side_id:0
 msgid "side id"
-msgstr "id de lado"
+msgstr "Id de lado"
 
 #. module: gasoline
 #: field:gasoline.reading2,state:0
@@ -1062,7 +1244,7 @@ msgstr "Nivel teórico"
 #. module: gasoline
 #: view:gasoline.turn:gasoline.gasoline_turn_form_view
 msgid "turn"
-msgstr "turnos"
+msgstr "Turno"
 
 #. module: gasoline
 #: field:gasoline.turn,maintenance:0
@@ -1085,7 +1267,7 @@ msgstr "Desconocida"
 #: model:ir.actions.act_window,name:gasoline.gasoline_action_form_user
 #: model:ir.ui.menu,name:gasoline.user_edit
 msgid "user"
-msgstr "Empleado"
+msgstr "user"
 
 #. module: gasoline
 #: field:account.invoice,vehicle:0
@@ -1093,7 +1275,14 @@ msgid "vehicle"
 msgstr "Vehículo"
 
 #. module: gasoline
-#: code:addons/gasoline/model/gasoline.py:453
+#: code:addons/gasoline/model/gasoline.py:144
+#: code:addons/gasoline/model/gasoline.py:148
+#, python-format
+msgid "you cannot Finish the Turn"
+msgstr "Aun no puede cerrar este turno"
+
+#. module: gasoline
+#: code:addons/gasoline/model/gasoline.py:593
 #, python-format
 msgid "you cannot delete a reading Created"
 msgstr "No Puede Borrar Una Lectura Creada"

@@ -931,7 +931,6 @@ class pos_order(osv.osv):
         inv_line_ref = self.pool.get('account.invoice.line')
         product_obj = self.pool.get('product.product')
         inv_ids = []
-
         for order in self.pool.get('pos.order').browse(cr, uid, ids, context=context):
             if order.invoice_id:
                 inv_ids.append(order.invoice_id.id)

@@ -232,7 +232,8 @@ class turn(osv.Model):
 			totalmoney=0
 			totalcash=0
 			for order in turn.order_ids:
-				totalmoney+=order.invoice_id.amount_total
+				if order.invoice_id.state != 'cancel':
+					totalmoney+=order.invoice_id.amount_total
 			result[turn.id] = totalmoney
 		return result
 	def _get_inv_total(self, cr, uid, ids, field, arg, context=None):
@@ -240,7 +241,8 @@ class turn(osv.Model):
 		totalmoney=0
 		for turn in self.browse(cr, uid, ids, context=context):
 			for order in turn.order_ids:
-				totalmoney+=order.invoice_id.amount_total
+				if order.invoice_id.state != 'cancel':
+					totalmoney+=order.invoice_id.amount_total
 		for turn in self.browse(cr, uid, ids, context=context):
 			result[turn.id] = totalmoney
 		return result
@@ -701,7 +703,7 @@ class pos_order(osv.osv):
 		res = {}
 		for order in self.browse(cr,uid,ids,context=context):
 			text="Sin Pago"
-			if order.invoice_id:
+			if order.invoice_id and order.invoice_id.state != 'cancel':
 				text="Factura Credito"
 			elif len(order.statement_ids)>0:
 				text="Factura Contado"
@@ -717,9 +719,15 @@ class pos_order(osv.osv):
 		return super(pos_order, self).unlink(cr, uid, ids, context=context)
 
 	def action_paid(self, cr, uid, ids, context=None):
+		print "#"*50
 		for order in self.browse(cr,uid,ids,context=context):
 			if not order.turn_id:
 				self.write(cr, uid, ids, {'state': 'paid'}, context=context)
+			if order.invoice_id:
+				
+				if order.invoice_id.state != 'cancel':
+					raise osv.except_osv(_('Error!'), _('Ya existen pagos para esta factura'))	
+		
 		self.create_picking(cr, uid, ids, context=context)
 		return True
 	def action_invoice(self, cr, uid, ids, context=None):
@@ -732,7 +740,12 @@ class pos_order(osv.osv):
 				inv_ids.append(order.invoice_id.id)
 				continue
 			if not order.partner_id:
-				raise osv.except_osv(_('Error!'), _('Please provide a partner for the sale.'))
+				raise osv.except_osv(_('Error!'), _('Please provide a partner for the sale.'))	
+			tot=0
+			for paid in order.statement_ids:
+				tot+=paid.amount
+			if tot>0:	
+				raise osv.except_osv(_('Error!'), _('Ya existen pagos para esta factura'))	
 			acc = order.partner_id.property_account_receivable.id
 			inv = {
                 'name': order.name,
@@ -788,7 +801,15 @@ class pos_order(osv.osv):
             'target': 'current',
             'res_id': inv_ids and inv_ids[0] or False,
         }
-		
+	def _get_invoice(self, cr, uid, ids, field, arg, context=None):
+		result = {}
+		for order in self.browse(cr, uid, ids, context=context):
+			flag = False
+			if order.invoice_id:
+				if order.invoice_id.state != 'cancel' :
+					flag = True
+			result[order.id] = flag
+		return result		
 
 	_columns = {
         'is_gasoline': fields.boolean('Is Gasoline', help="Check if, this is a product is Gasoline."),
@@ -798,6 +819,7 @@ class pos_order(osv.osv):
 	'odometer': fields.float(string = "Odometer"),
 	'vehicle_id':fields.many2one('fleet.vehicle',string="Vehicle"),
 	'type_id2':fields.function(_get_type_id,type='char', string='Type'),
+	'is_invoice':fields.function(_get_invoice,type='boolean', string='Type'),
 	}
 class gasoline_pos_order_line(osv.osv):
 	_inherit = 'pos.order.line'
@@ -913,3 +935,33 @@ class pos_fleet_vehicle(osv.osv):
 	_columns = {
         'partner_id': fields.many2one('res.partner',string="Partner"),
 }
+class pos_make_payment(osv.osv_memory):
+	_inherit = 'pos.make.payment'
+	def check(self, cr, uid, ids, context=None):
+		print "#"*50
+		context = context or {}
+		order_obj = self.pool.get('pos.order')
+		active_id = context and context.get('active_id', False)
+
+		order = order_obj.browse(cr, uid, active_id, context=context)
+		amount = order.amount_total - order.amount_paid
+		data = self.read(cr, uid, ids, context=context)[0]
+		# this is probably a problem of osv_memory as it's not compatible with normal OSV's
+		data['journal'] = data['journal_id'][0]
+
+		if amount != 0.0:
+			order_obj.add_payment(cr, uid, active_id, data, context=context)
+
+		if order_obj.test_paid(cr, uid, [active_id]):
+			order_obj.signal_workflow(cr, uid, [active_id], 'paid')
+			return {'type' : 'ir.actions.act_window_close' }
+
+		return self.launch_payment(cr, uid, ids, context=context)
+	def _default_amount(self, cr, uid, context=None):
+		print "#"*50
+		order_obj = self.pool.get('pos.order')
+		active_id = context and context.get('active_id', False)
+		if active_id:
+			order = order_obj.browse(cr, uid, active_id, context=context)
+			return order.amount_total - order.amount_paid
+		return False

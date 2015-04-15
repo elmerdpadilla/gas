@@ -215,7 +215,7 @@
             <field name="arch" type="xml">
 		 <form string="turn" >
 <header>
-<button name="action_new" type="object" string="Crear Factura" class="oe_highlight"  attrs="{'invisible' : [('state', 'not in', ['progress','closed','finish'])] }"/>
+<button name="action_new" type="object" string="Crear Factura" class="oe_highlight"  attrs="{'invisible' : [('state', 'not in', ['progress','closed',])] }"/>
 <button name="action_view" type="object" string="Ver Factura" class="oe_highlight"  attrs="{'invisible' : [('state', 'not in', ['progress','closed','finish'])] }"/>
 <button name="action_confirm" type="object" string="Confirm"
 states="draft" class="oe_highlight" />
@@ -596,6 +596,10 @@ states="closed" class="oe_highlight" />
 <button name="print_invoice" string="Imprimir Factura" type="object"/>
 </button>
 
+<button name="385" position="replace">
+<field name="is_invoice" invisible="1"/>
+ <button name="385" string="Payment" class="oe_highlight" type="action" attrs="{'invisible' : ['|',('is_invoice', 'not in', [False]),('state','not in',['draft'])] }"  context="{'pos_session_id' : session_id}"/>
+</button>
 <field name="lines">
 
 <field name="id"/>
