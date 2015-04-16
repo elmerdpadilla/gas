@@ -715,11 +715,13 @@ class pos_order(osv.osv):
 			if rec.state not in ('draft','cancel'):
 				raise osv.except_osv(_('Unable to Delete!'), _('In order to delete a sale, it must be new or cancelled.'))
 		self.pool.get('pos.order').write(cr,uid,ids,{'state':'cancel'},context=context)
+		for order in self.pool.get('pos.order').browse(cr,uid,ids,context=context):
+			if order.invoice_id:
+				self.pool.get('account.invoice').unlink(cr,uid,[order.invoice_id.id],context=context)
 		return True
 		return super(pos_order, self).unlink(cr, uid, ids, context=context)
 
 	def action_paid(self, cr, uid, ids, context=None):
-		print "#"*50
 		for order in self.browse(cr,uid,ids,context=context):
 			if not order.turn_id:
 				self.write(cr, uid, ids, {'state': 'paid'}, context=context)
@@ -938,7 +940,6 @@ class pos_fleet_vehicle(osv.osv):
 class pos_make_payment(osv.osv_memory):
 	_inherit = 'pos.make.payment'
 	def check(self, cr, uid, ids, context=None):
-		print "#"*50
 		context = context or {}
 		order_obj = self.pool.get('pos.order')
 		active_id = context and context.get('active_id', False)
@@ -958,7 +959,6 @@ class pos_make_payment(osv.osv_memory):
 
 		return self.launch_payment(cr, uid, ids, context=context)
 	def _default_amount(self, cr, uid, context=None):
-		print "#"*50
 		order_obj = self.pool.get('pos.order')
 		active_id = context and context.get('active_id', False)
 		if active_id:
