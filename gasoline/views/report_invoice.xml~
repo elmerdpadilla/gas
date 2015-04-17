@@ -28,7 +28,9 @@
 			<strong><span t-field="company.name"/></strong>
                 	
 			<br/>
-                	<span t-field="company.street"/><span t-field="company.street2"/>
+                	<span t-field="company.street"/>
+			<br/>
+			<span t-field="company.street2"/>
 			<br/>
 			<strong>RTN :</strong>
                 	<span t-field="company.company_registry"/>
@@ -106,6 +108,10 @@ RTN:<span t-field="company.company_registry"/>
                 <div class="col-xs-3" t-if="o.nreference">
                     <strong>Orden N:</strong>
                     <p t-field="o.nreference"/>
+                </div>
+				 <div class="col-xs-3">
+                    <strong>Usuario:</strong>
+                    <p t-esc="u"/>
                 </div>
                 <div class="col-xs-3" t-if="o.plaque">
                     <strong>Placa:</strong>

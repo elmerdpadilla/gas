@@ -32,7 +32,8 @@
         <div class="row">
                   <p>
                 	<strong>Dirección:</strong>
-                	<span t-field="company.street"/>
+                	<span t-field="company.street"/><br/>
+			<span t-field="company.street2"/>
 			<br/>
 
                 	
@@ -96,8 +97,8 @@ tr.box2 {
   </tbody>
 </table>
 <br/>
-<table summary="Usuarios" style="width:100%; font-size:20px cellspacing='2'">
-  <caption><h3>Usuarios</h3></caption>
+<table summary="Dispensadores" style="width:100%; font-size:20px cellspacing='2'">
+  <caption><h3>Dispensadores</h3></caption>
   <tbody>
 <t t-foreach="u" t-as="a">
 <tr>

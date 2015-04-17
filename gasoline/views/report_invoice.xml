@@ -109,6 +109,10 @@ RTN:<span t-field="company.company_registry"/>
                     <strong>Orden N:</strong>
                     <p t-field="o.nreference"/>
                 </div>
+				 <div class="col-xs-3">
+                    <strong>Usuario:</strong>
+                    <p t-esc="u"/>
+                </div>
                 <div class="col-xs-3" t-if="o.plaque">
                     <strong>Placa:</strong>
                     <p t-field="o.plaque"/>

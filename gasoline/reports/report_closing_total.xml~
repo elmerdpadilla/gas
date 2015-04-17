@@ -32,7 +32,8 @@
         <div class="row">
                   <p>
                 	<strong>Dirección:</strong>
-                	<span t-field="company.street"/>
+                	<span t-field="company.street"/><br/>
+			<span t-field="company.street2"/>
 			<br/>
 
                 	
@@ -97,7 +98,7 @@ tr.box2 {
 </table>
 <br/>
 <table summary="Usuarios" style="width:100%; font-size:20px cellspacing='2'">
-  <caption><h3>Usuarios</h3></caption>
+  <caption><h3>Dispensadores</h3></caption>
   <tbody>
 <t t-foreach="u" t-as="a">
 <tr>
@@ -124,7 +125,7 @@ tr.box2 {
 
 <t t-foreach="q" t-as="a">
  <tr>
-      <td scope="row"  style="width:33%;"><span t-esc="a['description']"/>-<span t-esc="a['name']"/></td>
+      <td   style="width:33%;"><span t-esc="a['description']"/>-<span t-esc="a['name']"/></td>
 		<td class="box3"><span t-esc="'{:20,.4f}'.format(a['levelt'])"/></td>
 			<td class="box3"><span t-esc="'{:20,.4f}'.format(a['levelf'])"/></td>
 			<td class="box3"><span t-esc="'{:20,.2f}'.format(a['price_list'])"/></td>

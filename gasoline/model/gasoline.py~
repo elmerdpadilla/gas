@@ -131,7 +131,7 @@ class turn(osv.Model):
              'view_type': 'form',
              'view_mode': 'tree,form',
             'res_model': 'pos.order',
-            'target': 'current',
+            'target': 'new',
         }
 	def action_done(self, cr, uid, ids, context=None):
 		return self.write(cr, uid, ids, {'state':'closed'}, context=context)
@@ -959,7 +959,6 @@ class pos_make_payment(osv.osv_memory):
 
 		return self.launch_payment(cr, uid, ids, context=context)
 	def _default_amount(self, cr, uid, context=None):
-		print "#"*50
 		order_obj = self.pool.get('pos.order')
 		active_id = context and context.get('active_id', False)
 		if active_id:

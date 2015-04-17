@@ -15,11 +15,13 @@ class reporte2(osv.AbstractModel):
 	_name = 'report.gasoline.report_invoice'
 	def render_html(self, cr, uid, ids, data=None, context=None):
 		report_obj = self.pool['report']
+		user=self.pool.get('res.users').browse(cr,uid,uid,context=context).name
 		report = report_obj._get_report_from_name(cr, uid, 'gasoline.report_invoice')
 		docargs = {
 			'doc_ids': ids,
 			'doc_model': report.model,
 			'docs': self.pool[report.model].browse(cr, uid, ids, context=context),
+			'u':user,
 			}
 		return report_obj.render(cr, uid, ids, 'gasoline.report_invoice',docargs, context=context)
 class reporte3(osv.AbstractModel):
