@@ -60,6 +60,7 @@ function openerp_pos_widgets(instance, module){ //module is instance.point_of_sa
             this.$el.find('.numpad-minus').click(_.bind(this.clickSwitchSign, this));
             this.$el.find('.number-char').click(_.bind(this.clickAppendNewChar, this));
             this.$el.find('.mode-button').click(_.bind(this.clickChangeMode, this));
+	
         },
         clickDeleteLastChar: function() {
             return this.state.deleteLastChar();
@@ -90,7 +91,6 @@ function openerp_pos_widgets(instance, module){ //module is instance.point_of_sa
         renderElement: function() {
             var self = this;
             this._super();
-
             _.each(this.pos.cashregisters,function(cashregister) {
                 var button = new module.PaypadButtonWidget(self,{
                     pos: self.pos,
@@ -106,12 +106,12 @@ function openerp_pos_widgets(instance, module){ //module is instance.point_of_sa
         template: 'PaypadButtonWidget',
         init: function(parent, options){
             this._super(parent, options);
+	   
             this.cashregister = options.cashregister;
         },
         renderElement: function() {
             var self = this;
             this._super();
-
             this.$el.click(function(){
                 if (self.pos.get('selectedOrder').get('screen') === 'receipt'){  //TODO Why ?
                     console.warn('TODO should not get there...?');
@@ -122,6 +122,94 @@ function openerp_pos_widgets(instance, module){ //module is instance.point_of_sa
             });
         },
     });
+
+
+    module.discountWidget = module.PosBaseWidget.extend({
+        template: 'discountWidget',
+	init: function(parent, options) {
+	var self = this;
+	this._super(parent,options);
+	self.pos.get('selectedOrder').selectLine(this.orderline);
+	this.pos.bind('change:selectedOrder', this.renderElement, this);
+	},
+        renderElement: function() {
+            var self = this;
+            this._super();
+            _.each(this.pos.discounts,function(discount) {
+                var button = new module.discountButtonWidget(self,{
+                    pos: self.pos,
+                    pos_widget : self.pos_widget,
+                    discount: discount,
+                });
+                button.appendTo(self.$el);
+            });
+        }
+    });
+
+    module.discountButtonWidget = module.PosBaseWidget.extend({
+        template: 'discountButtonWidget',
+        init: function(parent, options){
+            this._super(parent, options);
+            this.discount = options.discount;
+
+            this.order = options.order;
+            //this.order.bind('destroy',this.destroy, this );
+        },
+        renderElement: function() {
+            var self = this;
+	    var order = this.pos.get('selectedOrder');
+            this._super();
+            this.$el.click(function(){
+		
+		if (order.getSelectedLine()){
+			if(self.discount.total){
+				if(self.discount.discount!=0){
+					if (order.getSelectedLine().get_discount()!=self.discount.discount) {
+						order.get('orderLines').each(function(line){
+							line.set_discount(self.discount.discount);
+							line.set_discount2(self.discount.name);
+            						});
+						
+					}else{
+						order.get('orderLines').each(function(line){
+							line.set_discount(0);
+							line.set_discount2("");
+            						});
+					}
+				}
+				else{
+					var discount=prompt("Please enter your Discount", "0");
+						order.get('orderLines').each(function(line){
+							line.set_discount(discount);
+							line.set_discount2(self.discount.name);
+            						});
+				}
+				
+				
+
+
+			}
+			else{
+				if(self.discount.discount!=0){
+					if (order.getSelectedLine().get_discount()!=self.discount.discount) {
+						order.getSelectedLine().set_discount( self.discount.discount);
+						order.getSelectedLine().set_discount2( self.discount.name);
+					}else{
+						order.getSelectedLine().set_discount( 0);
+						order.getSelectedLine().set_discount2( "");
+					}
+				}
+				else{
+					var discount=prompt("Please enter your Discount", "0");
+						order.getSelectedLine().set_discount( discount);
+						order.getSelectedLine().set_discount2( self.discount.name);
+				}
+			}
+		}
+            });
+        },
+    });
+
 
     module.OrderWidget = module.PosBaseWidget.extend({
         template:'OrderWidget',
@@ -268,9 +356,11 @@ function openerp_pos_widgets(instance, module){ //module is instance.point_of_sa
             var subtotal     = order ? order.getTotalTaxExcluded() : 0; //hluna 4/11/2014 total sin impuesto
             var taxes     = order ? order.getTotalTaxIncluded() - order.getTotalTaxExcluded() : 0; //hluna 4/11/2014 impuesto 
 	    var total     = order ? order.getTotalTaxIncluded() : 0; //hluna 4/11/2014 total sin impuesto
+	    var discount = order ? order.getDiscountTotal() :0;
 	    this.el.querySelector('.summary .total > .value2').textContent = this.format_currency(subtotal);
             this.el.querySelector('.summary .total > .value').textContent = this.format_currency(total);
-            this.el.querySelector('.summary .total .subentry .value').textContent = this.format_currency(taxes);
+            this.el.querySelector('.summary .total > .value3').textContent = this.format_currency(taxes);
+	   // this.el.querySelector('.summary .total > .value4').textContent = this.format_currency(discount);
 
         },
     });
@@ -978,6 +1068,7 @@ function openerp_pos_widgets(instance, module){ //module is instance.point_of_sa
                 
                 self.$('.neworder-button').click(function(){
                     self.pos.add_new_order();
+	
                 });
 
                 self.$('.deleteorder-button').click(function(){
@@ -1007,6 +1098,7 @@ function openerp_pos_widgets(instance, module){ //module is instance.point_of_sa
                 self.pos.add_new_order();
 
                 self.build_widgets();
+	self.crear_buton();
 
                 if(self.pos.config.iface_big_scrollbars){
                     self.$el.addClass('big-scrollbars');
@@ -1079,6 +1171,12 @@ function openerp_pos_widgets(instance, module){ //module is instance.point_of_sa
         },
         // This method instantiates all the screens, widgets, etc. If you want to add new screens change the
         // startup screen, etc, override this method.
+
+	crear_buton: function() {
+	    this.discount = new module.discountWidget(this, {});
+            this.discount.replace(this.$('.placeholder-discountWidget'));
+	},
+
         build_widgets: function() {
             var self = this;
 
@@ -1155,6 +1253,9 @@ function openerp_pos_widgets(instance, module){ //module is instance.point_of_sa
 
             this.paypad = new module.PaypadWidget(this, {});
             this.paypad.replace(this.$('.placeholder-PaypadWidget'));
+		
+
+		
 
             this.numpad = new module.NumpadWidget(this);
             this.numpad.replace(this.$('.placeholder-NumpadWidget'));

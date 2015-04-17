@@ -232,6 +232,17 @@ tr.box2 {
 </table>
 <br/>
 <br/>
+<table summary="Inventarios" style="width:100%; font-size:20px cellspacing='2'">
+  <caption><h3>Inventarios</h3></caption>
+  <tbody>
+<t t-foreach="i" t-as="a">
+<tr>
+<td scope="row" ><span t-esc="a['name']"/></td>
+<td scope="row" ><span t-esc="a['hand']"/></td>
+</tr>
+</t>
+  </tbody>
+</table>
 <br/>
 <table>
 <tbody>

@@ -31,6 +31,16 @@ import openerp.addons.product.product
 
 _logger = logging.getLogger(__name__)
 
+class pos_innova_discount(osv.osv):  #agregada
+    _name = 'pos.innova.discount'
+    _columns = {
+        'name':fields.char(string="Name"),
+        'discount':fields.float(string="Discount"),
+        'pos_id':fields.many2one('pos.config','POS'),
+        'total':fields.boolean(string="Total"),
+        }
+
+
 class pos_config(osv.osv):
     _name = 'pos.config'
 
@@ -90,6 +100,7 @@ class pos_config(osv.osv):
         'barcode_price':    fields.char('Price Barcodes',   size=64, help='The pattern that identifies a product with a barcode encoded price'),
         'barcode_weight':   fields.char('Weight Barcodes',  size=64, help='The pattern that identifies a product with a barcode encoded weight'),
         'barcode_discount': fields.char('Discount Barcodes',  size=64, help='The pattern that identifies a product with a barcode encoded discount'),
+         'discount_ids': fields.one2many('pos.innova.discount', 'pos_id', 'Discount'), #agregada
     }
 
     def _check_cash_control(self, cr, uid, ids, context=None):
@@ -241,12 +252,6 @@ class pos_session(osv.osv):
                     result[record.id]['cash_register_id'] = st.id
 
         return result
-
-
-    
-          
-       
-
     _columns = {
         
         'config_id' : fields.many2one('pos.config', 'Point of Sale',
@@ -931,6 +936,7 @@ class pos_order(osv.osv):
         inv_line_ref = self.pool.get('account.invoice.line')
         product_obj = self.pool.get('product.product')
         inv_ids = []
+
         for order in self.pool.get('pos.order').browse(cr, uid, ids, context=context):
             if order.invoice_id:
                 inv_ids.append(order.invoice_id.id)

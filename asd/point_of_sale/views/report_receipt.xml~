@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_receipt">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+
+
+					    <div class="header">
+
+
+
+</div>	
+            <div class="page">
+              <div class="row text-center">
+      
+                <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="height: 80px;"/>
+            <div style="margin-top:20px;" t-field="company.rml_header1"/>
+        </div>
+        <div>
+            <div class="row text-center">
+                <div style="border-bottom: 1px solid black;"></div>
+		<span t-field="company.name"/>
+            </div>
+
+        </div>
+        <div class="row text-center">
+                  <p>
+                	
+                	<span t-field="company.street"/>
+<br/>
+			<span t-field="company.street2"/>
+			<br/>
+
+			<strong>RTN :</strong>
+                	<span t-field="company.company_registry"/>
+			<br/>
+			<strong>Email:</strong>
+                	<span t-field="company.email"/>
+			<br/>
+			<strong>Tel:</strong>
+                	<span t-field="company.phone"/>
+           	  </p>
+        </div>
+<div class="row text-center">
+       <p>
+                	<strong>Factura N:</strong>
+                	<span t-field="o.name"/>
+			<br/>
+ 			<strong>Cliente:</strong>
+                        <span t-field="o.partner_id"
+                           />
+           	  </p>
+</div>
+                <div class="row">
+                    <div class="col-xs-12 text-center">
+                       
+                        User: <span t-field="o.user_id"/><br/>
+                        Fecha: <span t-field="o.date_order"/><br/>
+                    </div>
+                </div>
+
+                <div class="row">
+                </div>
+
+                <table class="table table-condensed">
+                    <thead>
+			<tr>
+				    <t t-if="o.turn_id.type">
+                                      <th colspan="3">Turno: <span t-field="o.turn_id.type"/></th>
+                                </t>
+                          
+                           
+                        </tr>
+                        <tr>
+                            <th>Description</th>
+                            <th class="text-right">Cantidad</th>
+                            <th class="text-right">Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="o.lines" t-as="line">
+                            <td><span t-field="line.product_id"/></td>
+                            <td class="text-right">
+                                <t t-if="o.state != 'cancel' and o.statement_ids">
+                                    <span t-esc="'%.f' % line.qty"/>
+                                </t>
+                            </td>
+                            <td class="text-right">
+                                <t t-if="o.state != 'cancel' and o.statement_ids">
+                                    <span t-esc="formatLang(net(line.id), currency_obj=res_company.currency_id)"/>
+                                </t>
+                                <t t-if="line.discount != 0.0">
+                                    <span t-esc="formatLang(line.discount, currency_obj=res_company.currency_id)"/>
+                                </t>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="row">
+                    <div class="col-xs-6 pull-right">
+                        <table class="table table-condensed">
+                            <tr class="border-black">
+                                <td><strong>ISV</strong></td>
+                                <td class="text-right">
+                                    <strong t-esc="formatLang(o.amount_tax, currency_obj=res_company.currency_id)"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Total</strong></td>
+                                <td class="text-right">
+                                    <strong t-esc="formatLang(o.amount_total, currency_obj=res_company.currency_id)"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Payment Mode</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="get_journal_amt(o)" t-as="d">
+                            <td>
+                                <span t-esc="d['name']"/>
+                            </td>
+                            <td>
+                                <span t-esc="formatLang(d['amt'], currency_obj=res_company.currency_id)"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

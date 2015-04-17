@@ -939,7 +939,8 @@ function openerp_pos_screens(instance, module){ //module is instance.point_of_sa
                 });
 
             this.refresh();
-            this.print();
+	    self.print();
+          
 
             //
             // The problem is that in chrome the print() is asynchronous and doesn't
@@ -968,6 +969,8 @@ function openerp_pos_screens(instance, module){ //module is instance.point_of_sa
         },
         finishOrder: function() {
             this.pos.get('selectedOrder').destroy();
+
+				//this.cleartime();
         },
         refresh: function() {
             var order = this.pos.get('selectedOrder');
@@ -1098,6 +1101,7 @@ function openerp_pos_screens(instance, module){ //module is instance.point_of_sa
 
         },
         close: function(){
+
             this._super();
             this.disable_numpad();
             document.body.removeEventListener('keyup',this.hotkey_handler);
@@ -1270,10 +1274,10 @@ function openerp_pos_screens(instance, module){ //module is instance.point_of_sa
             // The exact amount must be paid if there is no cash payment method defined.
             if (Math.abs(currentOrder.getTotalTaxIncluded() - currentOrder.getPaidTotal()) > 0.00001) {
                 var cash = false;
+		if(currentOrder.getTypecash()){
                 for (var i = 0; i < this.pos.cashregisters.length; i++) {
-alert(this.pos.cashregisters[i].journal.type);
                     cash = cash || (this.pos.cashregisters[i].journal.type === 'cash');
-                }
+                }}
                 if (!cash) {
                     this.pos_widget.screen_selector.show_popup('error',{
                         message: _t('Cannot return change without a cash payment method'),
@@ -1315,17 +1319,36 @@ alert(this.pos.cashregisters[i].journal.type);
                     self.pos_widget.action_bar.set_button_disabled('invoice',false);
                     self.pos.get('selectedOrder').destroy();
                 });
-
             }else{
-                this.pos.push_order(currentOrder) 
+
+               // this.pos.push_order(currentOrder) 
                 if(this.pos.config.iface_print_via_proxy){
+
                     var receipt = currentOrder.export_for_printing();
                     this.pos.proxy.print_receipt(QWeb.render('XmlReceipt',{
                         receipt: receipt, widget: self,
                     }));
+
                     this.pos.get('selectedOrder').destroy();    //finish order and go back to scan screen
                 }else{
-                    this.pos_widget.screen_selector.set_current_screen(this.next_screen);
+			  var def  = new $.Deferred();
+		                        new instance.web.Model('ir.sequence')
+                .query(['prefix','number_next_actual'])
+                .filter([['id','=',this.pos.config.sequence_id[0]]])
+                .first({'timeout':2000, 'shadow': true})
+                .then(function(sequence){
+		currentOrder.value_sequence=sequence;
+		currentOrder.sequence_number=(currentOrder.value_sequence.number_next_actual);
+		currentOrder.uid =     currentOrder.generateUniqueId2();
+		console.log(currentOrder.uid);
+		currentOrder.set({
+                name:           _t("Factura ") + currentOrder.uid, });
+	 self.pos.push_order(currentOrder) 	;	
+		   self.pos_widget.screen_selector.set_current_screen(self.next_screen);					
+		 });
+                    
+			console.log("s");
+			                    
                 }
             }
 

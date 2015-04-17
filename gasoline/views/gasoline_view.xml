@@ -593,10 +593,11 @@ states="closed" class="oe_highlight" />
     <field name="arch" type="xml">
 <button name="action_invoice" position="replace">
 <button name="action_invoice" string="Factura Credito" type="object"  attrs="{'readonly': [('partner_id','=',False)]}" states="draft"/>
-<button name="print_invoice" string="Imprimir Factura" type="object"/>
+
 </button>
 
 <button name="385" position="replace">
+<button name="print_invoice" string="Imprimir Factura" type="object"/>
 <field name="is_invoice" invisible="1"/>
  <button name="385" string="Payment" class="oe_highlight" type="action" attrs="{'invisible' : ['|',('is_invoice', 'not in', [False]),('state','not in',['draft'])] }"  context="{'pos_session_id' : session_id}"/>
 </button>

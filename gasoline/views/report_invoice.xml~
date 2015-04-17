@@ -113,6 +113,10 @@ RTN:<span t-field="company.company_registry"/>
                     <strong>Usuario:</strong>
                     <p t-esc="u"/>
                 </div>
+				 <div class="col-xs-3">
+                    <strong>Fecha Impresión:</strong>
+                    <p t-esc="f"/>
+                </div>
                 <div class="col-xs-3" t-if="o.plaque">
                     <strong>Placa:</strong>
                     <p t-field="o.plaque"/>

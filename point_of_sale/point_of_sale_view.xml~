@@ -690,6 +690,20 @@
                                 <field name="iface_big_scrollbars" />
                             </group>
                         </group>
+                        <group string="Discount list" >
+			    <field name="discount_ids">
+				<tree editable="top">
+				    <field name="name"/>
+				    <field name="discount"/>
+				    <field name="total"/>
+				</tree>
+					<form>
+				    <field name="name"/>
+				    <field name="discount"/>
+<field name="total"/>
+				</form>
+			    </field>
+                        </group>
                         <group string="Hardware Proxy" >
                             <field name="proxy_ip" />
                             <field name="iface_print_via_proxy" />

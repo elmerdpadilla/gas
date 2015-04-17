@@ -177,9 +177,7 @@ td {
     height: 100%;
     position: relative;
 }
-.pos .subwindow .subwindow-container-fix2{
-    height: 100%;
-}
+
 /* ---- Scrollers ----- */
 
 .pos .scroller-container{
@@ -473,11 +471,6 @@ td {
     background: #F0EEEE;
     white-space: nowrap;
 }
-
-.pos .pos-leftpane .padz {
-    background: #000000;
-    white-space: nowrap;
-}
 /*  ********* The control buttons ********* */
 
 .pos .control-buttons {
@@ -541,27 +534,6 @@ td {
     color: #555555;
     font-size: 14px;
 }
-.pos .discount {
-    padding: 8px 4px 8px 8px;
-    display: inline-block;
-    text-align: center;
-    vertical-align: top;
-    width: 205px;
-    max-height: 350px;
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-.pos .discount button {
-    height: 30px;
-    display: block;
-    width: 100%;
-    margin: 0px -6px 4px -2px;
-    font-weight: bold;
-    vertical-align: middle;
-    color: #555555;
-    font-size: 14px;
-}
-.pos .discount button:active, 
 .pos .paypad button:active, 
 .pos .numpad button:active, 
 .pos .numpad .selected-mode, 

@@ -20,13 +20,12 @@ function openerp_pos_db(instance, module){
             this.product_by_ean13 = {};
             this.product_by_category_id = {};
             this.product_by_reference = {};
-
+	    this.sequence=null;
             this.partner_sorted = [];
             this.partner_by_id = {};
             this.partner_by_ean13 = {};
             this.partner_search_string = "";
             this.partner_write_date = null;
-
             this.category_by_id = {};
             this.root_category_id  = 0;
             this.category_products = {};
@@ -400,6 +399,7 @@ function openerp_pos_db(instance, module){
             var results = [];
             for(var i = 0; i < this.limit; i++){
                 r = re.exec(this.category_search_string[category_id]);
+		
                 if(r){
                     var id = Number(r[1]);
                     results.push(this.get_product_by_id(id));
@@ -421,10 +421,14 @@ function openerp_pos_db(instance, module){
                     return order_id;
                 }
             }
-
+	
             orders.push({id: order_id, data: order});
             this.save('orders',orders);
             return order_id;
+        },
+        add_sequence: function(sequence){
+        this.save('sequence',sequence);
+	return sequence;
         },
         remove_order: function(order_id){
             var orders = this.load('orders',[]);

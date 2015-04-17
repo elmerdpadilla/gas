@@ -15,7 +15,6 @@
               <div class="row text-center">
       
                 <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="height: 80px;"/>
-    
             <div style="margin-top:20px;" t-field="company.rml_header1"/>
         </div>
         <div>
@@ -27,7 +26,6 @@
         </div>
         <div class="row text-center">
                   <p>
-                	
                 	<span t-field="company.street"/>
 <br/>
 			<span t-field="company.street2"/>
@@ -117,7 +115,6 @@
                         </table>
                     </div>
                 </div>
-
                 <table class="table table-condensed">
                     <thead>
                         <tr>
