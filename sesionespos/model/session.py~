@@ -82,15 +82,16 @@ class sessionpos(osv.Model):
 		array=[]
 		count=0
 		for session in self.browse(cr,uid,ids,context=context):
-		    count = 0
-		    array=[]
-		    for order in session.order_ids:
-		    	count+=1
-			array.append(order.pos_reference)
-	            if count != 0:
-		   	res[session.id]=str(count) + " facturas "+str(array[len(array)-1])+" A "+array[0]
-		    else :
-			res[session.id]= "Sin Facturas" 	
+			count = 0
+			array=[]
+			for order in session.order_ids:
+				count+=1
+				array.append(order.name)
+			if count != 0:
+				if len(array)>2:
+					res[session.id]=str(count) + " facturas "+array[len(array)-1]+" A "+array[0]
+			else :
+				res[session.id]= "Sin Facturas" 	
 		    						 
 		return res
 
