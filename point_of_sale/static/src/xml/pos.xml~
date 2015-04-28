@@ -957,37 +957,60 @@
 
     <t t-name="PosTicket">
         <div class="pos-sale-ticket">
-            
-            
-    
-           <div class="pos-center-align"><h1> <t t-esc="widget.pos.company.name"/> </h1></div>
-	 <div class="pos-center-align"> <h2>  <t t-esc="widget.pos.company.rml_header1"/> </h2></div>
-         <div class="pos-center-align"> <t t-esc="widget.pos.company.street || ''"/> <t t-esc="widget.pos.company.phone || ''"/></div>
-	    
-	    Ciudad: <t t-esc="widget.pos.company.city || ''"/><br />
-  	    R.T.N. <t t-esc="widget.pos.company.company_registry || ''"/><br />
-<t t-esc="new Date().toString(Date.CultureInfo.formatPatterns.shortDate + ' ' +
-                Date.CultureInfo.formatPatterns.longTime)"/><br/> <t t-esc="order.getName()"/>
-
-<br/>
-            User: <t t-esc="widget.pos.cashier ? widget.pos.cashier.name : widget.pos.user.name"/><br />
-            <br />
-	    <t t-if="order.get_client()">
+<div id="company_logo" style="text-align:center;"><img t-att-src="widget.pos.company_logo_base64" width="50%"/></div>
+      <div style="border-bottom: 1px solid black;"></div>
+           <div class="pos-center-align"> <t t-if="widget.pos.company.name" t-esc="widget.pos.company.name"/></div>
+         <div class="pos-center-align"> <t t-if="widget.pos.company.street" t-esc="widget.pos.company.street"/> </div>
+         <div class="pos-center-align"> <t t-if="widget.pos.company.street2" t-esc="widget.pos.company.street2"/> </div>
+     <div class="pos-center-align"><strong>RTN: </strong> <t t-esc="widget.pos.company.company_registry || ''"/><br /></div>
+   <div class="pos-center-align"><strong>Email:</strong> <t t-esc="widget.pos.company.email || ''"/><br /></div>
+   <div class="pos-center-align"><strong>Tel:</strong> <t t-esc="widget.pos.company.phone || ''"/><br /></div>	    
+	    <br />
+  	    
+<div class="pos-center-align"><t t-esc="order.getName()"/><br /></div>	
+<div class="pos-center-align"><t t-if="order.get_client()">
             Cliente: <t t-esc="order.get_client().name"/><br />
             <br />
-	    </t>
+	    </t></div>	
+	<div class="pos-center-align">User: <t t-esc="widget.pos.cashier ? widget.pos.cashier.name : widget.pos.user.name"/><br />
+            <br /></div>	
+       <div class="pos-center-align">Fecha <t t-esc="new Date().toString(Date.CultureInfo.formatPatterns.shortDate + ' ' +
+                Date.CultureInfo.formatPatterns.longTime)"/> <br /></div>	 
+
+
+<br/>
+            
+
             <t t-if="widget.pos.config.receipt_header">
                 <div style='text-align:center'>
                     <t t-esc="widget.pos.config.receipt_header" />
                 </div>
                 <br />
             </t>
+<table>
+                <colgroup>
+                    <col width='55%' />
+                    <col width='25%' />
+                    <col width='20%' />
+                </colgroup>
+	<tr>
+                            <td>Description</td>
+                            <td class="text-right">Cantidad</td>
+                            <td class="text-right">Precio</td>
+    
+                        </tr>
+</table>
+ <div style="border-bottom: 1px solid black;"></div>
             <table>
+		
+
                 <colgroup>
                     <col width='50%' />
                     <col width='25%' />
                     <col width='25%' />
                 </colgroup>
+
+
                 <tr t-foreach="orderlines" t-as="orderline">
                     <td>
                         <t t-esc="orderline.get_product().display_name"/>

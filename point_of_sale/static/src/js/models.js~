@@ -970,9 +970,13 @@ function openerp_pos_models(instance, module){ //module is instance.point_of_sal
                 }
                 return s;
             }
-
-            return this.pos.sequence.prefix +
-                   zero_pad(this.sequence_number,this.pos.sequence.padding);
+	    var retorno;
+		if(this.pos.sequence.prefix){
+			retorno=this.pos.sequence.prefix +zero_pad(this.sequence_number,this.pos.sequence.padding);
+			}else{
+			retorno=zero_pad(this.sequence_number,this.pos.sequence.padding);
+}
+            return retorno;
         },
                generateUniqueId3: function() {
 		 self=this;

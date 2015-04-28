@@ -117,7 +117,7 @@ function openerp_pos_models(instance, module){ //module is instance.point_of_sal
             loaded: function(self,users){ self.user = users[0]; },
         },{ 
             model:  'res.company',
-            fields: [ 'currency_id', 'email', 'website', 'company_registry', 'vat', 'name', 'phone', 'partner_id' , 'country_id','company_registry','street','city','rml_header1'],
+            fields: [ 'currency_id', 'email', 'website', 'company_registry', 'vat', 'name', 'phone', 'partner_id' , 'country_id','company_registry','street','street2','city','rml_header1'],
             domain: function(self){ return [['id','=',self.user.company_id[0]]]; },
             loaded: function(self,companies){ self.company = companies[0]; },
         },{
