@@ -260,10 +260,12 @@ function openerp_pos_widgets(instance, module){ //module is instance.point_of_sa
                 var mode = this.numpad_state.get('mode');
                 if( mode === 'quantity'){
                     order.getSelectedLine().set_quantity(val);
-                }else if( mode === 'discount'){
-                    order.getSelectedLine().set_discount(val);
+                }else if( mode === 'discount'){	
+			if(order.attributes.pos.user.discount_edit){
+                   		 order.getSelectedLine().set_discount(val);}
                 }else if( mode === 'price'){
-                    order.getSelectedLine().set_unit_price(val);
+			if(order.attributes.pos.user.price_edit){
+                  	 order.getSelectedLine().set_unit_price(val);}
                 }
         	}
         },

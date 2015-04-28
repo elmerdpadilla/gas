@@ -24,8 +24,6 @@
                         <field name="pos_config" />
                         <field name="ean13" />
                         <button name="%(action_edit_ean)d" type="action" string="Set a Custom EAN" class="oe_edit_only" />
-			</group>
-			 <group>
 			<field name="price_edit" />
 			<field name="discount_edit" />
                     </group>
