@@ -24,6 +24,7 @@
 	<report
     	id="gasoline_report_invoice"
     	model="account.invoice"
+
     	string="Report invoice"
    	 report_type="qweb-pdf"
     	name="gasoline.report_invoice"

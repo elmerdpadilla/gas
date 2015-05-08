@@ -12,8 +12,7 @@ access_hr_employee2,hr.employee,model_hr_employee,group_gasoline_manager,1,1,1,1
 access_product_template2,product.template,model_product_template,group_gasoline_manager,1,1,1,1
 access_pos_order2,pos.order,model_pos_order,group_gasoline_manager,1,1,1,1
 access_pos_session_user2,pos.session user,model_pos_session,group_gasoline_manager,1,1,1,1
-access_pos_order_line2,pos.order.line,model_gasoline_pos_order_line,group_gasoline_manager,1,1,1,1
+access_pos_order_line2,pos.order.line,model_pos_order_line,group_gasoline_manager,1,1,1,1
 access_pos_config,pos.config,model_pos_config,group_gasoline_manager,1,1,1,1
 access_account_journal,account.journal,model_account_journal,group_gasoline_manager,1,1,1,1
 access_pos_make_payment,pos.make.payment,model_pos_make_payment,group_gasoline_manager,1,1,1,1
-

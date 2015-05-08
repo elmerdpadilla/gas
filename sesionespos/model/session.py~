@@ -6,9 +6,12 @@ import locale
 import pytz
 
 class sessionpos(osv.Model):
-	
-	
-
+	def print_report_caja(self, cr, uid, ids, context=None):
+		return self.pool['report'].get_action(cr, uid, ids, 'sesionespos.report_caja', context=context)
+	def print_report_product(self, cr, uid, ids, context=None):
+		return self.pool['report'].get_action(cr, uid, ids, 'sesionespos.report_product', context=context)
+	def print_report_fecha(self, cr, uid, ids, context=None):
+		return self.pool['report'].get_action(cr, uid, ids, 'sesionespos.report_fecha', context=context)
 	def _fun_diferencia(self,cr,uid,ids,fields,args,context=None):
 		res={}
 		total=0
@@ -88,8 +91,7 @@ class sessionpos(osv.Model):
 				count+=1
 				array.append(order.name)
 			if count != 0:
-				if len(array)>2:
-					res[session.id]=str(count) + " facturas "+array[len(array)-1]+" A "+array[0]
+				res[session.id]=str(count) + " facturas "+str(array[len(array)-1])+" A "+str(array[0])
 			else :
 				res[session.id]= "Sin Facturas" 	
 		    						 
@@ -360,23 +362,23 @@ class sessionpos(osv.Model):
 		  
 	_inherit = 'pos.session'
 	_columns = {
-	   'validar':fields.boolean(string="Validacion",help="validacion"),
-	   'diferencia':fields.function(_fun_diferencia,string="Diferencia"),
-	   'diferencia2':fields.float('diferencia2'),
-	   'venta_bruta':fields.function(_calc_vb,'venta bruta',type="float"),
-	   'isv':fields.function(_calc_isv,'ISV'),
-	   'subtotal':fields.function(_calc_subtotal,'subtotal'),
-	   'nro_facturas':fields.function(_calc_no_facturas,'nro facturas',type="char"),
-	   'descuento':fields.function(_calc_descuento,'descuento'),
-	   'dinero_entrante':fields.function(_calc_dn_entrante,'dinero entrante',type="char"),
-	   'dinero_saliente':fields.function(_calc_dn_saliente,'dinero saliente',type="char"),
-	   'dn_cierre':fields.float('dinero Cierre'),
-	   'dn_reportado':fields.float('dinero Cierre'),
-	      'producto_mvendido':fields.function(_mas_vendido,string="producto mas vendido",type="char"),
-	   'productos_vendidos':fields.function(_productos,string="Productos vendidos",type="text"),
-		   'hora_venta':fields.function(_horas,string="Hora de ventas",type="text"),
-	'fechas':fields.function(_fechas,string="Fechas",type="text"),
-		'users':fields.function(_user,string="Usuarios",type="text"),
+			'validar':fields.boolean(string="Validacion",help="validacion"),
+			'diferencia':fields.function(_fun_diferencia,string="Diferencia"),
+			'diferencia2':fields.float('diferencia2'),
+			'venta_bruta':fields.function(_calc_vb,'venta bruta',type="float"),
+			'isv':fields.function(_calc_isv,'ISV'),
+			'subtotal':fields.function(_calc_subtotal,'subtotal'),
+			'nro_facturas':fields.function(_calc_no_facturas,'nro facturas',type="char"),
+			'descuento':fields.function(_calc_descuento,'descuento'),
+			'dinero_entrante':fields.function(_calc_dn_entrante,'dinero entrante',type="char"),
+			'dinero_saliente':fields.function(_calc_dn_saliente,'dinero saliente',type="char"),
+			'dn_cierre':fields.float('dinero Cierre'),
+			'dn_reportado':fields.float('dinero Cierre'),
+			'producto_mvendido':fields.function(_mas_vendido,string="producto mas vendido",type="char"),
+			'productos_vendidos':fields.function(_productos,string="Productos vendidos",type="text"),
+			'hora_venta':fields.function(_horas,string="Hora de ventas",type="text"),
+			'fechas':fields.function(_fechas,string="Fechas",type="text"),
+			'users':fields.function(_user,string="Usuarios",type="text"),
 }
 
 	

@@ -7,7 +7,11 @@
             <field name="model">pos.session</field>
             <field name="inherit_id" ref="point_of_sale.view_pos_session_form"/>
             <field name="arch" type="xml">
-		
+		<button name="close" position="after">
+<button name="print_report_caja" type="object" string="Cierre de Caja" class="oe_highlight" attrs="{'invisible' : [('state', 'not in', ['closed',])] }"/>
+<button name="print_report_product" type="object" string="Productos" class="oe_highlight" attrs="{'invisible' : [('state', 'not in', ['closed',])] }"/>
+<button name="print_report_fecha" type="object" string="Hora de ventas" class="oe_highlight" attrs="{'invisible' : [('state', 'not in', ['closed',])] }"/>
+		</button>
 
 		<field name="cash_register_balance_end_real" position="before">
 			<field  name="validar" invisible="1"/>

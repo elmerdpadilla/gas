@@ -5,6 +5,7 @@
 	<report
     	id="sessionespos_report_caja"
     	model="pos.session"
+		menu="False"
     	string="Cierre de Caja"
    	 report_type="qweb-pdf"
     	name="sesionespos.report_caja"
@@ -14,6 +15,7 @@
 	<report
     	id="sessionespos_report_product"
     	model="pos.session"
+		menu="False"
     	string="productos vendidos"
    	 report_type="qweb-pdf"
     	name="sesionespos.report_product"
@@ -24,6 +26,7 @@
 	<report
     	id="sessionespos_report_fecha"
     	model="pos.session"
+		menu="False"
     	string="Horas de Venta"
    	 report_type="qweb-pdf"
     	name="sesionespos.report_fecha"

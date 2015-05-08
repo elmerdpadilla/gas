@@ -40,93 +40,80 @@
 				  </p>
 				</field>
 		</record>
-<!--
-<menuitem action="gasoline_action_form_side_product" parent="dispenser_menu"  id="side_product_edit"/>
--->
-        <record id="gasoline_side_dispenser_form_view" model="ir.ui.view">
-            <field name="name">gasoline.side.product.form</field>
-            <field name="model">gasoline.side_product</field>
-            <field name="arch" type="xml">
-		 <form string="Side-Product">
-		<sheet>
 
-		<group>
-<field name="name"/>
-<field name="product_id" />
-<field name="level"/>
-</group>
+		<record id="gasoline_side_dispenser_form_view" model="ir.ui.view">
+			<field name="name">gasoline.side.product.form</field>
+			<field name="model">gasoline.side_product</field>
+			<field name="arch" type="xml">
+				<form string="Side-Product">
+					<sheet>
+					<group>
+						<field name="name"/>
+						<field name="product_id" />
+						<field name="level"/>
+					</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
 
-		
-</sheet>
-</form>
-            </field>
-        </record>
+		<record id="gasoline_dispenser_form_view" model="ir.ui.view">
+			<field name="name">gasoline.dispenser.form</field>
+			<field name="model">gasoline.dispenser</field>
+			<field name="arch" type="xml">
+				<form string="Dispenser">
+					<header>
+						<field name="status" widget="statusbar" />
+					</header>
+					<sheet>
+						<group>
+							<field name="name"/>
+						</group>
+						<notebook colspan="4">
+							<page string="Lados">
+								<field name="product_ids" >
+									<field name="id"/>
+									<field name="name"/>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
 
-
-
-
-        <record id="gasoline_dispenser_form_view" model="ir.ui.view">
-            <field name="name">gasoline.dispenser.form</field>
-            <field name="model">gasoline.dispenser</field>
-            <field name="arch" type="xml">
-		 <form string="Dispenser">
-<header>
-<field name="status" widget="statusbar" />
-</header>
-		<sheet>
-
-		<group>
-<field name="name"/>
-</group>
-<notebook colspan="4">
-<page string="Lados">
-<field name="product_ids" >
-<field name="id"/>
-<field name="name"/>
-</field>
-</page>
-</notebook>
-		
-</sheet>
-</form>
-            </field>
-        </record>
-
-
-        <record id="gasoline_product_form_view" model="ir.ui.view">
-            <field name="name">gasoline.product.form</field>
-            <field name="model">gasoline.product</field>
-            <field name="arch" type="xml">
-		 <form string="product">
-<header>
-<button name="action_new" type="object" string="Nueva Lectura" class="oe_highlight"/>
-</header>
-		<sheet>
-		<group>
-<field name="name"/>
-<field name="product_id" widget="many2one_list"/>
-<field name="measure"/>
-<field name="locale"/>
-</group>
-<notebook colspan="4">
-
-<page string="Lecturas">
-<field name="reading_init"  mode="tree" widget="one2many_list">
-<tree editable="top">
-<field name="date"/>
-<field name="description"/>
-<field name="level" readonly="0"/>
-<field name="qty_available" readonly="1"/>
-<field name="qty_virtual" readonly="1"/>
-</tree>
-</field>
-</page>
-</notebook>
-		
-</sheet>
-</form>
-            </field>
-        </record>
+		<record id="gasoline_product_form_view" model="ir.ui.view">
+		<field name="name">gasoline.product.form</field>
+		<field name="model">gasoline.product</field>
+		<field name="arch" type="xml">
+			<form string="product">
+				<header>
+					<button name="action_new" type="object" string="Nueva Lectura" class="oe_highlight"/>
+				</header>
+				<sheet>
+				<group>
+					<field name="name"/>
+					<field name="product_id" widget="many2one_list"/>
+					<field name="measure"/>
+					<field name="locale"/>
+				</group>
+					<notebook colspan="4">
+						<page string="Lecturas">
+							<field name="reading_init"  mode="tree" widget="one2many_list">
+								<tree editable="top">
+									<field name="date"/>
+									<field name="description"/>
+									<field name="level" readonly="0"/>
+									<field name="qty_available" readonly="1"/>
+									<field name="qty_virtual" readonly="1"/>
+								</tree>
+							</field>
+						</page>
+					</notebook>
+				</sheet>
+			</form>
+		</field>
+		</record>
 
 		<record id="gasoline_action_form_side" model="ir.actions.act_window">
 				<field name="name">Side</field>
@@ -146,29 +133,25 @@
 				</field>
 		</record>
 
-        <record id="gasoline_side_form_view" model="ir.ui.view">
-            <field name="name">gasoline.side.form</field>
-            <field name="model">gasoline.side</field>
-            <field name="arch" type="xml">
-		 <form string="Side">
-		<sheet>
+		<record id="gasoline_side_form_view" model="ir.ui.view">
+			<field name="name">gasoline.side.form</field>
+			<field name="model">gasoline.side</field>
+			<field name="arch" type="xml">
+				<form string="Side">
+					<sheet>
+						<group>
+							<field name="name"/>
+							<field name="product_ids" widget="many2many_tags" domain="[('status','=',False)]"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
 
-		<group>
-<field name="name"/>
-<field name="product_ids" widget="many2many_tags" domain="[('status','=',False)]"/>
-		</group>
-</sheet>
-</form>
-            </field>
-        </record>
+		<menuitem id="main_menu_gasoline"  name="Gasoline"  />
+		<menuitem id="dispenser_menu" name="Gasoline Control" parent="main_menu_gasoline" />
+		<menuitem action="gasoline_action_form_dispenser" parent="dispenser_menu"  id="dispenser_edit"/>
 
-<menuitem id="main_menu_gasoline"  name="Gasoline"  />
-<menuitem id="dispenser_menu" name="Gasoline Control" parent="main_menu_gasoline" />
-<menuitem action="gasoline_action_form_dispenser" parent="dispenser_menu"  id="dispenser_edit"/>
-
-<!--
-<menuitem action="gasoline_action_form_side" parent="dispenser_menu"  id="side_edit"/>
--->
 		<record id="gasoline_action_form_turn" model="ir.actions.act_window">
 				<field name="name">Turn</field>
 				<field name="res_model">gasoline.turn</field>
@@ -194,138 +177,137 @@
 				<field name="view_id" eval="False"/>            
 		</record>
 
+		<record id="gasoline_turn_tree_view" model="ir.ui.view">
+			<field name="name">gasoline.turn.tree</field>
+			<field name="model">gasoline.turn</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="name"/>
+					<field name="date"/>
+					<field name= "state" />
+				</tree>
+			</field>
+		</record>
 
+		<record id="gasoline_turn_form_view" model="ir.ui.view">
+			<field name="name">gasoline.turn.form</field>
+			<field name="model">gasoline.turn</field>
+			<field name="arch" type="xml">
+				<form string="turn" >
+					<header>
+						
+						<button name="action_new" type="object" string="Crear Factura" class="oe_highlight"
+								attrs="{'invisible' : [('state', 'not in', ['progress','closed',])] }"/>
+						<button name="action_view" type="object" string="Ver Factura" class="oe_highlight"  
+								attrs="{'invisible' : [('state', 'not in', ['progress','closed','finish'])] }"/>
+						<button name="action_confirm" type="object" string="Confirm"
+								states="draft" class="oe_highlight" />
+						<button name="action_done" type="object" string="Mark as done"
+								states="progress" class="oe_highlight" />
+						<button name="action_close" type="object" string="Finish Turn"
+								states="closed" class="oe_highlight" />
+						<field name="state" widget="statusbar" />
+					</header>
+					<sheet>
+						<group>
+							<field name="type" attrs="{'readonly' : [('state', '!=', 'draft')]}"/>
+							<field name="date" attrs="{'readonly' : [('state', '!=', 'draft')]}"/>
+							<field name="user_id"  domain="[('status', '=', 'inactive' )]" attrs="{'readonly' : [('state', '!=', 'draft')]}"/>
+							<field name="dispenser_ids"  domain="[('status', '=', 'inactive' )]" attrs="{'readonly' : [('state', '!=', 'draft')]}" >
+								<field name="name"/>
+							</field>
+							<field name="maintenance" attrs="{'readonly' : [('state', '=', 'finish')]}"/>
+						</group>
+						<notebook>
+							<page>
+								<field name="reading_init"  mode="tree" attrs="{'invisible' : [('state', 'not in', ['progress'])] }">
+									<tree editable="bottom">
+										<field name="description" readonly="1"/>
+										<field name="name"/>
+										<field name="level" readonly="1"/>
+										<field name="date"/>
+									</tree>
+								</field>
 
+								<field name="reading_end"  mode="tree" attrs="{'invisible' : [('state', 'not in', ['closed'])] }">
+									<tree editable="bottom">
+										<field name="description" readonly="1"/>
+										<field name="name"/>
+										<field name="levelt" readonly="0"/>
+										<field name="datef"/>
+										<field name="levelf" readonly="1"/>
+										<field name="price_list" sum="Total" />
+									</tree>
+								</field>
 
+								<field name="reading_finish" readonly="1" mode="tree" attrs="{'invisible' : [('state', 'not in', ['finish'])] }">
+									<tree editable="bottom">
+										<field name="description" readonly="1"/>
+										<field name="name"/>
+										<field name="level" readonly="0"/>
+										<field name="levelt" readonly="0"/>
+										<field name="levelf" readonly="0"/>
+										<field name="price_list" sum="Total" readonly="1" />
+									</tree>
+								</field>
 
-        <record id="gasoline_turn_tree_view" model="ir.ui.view">
-            <field name="name">gasoline.turn.tree</field>
-            <field name="model">gasoline.turn</field>
-            <field name="arch" type="xml">
-<tree>
-<field name="name"/>
-<field name="date"/>
-<field name= "state" />
-</tree>
-            </field>
-        </record>
-        <record id="gasoline_turn_form_view" model="ir.ui.view">
-            <field name="name">gasoline.turn.form</field>
-            <field name="model">gasoline.turn</field>
-            <field name="arch" type="xml">
-		 <form string="turn" >
-<header>
-<button name="action_new" type="object" string="Crear Factura" class="oe_highlight"  attrs="{'invisible' : [('state', 'not in', ['progress','closed',])] }"/>
-<button name="action_view" type="object" string="Ver Factura" class="oe_highlight"  attrs="{'invisible' : [('state', 'not in', ['progress','closed','finish'])] }"/>
-<button name="action_confirm" type="object" string="Confirm"
-states="draft" class="oe_highlight" />
-<button name="action_done" type="object" string="Mark as done"
-states="progress" class="oe_highlight" />
-<button name="action_close" type="object" string="Finish Turn"
-states="closed" class="oe_highlight" />
-<field name="state" widget="statusbar" />
-</header>
-		<sheet>
+								<field name="journal_ids"  mode="tree" 
+									   attrs="{'invisible' : [('state', 'not in', ['closed','finish'])], 'readonly': [('state', 'in', ['finish'])]}">
+									<tree editable="bottom"   >
+										<field name="journal_id" readonly="1" attrs="{'invisible' : [('money', '=', 0.0)]}"/>
+										<field name="money" sum="Total" attrs="{'invisible' : [('money', '=', 0.0)]}"/>
+									</tree>
+								</field>
+								<field name="order_ids" readonly="1" mode="tree" >
+									<tree editable="bottom">
+										<field name="name"/>
+										<field name="pos_reference"/>
+										<field name="partner_id"/>
+										<field name="date_order"/>
+										<field name="invoice_id"/>
+										<field name="amount_total" sum="Amount total"/>
+									</tree>
+								</field>
+							</page>
+						</notebook>
+						<group string="Totales">
+							<field name="sold" attrs="{'invisible' : [('state', 'not in', ['closed','finish'])] }"/>
+							<field name="other" attrs="{'invisible' : [('state', 'not in', ['closed','finish'])] }"/>
+							<field name="invoiced" attrs="{'invisible' : [('state', 'not in', ['closed','finish'])] }"/>
+							<field name="paid" attrs="{'invisible' : [('state', 'not in', ['closed','finish'])] }"/>
+							<field name="pdifference" attrs="{'invisible' : [('state', 'not in', ['closed','finish'])] }"/>
+							<field name="difference" attrs="{'invisible' : [('state', 'not in', ['closed','finish'])] }"/>
+						</group>
+						<notebook>
+							<page string="Notes">
+								<field name="note"/>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
 
-		<group>
-<field name="type" attrs="{'readonly' : [('state', '!=', 'draft')]}"/>
-<field name="date" attrs="{'readonly' : [('state', '!=', 'draft')]}"/>
-<field name="user_id"  domain="[('status', '=', 'inactive' )]" attrs="{'readonly' : [('state', '!=', 'draft')]}"/>
-<field name="dispenser_ids"  domain="[('status', '=', 'inactive' )]" attrs="{'readonly' : [('state', '!=', 'draft')]}" >
-<field name="name"/>
-</field>
-<field name="maintenance" attrs="{'readonly' : [('state', '=', 'finish')]}"/>
-		</group>
-<notebook>
-<page>
-<field name="reading_init"  mode="tree" attrs="{'invisible' : [('state', 'not in', ['progress'])] }">
-<tree editable="bottom">
-<field name="description" readonly="1"/>
-<field name="name"/>
-<field name="level" readonly="1"/>
-<field name="date"/>
-</tree>
-</field>
+		<record id="view_gasoline_turn_search" model="ir.ui.view">
+			<field name="name">gasoline.turn.search</field>
+			<field name="model">gasoline.turn</field>
+			<field name="arch" type="xml">
+				<search string="Search turn">
+					<filter string="Progress" domain="[('state','=','progress')]" icon="terp-camera_test"/>
+					<filter string="Finish" domain="[('state','=','finish')]" icon="terp-dialog-close"/>
+					<filter string="Maintenance" domain="[('maintenance','=',True)]" icon="terp-dialog-close"/>
+					<field name="state"/>
+					<group expand="0" string="Group By">
+						<filter string="Status" context="{'group_by': 'state'}" icon="terp-stock_effects-object-colorize"/>
+						<filter string="Turn" context="{'group_by': 'type'}" icon="terp-stock_effects-object-colorize"/>
+					</group>
+				</search>
+			</field>
+		</record>
 
-<field name="reading_end"  mode="tree" attrs="{'invisible' : [('state', 'not in', ['closed'])] }">
-<tree editable="bottom">
-<field name="description" readonly="1"/>
-<field name="name"/>
-<field name="levelt" readonly="0"/>
-<field name="datef"/>
-<field name="levelf" readonly="1"/>
-<field name="price_list" sum="Total" />
-</tree>
-</field>
-
-<field name="reading_finish" readonly="1" mode="tree" attrs="{'invisible' : [('state', 'not in', ['finish'])] }">
-<tree editable="bottom">
-<field name="description" readonly="1"/>
-<field name="name"/>
-<field name="level" readonly="0"/>
-<field name="levelt" readonly="0"/>
-<field name="levelf" readonly="0"/>
-<field name="price_list" sum="Total" readonly="1" />
-</tree>
-</field>
-
-<field name="journal_ids"  mode="tree" attrs="{'invisible' : [('state', 'not in', ['closed','finish'])], 'readonly': [('state', 'in', ['finish'])]}">
-<tree editable="bottom"   >
-<field name="journal_id" readonly="1" attrs="{'invisible' : [('money', '=', 0.0)]}"/>
-<field name="money" sum="Total" attrs="{'invisible' : [('money', '=', 0.0)]}"/>
-</tree>
-</field>
-<field name="order_ids" readonly="1" mode="tree" >
-<tree editable="bottom">
-                    <field name="name"/>
-                    <field name="pos_reference"/>
-                    <field name="partner_id"/>
-                    <field name="date_order"/>
-                    <field name="invoice_id"/>
-                    <field name="amount_total" sum="Amount total"/>
-</tree>
-</field>
-</page>
-</notebook>
-<group string="Totales">
-<field name="sold" attrs="{'invisible' : [('state', 'not in', ['closed','finish'])] }"/>
-<field name="other" attrs="{'invisible' : [('state', 'not in', ['closed','finish'])] }"/>
-<field name="invoiced" attrs="{'invisible' : [('state', 'not in', ['closed','finish'])] }"/>
-<field name="paid" attrs="{'invisible' : [('state', 'not in', ['closed','finish'])] }"/>
-
-<field name="pdifference" attrs="{'invisible' : [('state', 'not in', ['closed','finish'])] }"/>
-<field name="difference" attrs="{'invisible' : [('state', 'not in', ['closed','finish'])] }"/>
-</group>
-<notebook>
-<page string="Notes">
-<field name="note"/>
-</page>
-</notebook>
-</sheet>
-</form>
-            </field>
-        </record>
-
-        <record id="view_gasoline_turn_search" model="ir.ui.view">
-            <field name="name">gasoline.turn.search</field>
-            <field name="model">gasoline.turn</field>
-            <field name="arch" type="xml">
-                <search string="Search turn">
-                    <filter string="Progress" domain="[('state','=','progress')]" icon="terp-camera_test"/>
-                    <filter string="Finish" domain="[('state','=','finish')]" icon="terp-dialog-close"/>
-			<filter string="Maintenance" domain="[('maintenance','=',True)]" icon="terp-dialog-close"/>
-                    <field name="state"/>
-                    <group expand="0" string="Group By">
-                        <filter string="Status" context="{'group_by': 'state'}" icon="terp-stock_effects-object-colorize"/>
-                        <filter string="Turn" context="{'group_by': 'type'}" icon="terp-stock_effects-object-colorize"/>
-                    </group>
-                </search>
-            </field>
-        </record>
-
-<menuitem action="gasoline_action_form_turn" parent="dispenser_menu"  id="turn_edit"/>
+		<menuitem action="gasoline_action_form_turn" parent="dispenser_menu"  id="turn_edit"/>
 		
-<record id="gasoline_action_form_user" model="ir.actions.act_window">
+		<record id="gasoline_action_form_user" model="ir.actions.act_window">
 				<field name="name">user</field>
 				<field name="res_model">gasoline.user</field>
 				<field name="view_type">form</field>
@@ -342,30 +324,30 @@ states="closed" class="oe_highlight" />
 				  </p>
 				</field>
 		</record>
-<menuitem action="gasoline_action_form_user" parent="dispenser_menu"  id="user_edit"/>
+		<menuitem action="gasoline_action_form_user" parent="dispenser_menu"  id="user_edit"/>
 
 
-        <record id="gasoline_user_form_view" model="ir.ui.view">
-            <field name="name">gasoline.user.form</field>
-            <field name="model">gasoline.user</field>
-            <field name="arch" type="xml">
-		 <form string="Side-Product">
+		<record id="gasoline_user_form_view" model="ir.ui.view">
+			<field name="name">gasoline.user.form</field>
+			<field name="model">gasoline.user</field>
+			<field name="arch" type="xml">
+				<form string="Side-Product">
+					<header>
+						<field name="status" widget="statusbar" />
+					</header>
+					<sheet>
+						<group>
+							<field name="name"/>
+							<field name="employee_id" domain="['|','&amp;',('assigned','=',False),('is_dispenser', '=',True),('id','=',employee_id)]"  	
+								   on_change="onchange_employee(employee_id)" widget="selection"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
 
-<header>
-<field name="status" widget="statusbar" />
-</header>
-		<sheet>
-		<group>
-<field name="name"/>
-<field name="employee_id" domain="['|','&amp;',('assigned','=',False),('is_dispenser', '=',True),('id','=',employee_id)]" on_change="onchange_employee(employee_id)" widget="selection"/>
-</group>
-</sheet>
-</form>
-            </field>
-        </record>
 
-
-<record id="gasoline_action_form_product" model="ir.actions.act_window">
+		<record id="gasoline_action_form_product" model="ir.actions.act_window">
 				<field name="name">Product</field>
 				<field name="res_model">gasoline.product</field>
 				<field name="view_type">form</field>
@@ -382,13 +364,11 @@ states="closed" class="oe_highlight" />
 				  </p>
 				</field>
 		</record>
-<menuitem action="gasoline_action_form_product" parent="dispenser_menu"  id="product_edit"/>
 
+		<menuitem action="gasoline_action_form_product" parent="dispenser_menu"  id="product_edit"/>
+		<menuitem action="gasoline_action_form_user" parent="dispenser_menu"  id="user_edit"/>
 
-
-<menuitem action="gasoline_action_form_user" parent="dispenser_menu"  id="user_edit"/>
-
-<record id="gasoline_action_form_reading2" model="ir.actions.act_window">
+		<record id="gasoline_action_form_reading2" model="ir.actions.act_window">
 				<field name="name">reading</field>
 				<field name="res_model">gasoline.reading2</field>
 				<field name="view_type">form</field>
@@ -405,166 +385,70 @@ states="closed" class="oe_highlight" />
 				  </p>
 				</field>
 		</record>
-<menuitem action="gasoline_action_form_reading2" parent="dispenser_menu"  id="reading2_edit"/>
 
-        <record id="gasoline_reading2_form_view" model="ir.ui.view">
-            <field name="name">gasoline.reading2.form</field>
-            <field name="model">gasoline.reading2</field>
-            <field name="arch" type="xml">
-		 <form string="Reading Product">
+		<menuitem action="gasoline_action_form_reading2" parent="dispenser_menu"  id="reading2_edit"/>
 
-		<sheet>
-		<group>
-
-<field name="product_id2"/>
-<field name="date"/>
-<field name="level" readonly="0"/>
-<field name="description"/>
-
-</group>
-
-		
-</sheet>
-</form>
-            </field>
-        </record>
-        <record id="gasoline_reading2_tree_view" model="ir.ui.view">
-            <field name="name">gasoline.reading2.tree</field>
-            <field name="model">gasoline.reading2</field>
-            <field name="arch" type="xml">
-		 <tree string="Reading Product">
-
-
-<field name="product_id2"/>
-<field name="date"/>
-<field name="description"/>
-<field name="level" readonly="0"/>
-
-
-
-</tree>
-            </field>
-        </record>
-
-<!--
-
-<record id="gasoline_action_form_reading" model="ir.actions.act_window">
-				<field name="name">reading</field>
-				<field name="res_model">gasoline.reading</field>
-				<field name="view_type">form</field>
-				<field name="view_mode">tree,form</field>
-				<field name="domain">[]</field>
-				<field name="context">{}</field>
-				<field name="view_id" eval="False"/>            
-				<field name="help" type="html">
-				  <p class="oe_view_nocontent_create">
-					Click to add a new reading.
-				  </p><p>
-					With just a quick glance on the OpenERP reading screen, you
-					can easily find all the information about your each user;					
-				  </p>
-				</field>
-		</record>
-<menuitem action="gasoline_action_form_reading" parent="dispenser_menu"  id="reading_edit"/>
--->
-
-
-        <record id="view_employee_form" model="ir.ui.view">
-            <field name="name">hr.employee.form.inherit</field>
-            <field name="model">hr.employee</field>
-            <field name="inherit_id" ref="hr.view_employee_form"/>
-            <field name="arch" type="xml">
-  
-                       <field name="department_id" position="after">
-                            <field name="is_dispenser" />
-                           </field>
-                      
-         
-            </field>
-        </record>
-
-
-
-        <record id="product_template_form_view" model="ir.ui.view">
-            <field name="name">product.template.form.inherit2</field>
-            <field name="model">product.template</field>
-            <field name="inherit_id" ref="product.product_template_form_view"/>
-            <field name="arch" type="xml">
-		<field name="sale_ok" position="before">
-
-		<field name ="is_gasoline"/>
-		<label for="is_gasoline"/>
-		</field>
-		<notebook position="inside">
-                <page string="Gasoline" attrs="{'invisible':[('is_gasoline','=',False)]}">
-		<group>
-		<field name="level" />
-		<field name="levelt" />
-		</group>
-		</page>
-		</notebook>
-            </field>
-    
-
-
-    </record>
-
-
-
-<!--
-        <record id="pos_order_gasoline_tree_view" model="ir.ui.view">
-            <field name="name">pos.order.tree.gasoline</field>
-            <field name="model">pos.order</field>
-       
-            <field name="arch" type="xml">
-<tree string="POS Orders" colors="blue:state == 'draft';gray:state in ('done','cancel');black:state not in('done','cancel')">
-                    <field name="name"/>
-                    <field name="pos_reference"/>
-                    <field name="partner_id"/>
-                    <field name="date_order"/>
-                    <field name="user_id"/>
-                    <field name="invoice_id"/>
-                    <field name="amount_total" sum="Amount total"/>
-                    <field name="company_id" groups="base.group_multi_company"/>
-                    <field name="state"/>
-                    <field name="session_id"/>
-                </tree>
-</field>
-
-    </record>
-
-
-
-<record id="gasoline_action_form_order" model="ir.actions.act_window">
-				<field name="name">order</field>
-				<field name="res_model">pos.order</field>
-				<field name="view_type">form</field>
-				<field name="view_mode">tree</field>
-				<field name="domain">[]</field>
-				<field name="context">{}</field>
-				<field name="view_id" eval="False"/>            
-				<field name="help" type="html">
-				  <p class="oe_view_nocontent_create">
-					Click to add a new reading.
-				  </p><p>
-					With just a quick glance on the OpenERP reading screen, you
-					can easily find all the information about your each user;					
-				  </p>
-				</field>
+		<record id="gasoline_reading2_form_view" model="ir.ui.view">
+			<field name="name">gasoline.reading2.form</field>
+			<field name="model">gasoline.reading2</field>
+			<field name="arch" type="xml">
+				<form string="Reading Product">
+					<sheet>
+						<group>
+							<field name="product_id2"/>
+							<field name="date"/>
+							<field name="level" readonly="0"/>
+							<field name="description"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
 		</record>
 
-<menuitem action="gasoline_action_form_order" parent="dispenser_menu"  id="order_edit"/>
+		<record id="gasoline_reading2_tree_view" model="ir.ui.view">
+			<field name="name">gasoline.reading2.tree</field>
+			<field name="model">gasoline.reading2</field>
+			<field name="arch" type="xml">
+				<tree string="Reading Product">
+					<field name="product_id2"/>
+					<field name="date"/>
+					<field name="description"/>
+					<field name="level" readonly="0"/>
+				</tree>
+			</field>
+		</record>
 
--->
+		<record id="view_employee_form" model="ir.ui.view">
+			<field name="name">hr.employee.form.inherit</field>
+			<field name="model">hr.employee</field>
+			<field name="inherit_id" ref="hr.view_employee_form"/>
+			<field name="arch" type="xml">
+				<field name="department_id" position="after">
+					<field name="is_dispenser" />
+				</field>
+			</field>
+		</record>
 
-<!--
+		<record id="product_template_form_view" model="ir.ui.view">
+			<field name="name">product.template.form.inherit2</field>
+			<field name="model">product.template</field>
+			<field name="inherit_id" ref="product.product_template_form_view"/>
+			<field name="arch" type="xml">
+				<field name="sale_ok" position="before">
+					<field name ="is_gasoline"/>
+					<label for="is_gasoline"/>
+				</field>
+				<notebook position="inside">
+					<page string="Gasoline" attrs="{'invisible':[('is_gasoline','=',False)]}">
+						<group>
+							<field name="level" />
+							<field name="levelt" />
+						</group>
+					</page>
+				</notebook>
+			</field>
+		</record>
 
-            <xpath
-                expr="//field[@name='lines']/form/field[@name='product_id']"
-                position="after">
-                <field name="id"/>
-            </xpath>
--->
 		<record id="product_action_form_template" model="ir.actions.act_window">
 				<field name="name">Order</field>
 				<field name="res_model">pos.order</field>
@@ -584,150 +468,136 @@ states="closed" class="oe_highlight" />
 				</field>
 		</record>
 
-<menuitem action="product_action_form_template" parent="dispenser_menu"  id="product_edit2" string="Facturas"/>
+		<menuitem action="product_action_form_template" parent="dispenser_menu"  id="product_edit2" string="Facturas"/>
 
-<record model="ir.ui.view" id="view_pos_pos_form1">
-    <field name="name">pos.order.form.inherit1</field>
-    <field name="model">pos.order</field>
-    <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
-    <field name="arch" type="xml">
-<button name="action_invoice" position="replace">
-<button name="action_invoice" string="Factura Credito" type="object"  attrs="{'readonly': [('partner_id','=',False)]}" states="draft"/>
 
-</button>
-
-<button name="385" position="replace">
-<button name="print_invoice" string="Imprimir Factura" type="object"/>
-<field name="is_invoice" invisible="1"/>
- <button name="385" string="Payment" class="oe_highlight" type="action" attrs="{'invisible' : ['|',('is_invoice', 'not in', [False]),('state','not in',['draft'])] }"  context="{'pos_session_id' : session_id}"/>
-</button>
-<field name="lines">
-
-<field name="id"/>
-</field>
-
-        <field name="product_id" position="replace">
-            <field name="product_id" domain="[('is_gasoline','=',True)]" on_change="onchange_product_id(parent.pricelist_id,product_id,qty,parent.partner_id)" />
-	    <field name="price2" invisible="1"/>
-        </field>
-
-<field name="session_id" position="replace">
-<field name="session_id" required="1" domain="[('config_id.combustible','=',True),('state','=','opened')]" widget="selection"/>
-<field name="nreference" />
-<field name="type_id2" />
-    </field>
-
-<field name="amount_total" position="after">
-<field name="difference"/>
-</field>
-
-		<notebook position="inside">
-                <page string="Vehicle" attrs="{'invisible':[('partner_id','=',False)]}">
-		<group>
-		<field name="vehicle_id" on_change="onchange_vehicle_id(vehicle_id)" domain="[('partner_id','=',partner_id)]"/>
-		<field name="odometer" />
-		</group>
-		</page>
-		</notebook>
-<field name="name" position="replace">
-<field name="name" string="invoice"/>
-</field>
-
-    </field>
-</record>
+		<record model="ir.ui.view" id="view_pos_pos_form1">
+			<field name="name">pos.order.form.inherit1</field>
+			<field name="model">pos.order</field>
+			<field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+			<field name="arch" type="xml">
+				<button name="action_invoice" position="replace">
+					<button name="action_invoice" string="Factura Credito" type="object"  attrs="{'readonly': [('partner_id','=',False)]}" states="draft"/>
+				</button>
+				<button name="385" position="replace">
+					<button name="print_invoice" string="Imprimir Factura" type="object"/>
+					<field name="is_invoice" invisible="1"/>
+					<button name="385" string="Payment" class="oe_highlight" type="action" 
+							attrs="{'invisible' : ['|',('is_invoice', 'not in', [False]),('state','not in',['draft'])] }"  context="{'pos_session_id' : session_id}"/>
+				</button>
+				<field name="lines">
+					<field name="id"/>
+				</field>
+				<field name="product_id" position="replace">
+					<field name="product_id" domain="[('is_gasoline','=',True)]" on_change="onchange_product_id(parent.pricelist_id,product_id,qty,parent.partner_id)" />
+					<field name="price2" invisible="1"/>
+				</field>
+				<field name="session_id" position="replace">
+					<field name="session_id" required="1" domain="[('config_id.combustible','=',True),('state','=','opened')]" widget="selection"/>
+					<field name="nreference" />
+					<field name="type_id2" />
+				</field>
+				<field name="amount_total" position="after">
+					<field name="difference"/>
+				</field>
+				<notebook position="inside">
+					<page string="Vehicle" attrs="{'invisible':[('partner_id','=',False)]}">
+						<group>
+							<field name="vehicle_id" on_change="onchange_vehicle_id(vehicle_id)" domain="[('partner_id','=',partner_id)]"/>
+							<field name="odometer" />
+						</group>
+					</page>
+				</notebook>
+				<field name="name" position="replace">
+					<field name="name" string="invoice"/>
+				</field>
+			</field>
+		</record>
 
 
 
-<record model="ir.ui.view" id="view_pos_account_journal_form1">
-    <field name="name">account.journal.form.inherit1</field>
-    <field name="model">account.journal</field>
-    <field name="inherit_id" ref="account.view_account_journal_form"/>
-    <field name="arch" type="xml">
-<field name="centralisation" position="after">
-<field name="combustible" />
-</field>
-    </field>
-</record>
+		<record model="ir.ui.view" id="view_pos_account_journal_form1">
+			<field name="name">account.journal.form.inherit1</field>
+			<field name="model">account.journal</field>
+			<field name="inherit_id" ref="account.view_account_journal_form"/>
+			<field name="arch" type="xml">
+				<field name="centralisation" position="after">
+					<field name="combustible" />
+				</field>
+			</field>
+		</record>
 
-<record model="ir.ui.view" id="view_pos_make_payment_form1">
-    <field name="name">pos.make.payment.form.inherit1</field>
-    <field name="model">pos.make.payment</field>
-    <field name="inherit_id" ref="point_of_sale.view_pos_payment"/>
-    <field name="arch" type="xml">
-<field name="journal_id" position="replace">
-<field name="journal_id" domain="[('combustible','=',True)]" widget="selection" />
-</field>
-    </field>
-</record>
+		<record model="ir.ui.view" id="view_pos_make_payment_form1">
+		<field name="name">pos.make.payment.form.inherit1</field>
+			<field name="model">pos.make.payment</field>
+			<field name="inherit_id" ref="point_of_sale.view_pos_payment"/>
+			<field name="arch" type="xml">
+				<field name="journal_id" position="replace">
+					<field name="journal_id" domain="[('combustible','=',True)]" widget="selection" />
+				</field>
+			</field>
+		</record>
 
-<record model="ir.ui.view" id="view_pos_config_form1">
-    <field name="name">pos.config.form.inherit1</field>
-    <field name="model">pos.config</field>
-    <field name="inherit_id" ref="point_of_sale.view_pos_config_form"/>
-    <field name="arch" type="xml">
-<field name="iface_big_scrollbars" position="after">
-<field name="combustible" />
-</field>
-    </field>
-</record>
+		<record model="ir.ui.view" id="view_pos_config_form1">
+			<field name="name">pos.config.form.inherit1</field>
+			<field name="model">pos.config</field>
+			<field name="inherit_id" ref="point_of_sale.view_pos_config_form"/>
+			<field name="arch" type="xml">
+				<field name="iface_big_scrollbars" position="after">
+					<field name="combustible" />
+				</field>
+			</field>
+		</record>
 
-<record model="ir.ui.view" id="view_fleet_vehicle_form_inherit">
-    <field name="name">fleet.vehicle.form.inherit1</field>
-    <field name="model">fleet.vehicle</field>
-    <field name="inherit_id" ref="fleet.fleet_vehicle_form"/>
-    <field name="arch" type="xml">
-<field name="location" position="after">
-<field name="partner_id" />
-</field>
-</field>
-</record>
+		<record model="ir.ui.view" id="view_fleet_vehicle_form_inherit">
+			<field name="name">fleet.vehicle.form.inherit1</field>
+			<field name="model">fleet.vehicle</field>
+			<field name="inherit_id" ref="fleet.fleet_vehicle_form"/>
+			<field name="arch" type="xml">
+				<field name="location" position="after">
+					<field name="partner_id" />
+				</field>
+			</field>
+		</record>
 
-<record model="ir.ui.view" id="view_account_invoice_form_inherit">
-    <field name="name">account.invoice.form.inherit1</field>
-    <field name="model">account.invoice</field>
-    <field name="inherit_id" ref="account.invoice_form"/>
-    <field name="arch" type="xml">
+		<record model="ir.ui.view" id="view_account_invoice_form_inherit">
+			<field name="name">account.invoice.form.inherit1</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_form"/>
+			<field name="arch" type="xml">
+				<field name="origin" position="replace">
+				</field>
+				<field name="number" position="replace">
+					<field name="origin"/>
+				</field>
+			</field>
+		</record>
 
-<field name="origin" position="replace">
-</field>
+		<record model="ir.ui.view" id="view_account_invoice_tree_inherit">
+			<field name="name">account.invoice.tree.inherit1</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_tree"/>
+			<field name="arch" type="xml">
+				<field name="number" position="replace">
+				<field name="origin" string="Factura"/>
+				</field>
+			</field>
+		</record>
 
-<field name="number" position="replace">
-<field name="origin"/>
-</field>
-
-</field>
-</record>
-
-<record model="ir.ui.view" id="view_account_invoice_tree_inherit">
-    <field name="name">account.invoice.tree.inherit1</field>
-    <field name="model">account.invoice</field>
-    <field name="inherit_id" ref="account.invoice_tree"/>
-    <field name="arch" type="xml">
-<field name="number" position="replace">
-<field name="origin" string="Factura"/>
-</field>
-
-</field>
-</record>
-
-<record model="ir.ui.view" id="view_pos_order_tree_inherit">
-    <field name="name">pos.order.tree.inherit</field>
-    <field name="model">pos.order</field>
-    <field name="inherit_id" ref="point_of_sale.view_pos_order_tree"/>
-    <field name="arch" type="xml">
-<field name="name" position="replace">
-<field name="name" string="Invoice"/>
-</field>
-
-<field name="invoice_id" position="replace">
-<field name="invoice_id" invisible="1"/>
-<field name="type_id2"/>
-</field>
-
-
-
-</field>
-</record>
+		<record model="ir.ui.view" id="view_pos_order_tree_inherit">
+			<field name="name">pos.order.tree.inherit</field>
+			<field name="model">pos.order</field>
+			<field name="inherit_id" ref="point_of_sale.view_pos_order_tree"/>
+			<field name="arch" type="xml">
+				<field name="name" position="replace">
+					<field name="name" string="Invoice"/>
+				</field>
+				<field name="invoice_id" position="replace">
+					<field name="invoice_id" invisible="1"/>
+					<field name="type_id2"/>
+				</field>
+			</field>
+		</record>
 
     </data>
 </openerp>

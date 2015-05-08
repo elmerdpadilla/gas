@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Es necesario definir este archivo-->
+<templates xml:space="preserve">
+    <!-- t-name: definimos el nombre del template(HomePageTemplate) que sera llamado en tienda_mascota/static/js/tienda_mascota.js-->
+    <t t-name="HomePageTemplate"> 
+        <div style="background-color: red;">101000000101111010010110111000101010001</div>
+        <div>
+<canvas id="myCanvas" width="200" height="100"
+style="border:1px solid #000000;">
+</canvas>
+<br/>
+    <input id="name" type="text" t-att-value="name"/>
+<br/>
+	<input id="pass" type="password" t-att-value="pass"/>
+	<br/>
+   <button name="dosomething" type="object" id="bstart">start</button>
+    </div>
+    </t>
+</templates>

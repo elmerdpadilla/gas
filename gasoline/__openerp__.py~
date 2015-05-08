@@ -14,6 +14,7 @@
 			'views/report_invoice.xml',
 			'wizard/print_report_wizard_view.xml',
 			'reports/report_closing_total.xml',
+			'views/account_account_view.xml'
 
 	],
 	'update_xml' : [

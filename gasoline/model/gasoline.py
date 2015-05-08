@@ -57,6 +57,8 @@ class side_product(osv.Model):
 
 class turn(osv.Model):
 	_name = 'gasoline.turn'
+	def print_turn(self, cr, uid, ids, context=None):
+		return self.pool['report'].get_action(cr, uid, ids, 'gasoline.report_closing_total', context=context)
 	def unlink(self, cr, uid, ids, context=None):
         	for rec in self.browse(cr, uid, ids, context=context):
             		if rec.state not in ('draft','cancel'):
@@ -679,6 +681,7 @@ class pos_order(osv.osv):
 			if order.invoice_id:
 				return self.pool['report'].get_action(cr, uid, order.invoice_id.id, 'gasoline.report_invoice', context=context)
 		return self.pool['report'].get_action(cr, uid, ids, 'point_of_sale.report_receipt', context=context)
+
 	def onchange_vehicle_id(self, cr, uid, ids, vehicle_id,  context=None):
 		context = context or {}
 		result={}
