@@ -86,6 +86,7 @@ class account_account(osv.osv):
 			for id in ids:
 				res[id] = null_result
 		return res
+
 	_columns = {
 		'balance_currency': fields.function(_compute2, digits_compute=dp.get_precision('Account'), string='Balance', multi='balance_currency'),
 		'credit_currency': fields.function(_compute2, digits_compute=dp.get_precision('Account'), string='Credit', multi='balance_currency'),

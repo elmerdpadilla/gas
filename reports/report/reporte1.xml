@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+<openerp>
+	<data>
+
+
+
+		<template id="report_print">
+			<t t-call="report.html_container">
+
+				<t t-foreach="docs" t-as="o">
+    <t t-if="o and 'company_id' in o">
+        <t t-set="company" t-value="o.company_id"></t>
+    </t>
+    <t t-if="o and 'user_id' in o">
+        <t t-set="user" t-value="o.user_id"></t>
+
+    </t>
+    <t t-if="not o or not 'company_id' in o">
+        <t t-set="company" t-value="res_company"></t>
+    </t>
+<div class="footer">
+
+        <div class="text-center" style="border-top: 1px solid black;">
+                <ul class="list-inline">
+                <li>Page:</li>
+                <li><span class="page"/></li>
+                <li>/</li>
+                <li><span class="topage"/></li>
+            </ul>
+        </div>
+  
+<style>
+div.box {
+     text-align: center;
+}
+</style>
+<div class="box">
+<span t-field="company.rml_header1" />
+</div>
+</div>
+
+<div class="header">
+<style>
+table.box {
+    width: 100%;
+    border: 1px solid black;
+     text-align: center;
+}
+table.box td{
+    width: 100%;
+     text-align: center;
+   padding-top: 1px;
+    padding-right: 1px;
+    padding-bottom: 1px;
+    padding-left: 1px;
+}
+
+</style>
+
+<table class="box">
+<tbody>
+
+<tr>
+<td colspan="3">
+<h3>
+<span t-field="company.name"/> <span t-field="user.store_id.name"/>
+</h3>
+</td>
+<td rowspan="4" style="width:30%" >
+              <div class="row">
+            <div class="col-xs-3">
+                <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="height: 80px;"/>
+            </div>
+        </div>
+<t  t-if="user.store_id.phone1">
+Tel.<span t-field="user.store_id.phone1"/>
+</t>
+<t  t-if="user.store_id.phone2">
+Tel.<span t-field="user.store_id.phone2"/>
+</t>
+<t  t-if="user.store_id.fax">
+Fax.<span t-field="user.store_id.fax"/>
+</t>
+
+</td>
+</tr>
+
+<tr >
+<td colspan="3">
+
+
+<t  t-if="user.store_id.address">
+<span t-field="user.store_id.address"/>
+</t>
+    <t t-if="company.company_registry">
+    RTN: <span t-field="company.company_registry"/>  
+    </t>
+
+</td>
+</tr>
+<tr >
+<td colspan="3">
+<span t-field="user.store_id.email"/> <span t-field="company.website"/>
+</td>
+</tr>
+<tr >
+<td colspan="1" style="width:20%" >
+<h4>
+<span t-field="o.leyenda"/> 
+</h4>
+</td>
+<td colspan="2">
+No.<span t-field="o.name"/> 
+</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+
+<div class="page">
+
+<style  type="text/css">
+table.box {
+    width: 100%;
+    border: 1px solid black;
+     text-align: center;
+    padding-top: 25px;
+    padding-right: 50px;
+    padding-bottom: 25px;
+    padding-left: 50px;
+    margin-top:1px;
+    margin-bottom:10px;
+}
+table.bvx {
+    width: 100%;
+    border: 1px solid black;
+   padding-top: 25px;
+    padding-right: 25px;
+    padding-bottom: 25px;
+    padding-left: 25px;
+    margin-top:1px;
+    margin-bottom:10px;
+    font-size: 18px;
+}
+table.bvx td{
+
+   padding-top: 2px;
+    padding-right: 2px;
+    padding-bottom: 2px;
+    padding-left: 2px;
+
+}
+table.box td{
+    width: 10%;
+	     text-align: left;
+}
+table.shadow {
+	background-color: #F2F2F2;
+	width: 100%;
+	border: 1px solid black;
+	text-align: left;
+	padding: 80px;
+    margin-top:1px;
+    margin-bottom:0px;
+}
+table.shadow td{
+	text-align: left;
+   padding-top: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+}
+table.ba{
+
+	width: 100%;
+    margin-top:0px;
+    margin-bottom:1px;
+}
+table.ba tr.qt {
+
+	width: 100%;
+  border-color: #B2B2B2;
+ border-bottom-width: 1px;
+  border-style: solid;
+	text-align: left;
+    padding-top: 1px;
+    padding-right: 80px;
+    padding-bottom: 1px;
+    padding-left: 80px;
+}
+
+td.right{
+	     text-align: right;
+    padding-top: 1px;
+    padding-right: 10px;
+    padding-bottom: 1px;
+    padding-left: 10px;
+}
+td.left{
+	     text-align: left;
+    padding-top: 1px;
+    padding-right: 10px;
+    padding-bottom: 1px;
+    padding-left: 10px;
+}
+td.center{
+	     text-align: center;
+    padding-top: 1px;
+    padding-right: 10px;
+    padding-bottom: 1px;
+    padding-left: 10px;
+}
+</style>
+
+
+<table class="box">
+<tbody>
+<tr>
+<td style="width:6%"> Cliente</td>
+<td style="width:10%"><span t-field="o.partner_id.sap_id"/></td>
+<td style="width:34%"  colspan="2"><span t-field="o.name_show"/> </td>
+<td style="width:26%" colspan="3"> </td>
+<td style="width:10%" >Fecha: </td>
+<td style="width:14%"><date t-field="o.date_orderd"/></td>
+</tr>
+<tr>
+<td style="width:6%"> </td>
+<td style="width:10%"></td>
+<td style="width:34%"  colspan="2"></td>
+<td style="width:26%" colspan="3"> </td>
+<td style="width:10%" >Vence: </td>
+<td style="width:14%"><span t-field="o.date_end"/></td>
+</tr>
+<tr>
+<td style="width:6%"> </td>
+<td  style="width:10%"></td>
+<td style="width:34%"   colspan="2"></td>
+<td  colspan="2"> </td>
+<td>Cotizado Por:</td>
+<td colspan="2"><span t-field="o.user_id.name"/></td>
+</tr>
+</tbody>
+</table>
+
+<table class="shadow">
+<tbody>
+<tr>
+<td style="width:4%">#</td>
+<td style="width:10%">CÓDIGO</td>
+<td style="width:36%">DESCRIPCIÓN</td>
+<td style="width:10%">CANTIDAD</td>
+<td style="width:7%">UNIDAD</td>
+<td style="width:13%">PRECIO</td>
+<td style="width:10%">CONDICION</td>
+<td style="width:10%">EXTENSION</td>
+</tr>
+</tbody>
+</table>
+
+<table class="ba">
+<tbody>
+
+<t t-foreach="o.order_line" t-as="a">
+<tr>
+<td style="width:4%"><span t-field="a.nm"/></td>
+<td style="width:10%"><span t-field="a.product_id.item_code"/></td>
+<td style="width:36%"><p><span t-field="a.name"/></p><span t-field="a.comment"/></td>
+<td style="width:10%"><span t-field="a.product_uom_qty"/></td>
+<td style="width:7%"><span t-field="a.product_uom"/></td>
+<td style="width:13%" class="right"><span t-field="a.price_unit"/></td>
+<td style="width:10%" class="center" ><span t-field="a.mtax"/></td>
+<td style="width:10%" class="right"><span t-field="a.tprice_subtotal"/></td>
+</tr>
+<tr class="qt">
+<td colspan="8"></td>
+</tr>
+</t>
+
+</tbody>
+</table>
+
+<table class="bvx">
+  <tr>
+    <td class="left" colspan="3" rowspan="4" style="width:60%"><span t-field="o.note"/></td>
+    <td class="right" style="width:25%">Sub Total:</td>
+    <td style="width:5%"></td>
+    <td class="right" style="width:10%"><span t-field="o.amount_untaxed"/></td>
+  </tr>
+    <t t-if="o.amount_discount>0">
+   <tr>
+    <td class="right">Descuento</td>
+    <td></td>
+  <td class="right"><span t-field="o.amount_discount"/></td>
+  </tr>
+    </t>
+ <t t-if="o.amount_discount==0">
+   <tr>
+    <td class="right"></td>
+    <td></td>
+  <td class="right"></td>
+  </tr>
+</t>
+  <tr>
+    <td class="right">Impuesto Sobre Ventas:</td>
+    <td></td>
+    <td class="right"><span t-field="o.amount_tax"/></td>
+  </tr>
+  <tr>
+    <td class="right">Total Neto:</td>
+    <td></td>
+    <td class="right"><span t-field="o.pricelist_id.currency_id.symbol"/><span t-field="o.amount_total"/></td>
+  </tr>
+</table>
+
+</div>
+
+					</t>
+				
+			</t>
+		</template>
+	</data>
+</openerp>

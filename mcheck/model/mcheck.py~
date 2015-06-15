@@ -445,7 +445,7 @@ class account_voucher(osv.osv):
 			if(mcheck.journal_id.currency):
 				a=self.to_word(mcheck.amount,mcheck.journal_id.currency.name)
 			else:
-				a=self.to_word(totald-totalc,'HNL')
+				a=self.to_word(mcheck.amount,'HNL')
 			print a
 			result[mcheck.id]=a
 		return result

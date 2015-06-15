@@ -1,0 +1,727 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+		<record id="sap_integration_action_form_log2" model="ir.actions.act_window">
+				<field name="name">Logs</field>
+				<field name="res_model">sap_integration.log</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">tree,form</field>
+				<field name="domain">[]</field>
+				<field name="context">{}</field>
+				<field name="view_id" eval="False"/>            
+				<field name="help" type="html">
+				  <p class="oe_view_nocontent_create">
+					Click to add a new Log.
+				  </p>
+				  <p>
+					With just a quick glance on the OpenERP log screen, you
+					can easily find all the information about your each day log;					
+				  </p>
+				</field>
+		</record>
+        <record id="sap_integration_log_tree_view" model="ir.ui.view">
+            <field name="name">sap.integration.log.tree</field>
+            <field name="model">sap_integration.log</field>
+            <field name="arch" type="xml">
+<tree>
+<field name="create_date"/>
+<field name="log"/>
+<field name= "description" />
+</tree>
+            </field>
+        </record>
+        <record id="sap_integration_log_form_view" model="ir.ui.view">
+            <field name="name">sap.integration.log.form</field>
+            <field name="model">sap_integration.log</field>
+            <field name="arch" type="xml">
+<form>
+<sheet>
+<group>
+<field name="log"/>
+<field name= "description" />
+</group>
+</sheet>
+</form>
+            </field>
+        </record>
+
+        <record id="sap_integration_product_pricelist_discount_form_view" model="ir.ui.view">
+            <field name="name">sap.integration.product.pricelist.discount.form</field>
+            <field name="model">product.pricelist.discount</field>
+            <field name="arch" type="xml">
+<form>
+<sheet>
+<group colspan="4">
+<field name= "pricelist_version_id" readonly="True" />
+</group>
+<group>
+<field name= "sequence" />
+<field name="amount"/>
+
+
+</group>
+<group >
+
+<field name= "discount" />
+</group>
+
+
+
+</sheet>
+</form>
+            </field>
+        </record>
+
+<record id="sap_integration_password_form_view" model="ir.ui.view">
+	<field name="name">sap.integration.password.form</field>
+	<field name="model">sap_integration.password</field>
+	<field name="arch" type="xml">
+		<form create="true">
+			<header>
+
+			</header>
+			<sheet>
+				<group colspan="2">
+					<group colspan="2"> 
+						<field name= "discount" />
+						<field name= "user" />
+						<field name="passw" password="True"/>
+					</group>
+					<group colspan="1">
+
+					<button name="create" string="Aceptar"/>
+				</group></group>
+			</sheet>
+		</form>
+	</field>
+</record>
+
+<record id="sap_integration_password_line_form_view" model="ir.ui.view">
+	<field name="name">sap.integration.password.line.form</field>
+	<field name="model">sap_integration.password_line</field>
+	<field name="arch" type="xml">
+		<form create="true">
+				<group colspan="4">
+					<group col="2"> 
+						<field name= "bdiscount" />
+						<field name= "discount" attrs="{'invisible':[('bdiscount','=',False)]}" />
+						<field name= "user" />
+						<field name="passw" password="True"  />
+						<button name="create" string="Aceptar"/>
+					</group>
+					<group col="2"> 
+						<field name= "bprice" />
+						<field name= "price" attrs="{'invisible':[('bprice','=',False)]}"/>
+					</group>
+				</group>
+		</form>
+	</field>
+</record>
+
+<menuitem id="setting_menu" name="Setting Sap" parent="base.menu_base_partner" />
+<menuitem action="sap_integration_action_form_log2" parent="setting_menu"  id="log_edit"/>
+
+<record model="ir.ui.view" id="view_sap_integration_partner_form">
+    <field name="name">sap.integration.res.partner.form</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form"/>
+    <field name="arch" type="xml">
+		<notebook position="inside">
+
+ <page string="SAP info">
+<sheet>
+		<group>
+		<field name="sap_id" />
+		<field name="discount" />
+		<field name="change_name"/>
+		</group>
+</sheet>
+</page>
+</notebook>
+    </field>
+</record>
+
+
+<record model="ir.ui.view" id="view_sap_integration_product_template_form">
+    <field name="name">sap.integration.product_template.only_form_view</field>
+    <field name="model">product.template</field>
+    <field name="inherit_id" ref="product.product_template_only_form_view"/>
+    <field name="arch" type="xml">
+
+
+<group name="status" position="before">
+<group>
+<field name="on_hand" />
+<field name="is_commited" />
+<field name="on_order" />
+</group>
+</group>
+
+
+
+
+ <field name="qty_available" invisible="1"/>
+
+  <field name="incoming_qty" invisible="1"/>
+<field name="virtual_available" invisible="1"/>
+
+
+
+     <group name="sale_condition" position="inside">
+                                        <label for="discount"/>
+                                        <div>
+                                            <field name="discount" class="oe_inline"/>
+                                        </div>
+                                    </group>
+		<notebook position="inside">
+ <page string="SAP info" colspan="4">
+		<group>
+		<field name="item_code" />
+		<field name="supplier_cat_num" />
+		<field name="property_product_maker" />
+		</group>
+</page>
+
+
+
+
+
+ <page string="Codebar List" colspan="4">
+		<group>
+		<field name="product_codebars_ids" >
+		<tree>
+		<field name="uom_id"/>
+		<field name="description"/>
+		<field name="bar_code"/>
+		</tree>
+		<form>
+		<sheet>
+		<group colspan="3">
+		<field name="uom_id"/>
+		<field name="description"/>
+		<field name="bar_code"/>
+		</group>
+		</sheet>
+		</form>
+		</field>
+		</group>
+</page>
+
+</notebook>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="view_sap_integration_product_pricelist_form">
+    <field name="name">sap.integration.product_pricelist.only_form_view</field>
+    <field name="model">product.pricelist</field>
+    <field name="inherit_id" ref="product.product_pricelist_view"/>
+<field name="limit">10</field>
+    <field name="arch" type="xml">
+<field name="currency_id" position="replace">
+<field name="currency_id" invisible="True" groups="base.group_multi_currency"/>
+</field>
+<field name="version_id" position="replace">
+<field name="version_id" >
+                        <tree string="Pricelist Version" limit="5">
+                            <field name="name"/>
+                            <field name="active"/>
+                            <field name="date_start"/>
+                            <field name="date_end" />
+                        </tree>
+</field>
+</field>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="view_sap_integration_product_pricelist_version_form">
+    <field name="name">product.pricelist.version.form</field>
+    <field name="model">product.pricelist.version</field>
+    <field name="inherit_id" ref="product.product_pricelist_version_form_view"/>
+    <field name="arch" type="xml">
+<field name="pricelist_id" position="after">
+<field name="price"/>
+<field name="currency_id"/>
+</field>
+<field name="items_id" position="replace">
+
+<field name="product_pricelist_discount_ids">
+<tree>
+<field name= "sequence" />
+<field name="amount"/>
+<field name= "discount" />
+</tree>
+</field>
+</field>
+    </field>
+</record>
+
+
+
+<record id="view_sap_integration_sale_order_search" model="ir.ui.view">
+           <field name="name">sap.integration.sale.order.search</field>
+           <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+           <field name="arch" type="xml">
+               <search string="Search Sales Order">
+            <!--<field name="partner_id" position="after">-->
+                           <field name="name_show" string="Customer name"/>
+            <!--</field>-->
+                   
+               </search>
+           </field>
+       </record>
+
+
+<record model="ir.ui.view" id="view_sap_integration_sale_order_tree">
+    <field name="name">sap.integration.sale.order.tree.inherit</field>
+       <field name="model">sale.order</field>
+       <field name="inherit_id" ref="sale.view_quotation_tree"/>
+       <field name="arch" type="xml">
+        <field name="partner_id" position="after">
+            <field name="name_show"/>
+        </field>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="view_sap_integration_res_partner_tree">
+    <field name="name">sap.integration.res.partner.tree.inherit</field>
+       <field name="model">res.partner</field>
+       <field name="inherit_id" ref="base.view_partner_tree"/>
+       <field name="arch" type="xml">
+        <field name="display_name" position="before">
+            <field name="sap_id"/>
+        </field>
+    </field>
+</record>
+<record id="view_sap_integration_res_partner_search" model="ir.ui.view">
+           <field name="name">sap.integration.res.partner.search</field>
+           <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+           <field name="arch" type="xml">
+
+            <!--<field name="partner_id" position="after">-->
+                           <field name="name" position="replace" >
+<field name="name" filter_domain="['|','|',('display_name','ilike',self),('ref','=',self),('sap_id','ilike',self)]"/>
+			</field>
+            <!--</field>-->
+
+           </field>
+       </record>
+
+
+
+
+<record model="ir.ui.view" id="view_sap_integration_sale_order_form">
+    <field name="name">sap.integration.sale.order.form.inherit</field>
+    <field name="model">sale.order</field>
+    <field name="inherit_id" ref="sale.view_order_form"/>
+    <field name="arch" type="xml">
+
+           <field name="amount_untaxed" position="after">
+<field name="amount_discount" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="1"/>
+</field>
+<field name="client_order_ref" position="replace"/>
+<field name="pricelist_id" position="replace"/>
+<field name="currency_id" position="replace"/>
+<field name="partner_id" position="after">
+<field name="name_show" attrs="{'invisible':[('is_visible','=',False)]}"/>
+<field name="codepartner" />
+<field name="is_visible" invisible="1"/>
+
+</field>
+
+<button name="print_quotation" position="replace">
+<button name="print_quotation" string="Print" type="object" states="draft" class="oe_read_only" groups="base.group_user"/>
+</button>
+
+<field name="project_id" position="after">
+<field name="client_order_ref"/>
+<field domain="[('type','=','sale')]" name="pricelist_id" groups="product.group_sale_pricelist" on_change="onchange_pricelist_id(pricelist_id,order_line)" />
+<field name="currency_id" invisible="1"/>
+</field>
+<field name="date_order" position="replace">
+<field name="date_order" widget="date"/>
+<field name="date_end" widget="date"/>
+
+<label for="disc" class="oe_edit_only oe_link"/>
+  <div name="disc">
+
+                                                <field action="action_view" name="disc" type="object" class="oe_inline" invisible="1"/>  <button name="action_view"  string="Update" type="object" class="oe_edit_only oe_link"/>
+                                            </div> 
+<!--
+<label for="disc2"/>
+<div name="disc2">
+<field  name="disc2" type="object" class="oe_inline" on_change="discount_sap_change(disc2,order_line, partner_id, context)"/>% <button name="action_view"  string="update" type="object" class="oe_edit_only oe_link"/>
+                                            </div>
+-->
+
+<label for="efective_discount"/>
+  <div name="efective_discount">
+                                                <field name="efective_discount" class="oe_inline" /> %
+                                            </div>
+</field>
+<field name="warehouse_id" position="replace">
+ <field name="warehouse_id" on_change="onchange_warehouse_id(warehouse_id)" options="{'no_create': True}" groups="stock.group_locations" invisible="1"/>
+
+</field>
+<field name="pricelist_id" position="replace">
+<field domain="[('type','=','sale')]" name="pricelist_id" groups="product.group_sale_pricelist" on_change="onchange_pricelist_id(pricelist_id,order_line)" invisible="1"/>
+<field name="tarifa" />
+<field name="nstore" readonly="1"/>
+<field name="name" invisible="1"/>
+<field name="addcode" on_change="addcode_fun(addcode,order_line, partner_id,disc, pricelist_id,fiscal_position,context)"
+context="{'partner_id':partner_id, }" default_focus="1"
+/>
+<field name="id" invisible="1"/>
+</field>
+<field name="order_line" position="replace" >
+                            <field name="order_line" on_change="discount_sap_change(disc,order_line, partner_id, context)" >
+                                <form string="Sales Order Lines" editable="top">
+                                    <header groups="base.group_user">
+                                        <button name="353" states="confirmed" string="Invoice" type="action" icon="terp-document-new"  />
+                                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done" statusbar_colors="{&quot;exception&quot;:&quot;red&quot;,&quot;cancel&quot;:&quot;red&quot;}"/>
+                                    </header>
+  <label for="codebar_id" string="Producto"/>
+ <field name="codebar_id" options='{"no_open": True,"no_create": True}' 
+context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom}" groups="base.group_user" on_change="barcode_id_change(parent.pricelist_id, codebar_id,inventory, product_uom_qty, False, product_uos_qty, False, name, parent.partner_id,parent.disc ,False, True, parent.date_order, False, parent.fiscal_position, False,tax_id, context)"
+filter_domain="['|',('item_code','ilike',self),('bar_code','ilike',self)]"
+/>
+<notebook>
+<page string="Detalle">
+                                    <group>
+                                        
+
+      <group>
+<!--
+                                      <field name="product_id" context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom}" groups="base.group_user" on_change="product_id_change(parent.pricelist_id, product_id, product_uom_qty, False, product_uos_qty, False, name, parent.partner_id, False, True, parent.date_order, False, parent.fiscal_position, False, context)"
+filter_domain="['|',('ean13','ilike',self),('default_code','ilike',self)]" invisible="1"
+/>
+--><field name="product_id" invisible="1"
+/>
+<field name="tax_total" invisible="1" />
+<field name="equivalent_qty" invisible="1" />
+
+                                            <label for="product_uom_qty"/>
+                                            <div>
+                                                <field context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom}" name="product_uom_qty" class="oe_inline" on_change="barcode_id_change(parent.pricelist_id, codebar_id,inventory, product_uom_qty, False, product_uos_qty, False, name, parent.partner_id,parent.disc ,False, True, parent.date_order, False, parent.fiscal_position, False,tax_id, context)"/>
+                                              
+<field name="category_id" invisible="1"/>
+  <field name="product_uom" groups="product.group_uom" class="oe_inline oe_no_button" options='{"no_open": True,"no_create": True}'
+ on_change="product_uom_change(parent.pricelist_id, codebar_id,inventory, product_uom_qty, product_uom, product_uos_qty, product_uos, name, parent.partner_id, False, False, parent.date_order,tax_id, context)"
+domain=" [('category_id', '=', category_id)]"
+/> 
+
+                                            </div>
+                                            <label for="product_uos_qty" groups="product.group_uos"/>
+                                            <div groups="product.group_uos">
+                                                <field name="product_uos_qty" class="oe_inline"/>
+                                                <field name="product_uos" options="{&quot;no_open&quot;: True}" class="oe_inline"/>
+                                            </div>
+						 <label for="price_unit" />
+						<div name="price_unit" >
+						<field name="price_unit_fun"/>
+                                            <field name="price_unit" string="Precio Neto" on_change="pn_sap_change(discount,price_unit,product_uom_qty)" invisible="1"/><button name="action_view"  string="Update" type="object" class="oe_edit_only oe_link"/>
+					    </div>
+					
+                                            <label for="discount" groups="sale.group_discount_per_so_line"/>
+                                            <div name="discount" groups="sale.group_discount_per_so_line">
+						<field name="discount_fun"/>
+                                                <field invisible="1" name="discount" class="oe_inline"  on_change="discount_sap_change(discount,parent.pricelist_id, codebar_id, product_uom_qty, False, product_uos_qty, False, name, parent.partner_id, False, True, parent.date_order, False, parent.fiscal_position, False, context)"/> %
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <field name="tax_id" widget="many2many_tags" domain="[('parent_id','=',False),('type_tax_use','&lt;&gt;','purchase')]" invisible="1"/>
+<field name="mtax"/>
+
+<field name="price" readonly="0" invisible="1"/>
+<field name="price_show" string="Precio Unitario"/>
+						<field name="discountmax"/>
+						<field name="pricegravad"/>
+<field name="max" invisible="1" on_change="disc_sap_change(max,parent.pricelist_id, codebar_id, product_uom_qty, False, product_uos_qty, False, name, parent.partner_id, False, True, parent.date_order, False, parent.fiscal_position, False, context)"/>
+                                        </group>
+                                    </group>
+                                    <label for="name"/>
+                                    <field name="name" />
+</page>
+
+<page string="Descuentos">
+<field name="sequencediscount">
+<tree>
+<field name="amount"/>
+<field name="discount"/>
+</tree>
+</field>
+</page>
+<page string="Comments">
+<field name="comment" placeholder="Comentarios"/>
+</page>
+</notebook>
+
+<field name="inventory">
+<tree>
+<field name="warehouse_id"/>
+<field name="product_id"/>
+<field name="on_hand" sum="Total"/>
+<field name="is_commited" sum="Total"/>
+<field name="on_order" sum="Total"/>
+</tree>
+</field>
+<field name="color" invisible="1"/>
+<field name="ttcolor" invisible="1"/>
+<field name="tprice_subtotal" invisible="1"/>
+                                </form>
+                                <tree string="Sales Order Lines"  colors="blue:color==True;red:ttcolor==True"   default_order="nm desc" >
+
+
+                                    <field name="state" invisible="1"/>
+                                    <field name="th_weight" invisible="1"/>
+				  <field name="codebar_id" 
+filter_domain="['|',('item_code','ilike',self),('bar_code','ilike',self)]" invisible="1"
+/>
+<field name="nm" />
+<field name="item_code" />
+                                    <field name="name" />
+                                    <field name="product_uom_qty" context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom}" on_change="product_id_change(parent.pricelist_id, product_id, product_uom_qty, product_uom, product_uos_qty, product_uos, name, parent.partner_id, False, False, parent.date_order, False, parent.fiscal_position, True, context)"/>
+                                    <field name="product_uom" on_change="product_uom_change(parent.pricelist_id, product_id,inventory, product_uom_qty, product_uom, product_uos_qty, product_uos, name, parent.partner_id, False, False, parent.date_order,tax_id, context)" groups="product.group_uom" options="{&quot;no_open&quot;: True}"
+/>
+               
+                                    <field name="price_unit" string="Precio Neto"/>
+                                    <field name="tax_id" widget="many2many_tags" domain="[('parent_id','=',False),('type_tax_use','&lt;&gt;','purchase')]" invisible="0"/>
+				<field name="mtax" invisible="1"/>
+                                    <field name="discount" groups="sale.group_discount_per_so_line"/>
+				<field name="tprice_subtotal" />
+				<field name="color" invisible="1" />
+<field name="ttcolor" invisible="1"/>
+			
+                                </tree>
+                            </field>
+</field>
+
+    </field>
+</record>
+
+<record id="sap_integration_action_form_stores" model="ir.actions.act_window">
+    <field name="name">Stores</field>
+    <field name="res_model">sap_integration.stores</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[]</field>
+    <field name="context">{}</field>
+    <field name="view_id" eval="False"/>            
+    <field name="help" type="html">
+	<p class="oe_view_nocontent_create">
+	    Click to add a new Stores.
+	</p>
+	<p>
+	    With just a quick glance on the OpenERP Stores screen, you
+	    can easily find all the information about your each day stores;					
+	</p>
+    </field>
+</record>
+<record id="sap_integration_stores_tree_view" model="ir.ui.view">
+            <field name="name">sap.integration.stores.tree</field>
+            <field name="model">sap_integration.stores</field>
+            <field name="arch" type="xml">
+<tree>
+<field name="code"/>
+<field name="name"/>
+<field name= "address" />
+</tree>
+            </field>
+        </record>
+
+<record id="sap_integration_stores_form_view" model="ir.ui.view">
+    <field name="name">sap.integration.stores.form</field>
+    <field name="model">sap_integration.stores</field>
+    <field name="arch" type="xml">
+	<form>
+	    <sheet>
+		<group colspan="4">
+		    <group colspan="1">
+			<field name= "name" />
+			<field name="warehouse_id"/>
+			<field name= "sequence_id" string="Sequence" />
+		    </group>
+	   	    <group colspan="1">
+			<field name="email"/>
+			<field name= "phone1" />
+			<field name="phone2"/>
+			<field name= "fax" />
+		    </group>
+		    <group colspan="2">
+			<field name="print_headr"/>
+			<field name= "address" />
+			<!--<field name= "partner_id" />-->
+		    </group>
+		</group>
+		<field name="users_ids" readonly="1" options='{"no_create": True}'/>
+	    </sheet>
+	</form>
+    </field>
+</record>
+
+
+<record id="sap_integration_action_form_stock" model="ir.actions.act_window">
+    <field name="name">Stock</field>
+    <field name="res_model">sap.integration.stock</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree</field>
+    <field name="domain">[]</field>
+    <field name="context">{}</field>
+    <field name="view_id" eval="False"/>            
+    <field name="help" type="html">
+	<p class="oe_view_nocontent_create">
+	    Click to add a new Stock.
+	</p>
+	<p>
+	    With just a quick glance on the OpenERP Stock screen, you
+	    can easily find all the information about your each day Stock;					
+	</p>
+    </field>
+</record>
+
+	<record id="sap_integration_stock_search_view" model="ir.ui.view">
+            <field name="name">sap.integration.stock.search</field>
+            <field name="model">sap.integration.stock</field>
+            <field name="arch" type="xml">
+                <search string="Product">
+                    <field name="product_id" string="Product"/>
+                    <field name="warehouse_id"/>
+                    <group  expand='0' string='Group by...'>
+                       <filter string='Warehouse' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'warehouse_id'}"/>
+                       
+                    </group>
+                </search>
+            </field>
+        </record>
+
+	
+
+
+<record id="sap_integration_stock_form_view" model="ir.ui.view">
+    <field name="name">sap.integration.stock.form</field>
+    <field name="model">sap.integration.stock</field>
+    <field name="arch" type="xml">
+	<form>
+	    <sheet>
+		<group colspan="4">
+		    <group colspan="1">
+			<field name= "warehouse_id" />
+			<field name="product_id"/>
+			<field name="on_hand"/>
+			<field name= "is_commited"  />
+			<field name="on_order"/>
+		    </group>
+		</group>
+	    </sheet>
+	</form>
+    </field>
+</record>
+
+	<record id="sap_integration_stock_tree_view" model="ir.ui.view">
+	    <field name="name">sap.integration.stock.tree</field>
+	    <field name="model">sap.integration.stock</field>
+	    <field name="arch" type="xml">
+		<tree>
+				<field name= "warehouse_id" />
+				<field name="product_id"/>
+				<field name="on_hand"/>
+				<field name= "is_commited"  />
+				<field name="on_order"/>
+		</tree>
+	    </field>
+	</record>
+
+	<record model="ir.ui.view" id="res_partner_kanban_view">
+	    <field name="name">res.partner.kanban</field>
+	    <field name="model">res.partner</field>
+	    <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+	    <field name="arch" type="xml">
+		<field name="color" position="after">
+		    <field name="sap_id"/>
+		</field>
+		<ul position="inside">
+			<li t-if="record.sap_id.raw_value and !record.function.raw_value"><field name="sap_id"/></li>
+		</ul>
+	    </field>
+	</record>
+
+
+
+
+    <record id="account_tax_form_view" model="ir.ui.view">
+        <field name="name">account.fiscal.position.form.inherit.view</field>
+        <field name="model">account.fiscal.position</field>
+        <field name="inherit_id" ref="account.view_account_position_form" />
+        <field name="arch" type="xml">
+<field name="country_group_id" position="after">
+<field name="leyenda"/>
+</field>
+
+
+        </field>
+    </record>
+
+
+
+    <record id="res_users_form_view" model="ir.ui.view">
+        <field name="name">res.users.form.view</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form" />
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Sap Integration">
+                    <group>
+                        <field name="store_id" options='{"no_open": True,"no_create": True}'/>
+			<field name="discount_order" />
+			<field name="discount_order_line"/>
+			<field name="discount_price"/>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+	<menuitem action="sap_integration_action_form_stores" parent="setting_menu"  id="stores_edit"/>
+	<menuitem action="sap_integration_action_form_stock" parent="setting_menu"  id="stock_edit"/>
+
+	<record id="sap_integration_codebars_tree_view" model="ir.ui.view">
+		<field name="name">sap.integration.codebars.tree</field>
+		<field name="model">product.codebars</field>
+		<field name="arch" type="xml">
+			<tree default_order="on_hand desc">
+				<field name="item_code"/>
+				<field name= "name" />
+				<field name="uom_id"/>
+				<field name="on_hand"/>
+				<field name="product_maker"/>	
+			
+			</tree>
+  		 </field>
+	</record>
+
+    <record id="warning_form" model="ir.ui.view">
+        <field name="name">warning.form</field>
+        <field name="model">warning</field>
+        <field eval="20" name="priority"/>
+        <field name="arch" type="xml">
+            <form string="Warning">
+                <field name="message"  nolabel="1" />
+                <footer>
+                    <button string="OK" class="oe_highlight" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_warning">
+        <field name="name">Warning</field>
+        <field name="res_model">warning</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="warning_form" />
+        <field name="target">new</field>
+    </record>
+
+
+    </data>
+</openerp>

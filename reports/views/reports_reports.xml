@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+
+	<report
+    	id="reports_report_print"
+    	model="sale.order"
+    	string="print report"
+   	 report_type="qweb-pdf"
+    	name="reports.report_print"
+   	 file="reports.report_print"
+        attachment="(object.state in ('finish'))"
+/>
+
+
+    </data>
+</openerp>
+
+

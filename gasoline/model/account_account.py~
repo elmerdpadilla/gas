@@ -86,8 +86,19 @@ class account_account(osv.osv):
 			for id in ids:
 				res[id] = null_result
 		return res
+	def write(self,cr,uid,ids,values,context=None):
+
+		super(account_account, self).write(cr, uid, ids, values, context=context)
+		print "#"*50,"e"
+		return True
+	def create(self,cr,uid,values,context=None):
+
+		super(account_account, self).create(cr, uid,  values, context=context)
+		print "#"*50,"e"
+		return True
 	_columns = {
 		'balance_currency': fields.function(_compute2, digits_compute=dp.get_precision('Account'), string='Balance', multi='balance_currency'),
 		'credit_currency': fields.function(_compute2, digits_compute=dp.get_precision('Account'), string='Credit', multi='balance_currency'),
         'debit_currency': fields.function(_compute2, digits_compute=dp.get_precision('Account'), string='Debit', multi='balance_currency'),
+		
 	}

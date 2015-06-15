@@ -57,8 +57,6 @@ class side_product(osv.Model):
 
 class turn(osv.Model):
 	_name = 'gasoline.turn'
-	def print_turn(self, cr, uid, ids, context=None):
-		return self.pool['report'].get_action(cr, uid, ids, 'gasoline.report_closing_total', context=context)
 	def unlink(self, cr, uid, ids, context=None):
         	for rec in self.browse(cr, uid, ids, context=context):
             		if rec.state not in ('draft','cancel'):
@@ -152,7 +150,7 @@ class turn(osv.Model):
 			for order in turn.order_ids:
 				if order.invoice_id:
 					obj_order.write(cr, uid, order.id, {'state':'invoiced'}, context=context)
-				if len(order.statement_ids)>0:
+				if len(order.statement_ids)>0 and len(order.lines)>0:
 					obj_order.write(cr, uid, order.id, {'state':'paid'}, context=context)
 		for dispenser in self.pool.get('gasoline.turn').browse(cr,uid,ids,context=context).dispenser_ids:
 			self.pool.get('gasoline.dispenser').write(cr,uid,dispenser.id,{'status':'inactive'},context=context)
@@ -272,9 +270,12 @@ class turn(osv.Model):
 		for turn in self.browse(cr, uid, ids, context=context):
 			totalmoney=0
 			totalcash=0
-			for journal in turn.journal_ids:
-				totalmoney+=journal.money
+			for order in turn.order_ids:
+				if order.state != 'cancel':
+					for paid in order.statement_ids:
+						totalmoney+=paid.amount
 			result[turn.id] = totalmoney
+			
 		return result
 	def _get_paid_total(self, cr, uid, ids, field, arg, context=None):
 		result = {}
@@ -614,18 +615,17 @@ class reading2(osv.Model):
 		} 
 class journal(osv.Model):
 	_name = 'gasoline.journal'
-	
 	def _get_money(self,cr,uid,ids,field,arg,context=None):
 		res = {}
 		for journal in self.browse(cr,uid,ids,context=context):
 			total=0
 			for order in journal.turn_id.order_ids:
+				print len(order.statement_ids)
 				for stament in order.statement_ids:
 					if stament.journal_id.id == journal.journal_id.id:
-						total+=stament.amount		
+						total+=stament.amount	
 			res[journal.id]=total
 		return res
-			
 	_columns = {
 		'journal_id':fields.many2one('account.journal',string="payment method",domain=[('type','in',['cash','bank']),('combustible','=',True)]),
 		'money':fields.function(_get_money,type='float', string='Money'),
@@ -789,11 +789,13 @@ class pos_order(osv.osv):
 				inv_line_ref.create(cr, uid, inv_line, context=context)
 			inv_ref.button_reset_taxes(cr, uid, [inv_id], context=context)
 			self.signal_workflow(cr, uid, [order.id], 'invoice')
+			self.create_picking(cr, uid, [order.id], context=context)
 			inv_ref.signal_workflow(cr, uid, [inv_id], 'validate')
 		if not inv_ids: return {}
 		mod_obj = self.pool.get('ir.model.data')
 		res = mod_obj.get_object_reference(cr, uid, 'account', 'invoice_form')
 		res_id = res and res[1] or False
+		
 		return {
             'name': _('Customer Invoice'),
             'view_type': 'form',
@@ -868,7 +870,11 @@ class pos_session(osv.osv):
 		pos_order_obj = self.pool.get('pos.order')
 		for session in self.browse(cr, uid, ids, context=context):
 			local_context = dict(context or {}, force_company=session.config_id.journal_id.company_id.id)
-			order_ids = [order.id for order in session.order_ids if order.state == 'paid']
+			order_ids=[]
+			for order in session.order_ids:
+				if (order.state == 'paid' and len(order.lines)>0):
+					order_ids.append(order.id)
+			#order_ids = [order.id for order in session.order_ids if (order.state == 'paid' and len(order.lines)>0)]
 
 			move_id = account_move_obj.create(cr, uid, {'ref' : session.name, 'journal_id' : session.config_id.journal_id.id, }, context=local_context)
 
