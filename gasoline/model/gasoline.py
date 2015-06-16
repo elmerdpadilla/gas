@@ -152,6 +152,7 @@ class turn(osv.Model):
 					obj_order.write(cr, uid, order.id, {'state':'invoiced'}, context=context)
 				if len(order.statement_ids)>0 and len(order.lines)>0:
 					obj_order.write(cr, uid, order.id, {'state':'paid'}, context=context)
+				obj_order.create_picking(cr, uid, order.id, context=context)
 		for dispenser in self.pool.get('gasoline.turn').browse(cr,uid,ids,context=context).dispenser_ids:
 			self.pool.get('gasoline.dispenser').write(cr,uid,dispenser.id,{'status':'inactive'},context=context)
 		for turn in self.browse(cr,uid,ids,context=context):
@@ -383,8 +384,6 @@ class turn(osv.Model):
 		obj_journal=self.pool.get('gasoline.journal')
 		journal_ids=obj_journal.search(cr,uid,[('turn_id','in',ids),('money','>',0.0)],context=context)
 		journals=obj_journal.browse(cr,uid,journal_ids,context=context)
-		#for a in obj_journal.read(cr,uid,journal_ids,['money'],context=context):
-		#	print a
 		for turn in self.browse(cr, uid, ids, context=context):
 			result[turn.id] =journals
 
@@ -620,7 +619,6 @@ class journal(osv.Model):
 		for journal in self.browse(cr,uid,ids,context=context):
 			total=0
 			for order in journal.turn_id.order_ids:
-				print len(order.statement_ids)
 				for stament in order.statement_ids:
 					if stament.journal_id.id == journal.journal_id.id:
 						total+=stament.amount	
@@ -712,7 +710,20 @@ class pos_order(osv.osv):
 				text="Factura Contado"
 			res[order.id]=text
 		return res
-
+	def cancel_invoice(self, cr, uid, ids, context=None):
+		self.pool.get('pos.order').write(cr,uid,ids,{'state':'cancel'},context=context)
+		for order in self.pool.get('pos.order').browse(cr,uid,ids,context=context):
+			if order.invoice_id:
+				self.pool.get('account.invoice').signal_workflow(cr, uid, [order.invoice_id.id], 'invoice_cancel')
+		return True
+	def edit_invoice(self, cr, uid, ids, context=None):
+		self.pool.get('pos.order').write(cr,uid,ids,{'state':'draft'},context=context)
+		for order in self.pool.get('pos.order').browse(cr,uid,ids,context=context):
+			if order.invoice_id:
+				self.pool.get('account.invoice').action_cancel_draft(cr, uid, [order.invoice_id.id], context=context)
+				#self.pool.get('account.invoice').unlink(cr,uid,[order.invoice_id.id],context=context)
+		return True
+		return super(pos_order, self).unlink(cr, uid, ids, context=context)
 	def unlink(self, cr, uid, ids, context=None):
 		for rec in self.browse(cr, uid, ids, context=context):
 			if rec.state not in ('draft','cancel'):
@@ -723,17 +734,17 @@ class pos_order(osv.osv):
 				self.pool.get('account.invoice').unlink(cr,uid,[order.invoice_id.id],context=context)
 		return True
 		return super(pos_order, self).unlink(cr, uid, ids, context=context)
-
 	def action_paid(self, cr, uid, ids, context=None):
 		for order in self.browse(cr,uid,ids,context=context):
 			if not order.turn_id:
 				self.write(cr, uid, ids, {'state': 'paid'}, context=context)
+				self.create_picking(cr, uid, ids, context=context)
 			if order.invoice_id:
 				
 				if order.invoice_id.state != 'cancel':
 					raise osv.except_osv(_('Error!'), _('Ya existen pagos para esta factura'))	
 		
-		self.create_picking(cr, uid, ids, context=context)
+		
 		return True
 	def action_invoice(self, cr, uid, ids, context=None):
 		inv_ref = self.pool.get('account.invoice')
@@ -741,41 +752,46 @@ class pos_order(osv.osv):
 		product_obj = self.pool.get('product.product')
 		inv_ids = []
 		for order in self.pool.get('pos.order').browse(cr, uid, ids, context=context):
-			if order.invoice_id:
-				inv_ids.append(order.invoice_id.id)
-				continue
-			if not order.partner_id:
-				raise osv.except_osv(_('Error!'), _('Please provide a partner for the sale.'))	
-			tot=0
-			for paid in order.statement_ids:
-				tot+=paid.amount
-			if tot>0:	
-				raise osv.except_osv(_('Error!'), _('Ya existen pagos para esta factura'))	
-			acc = order.partner_id.property_account_receivable.id
-			inv = {
-                'name': order.name,
-                'origin': order.name,
-                'account_id': acc,
-                'journal_id': order.sale_journal.id or None,
-                'type': 'out_invoice',
-                'reference': order.name,
-                'partner_id': order.partner_id.id,
-                'comment': order.note or '',
-                'currency_id': order.pricelist_id.currency_id.id, # considering partner's sale pricelist's currency
-            }
-			inv.update(inv_ref.onchange_partner_id(cr, uid, [], 'out_invoice', order.partner_id.id)['value'])
-			if not inv.get('account_id', None):
-				inv['account_id'] = acc
-			inv_id = inv_ref.create(cr, uid, inv, context=context)
-
-			self.write(cr, uid, [order.id], {'invoice_id': inv_id,}, context=context)
-			inv_ids.append(inv_id)
+			inv_id=0
+			if not order.invoice_id:
+				
+				if not order.partner_id:
+					raise osv.except_osv(_('Error!'), _('Please provide a partner for the sale.'))	
+				tot=0
+				for paid in order.statement_ids:
+					tot+=paid.amount
+				if tot>0:	
+					raise osv.except_osv(_('Error!'), _('Ya existen pagos para esta factura'))	
+				acc = order.partner_id.property_account_receivable.id
+				inv = {
+					'name': order.name,
+		       		 	'origin': order.name,
+		       			'account_id': acc,
+		       		 	'journal_id': order.sale_journal.id or None,
+		       		 	'type': 'out_invoice',
+		       			'reference': order.name,
+		       		 	'partner_id': order.partner_id.id,
+				 	'comment': order.note or '',
+				 	'currency_id': order.pricelist_id.currency_id.id, # considering partner's sale pricelist's currency
+		    }
+				inv.update(inv_ref.onchange_partner_id(cr, uid, [], 'out_invoice', order.partner_id.id)['value'])
+				if not inv.get('account_id', None):
+					inv['account_id'] = acc
+				inv_id = inv_ref.create(cr, uid, inv, context=context)
+				self.write(cr, uid, [order.id], {'invoice_id': inv_id,}, context=context)
+				inv_ids.append(inv_id)
+			else:
+				inv_id=order.invoice_id.id
+				inv_ids.append(inv_id)
+			inv_line_ids=inv_line_ref.search(cr,uid,[('invoice_id','=',inv_id)],context=context)
+			inv_line_ref.unlink(cr,uid,inv_line_ids,context=context)
 			for line in order.lines:
+
 				inv_line = {
-                    'invoice_id': inv_id,
-                    'product_id': line.product_id.id,
-                    'quantity': line.qty,
-                }
+                    			'invoice_id': inv_id,
+                    			'product_id': line.product_id.id,
+                    			'quantity': line.qty,
+                			}
 				inv_name = product_obj.name_get(cr, uid, [line.product_id.id], context=context)[0][1]
 				inv_line.update(inv_line_ref.product_id_change(cr, uid, [],
                                                                line.product_id.id,
@@ -789,13 +805,13 @@ class pos_order(osv.osv):
 				inv_line_ref.create(cr, uid, inv_line, context=context)
 			inv_ref.button_reset_taxes(cr, uid, [inv_id], context=context)
 			self.signal_workflow(cr, uid, [order.id], 'invoice')
-			self.create_picking(cr, uid, [order.id], context=context)
+			#self.create_picking(cr, uid, [order.id], context=context)
 			inv_ref.signal_workflow(cr, uid, [inv_id], 'validate')
 		if not inv_ids: return {}
 		mod_obj = self.pool.get('ir.model.data')
 		res = mod_obj.get_object_reference(cr, uid, 'account', 'invoice_form')
 		res_id = res and res[1] or False
-		
+		self.pool.get('account.invoice').signal_workflow(cr, uid,[inv_id], 'invoice_open')
 		return {
             'name': _('Customer Invoice'),
             'view_type': 'form',
@@ -806,7 +822,7 @@ class pos_order(osv.osv):
             'type': 'ir.actions.act_window',
             'nodestroy': True,
             'target': 'current',
-            'res_id': inv_ids and inv_ids[0] or False,
+            'res_id': inv_id,
         }
 	def _get_invoice(self, cr, uid, ids, field, arg, context=None):
 		result = {}
