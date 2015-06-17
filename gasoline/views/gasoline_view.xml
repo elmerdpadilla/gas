@@ -477,13 +477,14 @@
 			<field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
 			<field name="arch" type="xml">
 				<button name="action_invoice" position="replace">
+				<field name="is_invoice" invisible="1"/>
 					<button name="action_invoice" string="Factura Credito" type="object"  attrs="{'invisible' : ['|',('is_invoice', 'not in', [False]),('state','not in',['draft'])]}" class="oe_highlight"/>
 					<button name="cancel_invoice" string="Cancel Invoice" type="object"  attrs="{'invisible' : [('state','not in',['draft'])]}"/>
 					<button name="edit_invoice" string="change to draft" type="object"  attrs="{'invisible' : [('state','not in',['cancel'])]}"/>
 				</button>
 				<button name="385" position="replace">
 					<button name="print_invoice" string="Imprimir Factura" type="object"/>
-					<field name="is_invoice" invisible="1"/>
+					
 					<button name="385" string="Payment" class="oe_highlight" type="action" 
 							attrs="{'invisible' : ['|',('is_invoice', 'not in', [False]),('state','not in',['draft'])] }"  context="{'pos_session_id' : session_id}"/>
 				</button>

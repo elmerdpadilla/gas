@@ -751,6 +751,7 @@ class pos_order(osv.osv):
 		inv_line_ref = self.pool.get('account.invoice.line')
 		product_obj = self.pool.get('product.product')
 		inv_ids = []
+		order_id=False
 		for order in self.pool.get('pos.order').browse(cr, uid, ids, context=context):
 			inv_id=0
 			if not order.invoice_id:
@@ -807,6 +808,7 @@ class pos_order(osv.osv):
 			self.signal_workflow(cr, uid, [order.id], 'invoice')
 			#self.create_picking(cr, uid, [order.id], context=context)
 			inv_ref.signal_workflow(cr, uid, [inv_id], 'validate')
+			order_id=order.id
 		if not inv_ids: return {}
 		mod_obj = self.pool.get('ir.model.data')
 		res = mod_obj.get_object_reference(cr, uid, 'account', 'invoice_form')
@@ -829,7 +831,7 @@ class pos_order(osv.osv):
 		for order in self.browse(cr, uid, ids, context=context):
 			flag = False
 			if order.invoice_id:
-				if order.invoice_id.state != 'cancel' :
+				if order.invoice_id.state not in ['cancel','draft'] :
 					flag = True
 			result[order.id] = flag
 		return result		
