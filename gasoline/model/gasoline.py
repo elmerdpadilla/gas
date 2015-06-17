@@ -814,6 +814,7 @@ class pos_order(osv.osv):
 		res = mod_obj.get_object_reference(cr, uid, 'account', 'invoice_form')
 		res_id = res and res[1] or False
 		self.pool.get('account.invoice').signal_workflow(cr, uid,[inv_id], 'invoice_open')
+		self.pool.get('pos.order').write(cr,uid,order_id,{'is_invoice':True},context=context)
 		return {
             'name': _('Customer Invoice'),
             'view_type': 'form',
