@@ -1,0 +1,33 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<openerp>
+	<data>
+		<record model="msgcenter.user.group" id="groups_view_id">
+			<field name="name">msgcenter.user.group.form</field>
+            <field name="model">msgcenter.user.group</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Grupos">
+					<group colspan="6" col="5">
+						<field name = "name">name</field>
+						<field name = "description">description</field>
+					</group>
+					<notebook colspan="4">
+						<page string="Partners">
+							<field name="partner"/>
+						</page>
+					</notebook>
+				</form>
+			</field>
+
+		</record>
+
+		<record model="ir.actions.act_window" id="msgcenter_groups_action_id">
+			<field name="name">msgcenter.groups.action</field>
+			<field name="view_id" ref="groups_view_id"/>
+			<field name="res_model">msgcenter.user.group</field>
+			<field name="view_type">tree</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		
+	</data>
+</openerp>

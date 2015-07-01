@@ -555,7 +555,7 @@
             <field name="arch" type="xml">
                 <field name="ean13" position="after">
                     <button colspan="2" name="%(action_edit_ean)d" type="action" string="Set a Custom EAN"
-                            attrs="{'invisible': [('product_variant_count', '>', 1)]}" class="oe_link oe_edit_only"/>
+                            attrs="{'invisible': [('type', '>', 1)]}" class="oe_link oe_edit_only"/>
                 </field>
             </field>
         </record>

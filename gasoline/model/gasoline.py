@@ -77,7 +77,10 @@ class turn(osv.Model):
 		orderdata={}
 		orderdata['is_gasoline']=True
 		orderdata['turn_id']=id
-		order_id=porder_obj.create(cr,uid,orderdata)
+		print "$"*50
+		order_id=porder_obj.create(cr,uid,orderdata,context=None)
+		print "#"*5
+		
 		array=[];
 		for turn in self.browse(cr,uid,ids,context=context):
 			for reading in turn.reading_init:
@@ -765,6 +768,10 @@ class pos_order(osv.osv):
 					raise osv.except_osv(_('Error!'), _('Ya existen pagos para esta factura'))	
 				acc = order.partner_id.property_account_receivable.id
 				inv = {
+					'cai_shot': order.cai_shot,
+					'cai_expires_shot': order.cai_expires_shot,
+					'min_number_shot': order.min_number_shot,
+					'max_number_shot': order.max_number_shot,
 					'name': order.name,
 		       		 	'origin': order.name,
 		       			'account_id': acc,

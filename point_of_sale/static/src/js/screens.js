@@ -1331,26 +1331,83 @@ function openerp_pos_screens(instance, module){ //module is instance.point_of_sa
 
                     this.pos.get('selectedOrder').destroy();    //finish order and go back to scan screen
                 }else{
-			  var def  = new $.Deferred();
-		                        new instance.web.Model('ir.sequence')
-                .query(['prefix','number_next_actual'])
+
+
+				if(!currentOrder.getretire() && !currentOrder.getdeposit() ){
+			   	 var def  = new $.Deferred();
+
+		new instance.web.Model('ir.sequence')
+                .query(['prefix','number_next_actual','cai_shot','expiration_date','min_value','max_value'])
                 .filter([['id','=',this.pos.config.sequence_id[0]]])
+                .first({'timeout':2000, 'shadow': true})
+                .then(function(sequence){
+             
+		currentOrder.value_sequence=sequence;
+		currentOrder.sequence_number=(currentOrder.value_sequence.number_next_actual);
+		currentOrder.uid =     currentOrder.generateUniqueId2();
+		currentOrder.cai=sequence.cai_shot;
+		currentOrder.expirationDate=sequence.expiration_date;
+		currentOrder.range=sequence.prefix+""+sequence.min_value+" AL "+sequence.prefix+""+sequence.max_value
+		currentOrder.set({name: _t("Factura: ")+currentOrder.uid, cai:currentOrder.cai,expirationDate:currentOrder.expirationDate,range:currentOrder.range});
+	 	self.pos.push_order(currentOrder);	
+		   self.pos_widget.screen_selector.set_current_screen(self.next_screen);					
+		 });
+                    
+			                    
+                }
+
+
+				if(!currentOrder.getretire() && currentOrder.getdeposit() ){
+			   	 var def  = new $.Deferred();
+				currentOrder.type='push'
+				currentOrder.norder='push'
+ 				new instance.web.Model('ir.sequence')
+                .query(['prefix','number_next_actual'])
+                .filter([['code','=','money.deposit']])
+                .first({'timeout':2000, 'shadow': true})
+                .then(function(sequence){
+		currentOrder.value_sequence=sequence;
+		currentOrder.sequence_number=(currentOrder.value_sequence.number_next_actual);
+		currentOrder.uid =    currentOrder.generateUniqueId2();
+	currentOrder.set({
+                name:           _t("Deposito: ") + currentOrder.uid, });
+	 self.pos.push_order(currentOrder) 	;	
+		   self.pos_widget.screen_selector.set_current_screen(self.next_screen);					
+		 });
+                    
+			                    
+                }
+				if(currentOrder.getretire() && !currentOrder.getdeposit()){
+			   	 var def  = new $.Deferred();
+				currentOrder.type='pop'
+				currentOrder.norder='pop'
+				 new instance.web.Model('ir.sequence')
+                .query(['prefix','number_next_actual'])
+                .filter([['code','=','money.retire']])
                 .first({'timeout':2000, 'shadow': true})
                 .then(function(sequence){
 		currentOrder.value_sequence=sequence;
 		currentOrder.sequence_number=(currentOrder.value_sequence.number_next_actual);
 		currentOrder.uid =     currentOrder.generateUniqueId2();
-		console.log(currentOrder.uid);
-		currentOrder.set({
-                name:           _t("Factura ") + currentOrder.uid, });
+	
+	currentOrder.set({
+                name:           _t("Retiro: ") + currentOrder.uid, });
 	 self.pos.push_order(currentOrder) 	;	
 		   self.pos_widget.screen_selector.set_current_screen(self.next_screen);					
 		 });
                     
-			console.log("s");
 			                    
                 }
+
+
+
+
             }
+
+
+
+
+}
 
             // hide onscreen (iOS) keyboard 
             setTimeout(function(){

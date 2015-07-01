@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_financial">
+    <t t-call="report.html_container">
+	<div class="header">
+			<style>
+			td.right{
+			    text-align: right;
+			   padding-top: 1px;
+			   padding-right: 10px;
+			   padding-bottom: 1px;
+			   padding-left: 10px;
+			}
+			</style>
+		   <table class="table" style="width:100%">
+		
+		    <tbody>
+		    <tr>
+		    <td>
+		    <span class="text-left" t-esc="fecha"/>                                   
+		    </td>
+		    <td style="text-align:right">
+		    <strong>Usuario:</strong>
+		    <span t-esc="usuario" />                                    
+		    </td>
+		    </tr>
+		    </tbody>
+		   </table>
+	   
+	
+  	    	</div>
+        <t t-foreach="docs" t-as="o">
+		
+
+                <div class="page">
+		    <h3 style="padding:3px;margin:3px;" align="center" t-esc="get_account(data)"/>
+                    <h3 style="padding:3px;margin:3px;" align="center" t-esc="data['form']['account_report_id'][1]"/>
+		    <t t-if="data['form']['pr_lo']==0">
+		    <h3 style="padding:0px;margin:0px;" align="center" t-if="data['form']['filter'] == 'filter_date'">
+				Al <span t-esc="time.strftime('%d de %B de %Y',time.strptime(get_end_date(data),'%Y-%m-%d'))"/>
+		    
+                    </h3>
+		    <h3 style="padding:0px;margin:0px;" align="center" t-if=" not data['form']['filter'] == 'filter_date'">
+                                    Periodo Fiscal <span t-esc="get_fiscalyear(data)"/>
+		    </h3>
+		    </t>
+		    <t t-if="data['form']['pr_lo']==1">
+		    <h3 style="padding:3px;margin:3px;" align="center" t-if="data['form']['filter'] == 'filter_date'">
+				Del <span t-esc="time.strftime('%d de %B de %Y',time.strptime(get_start_date(data),'%Y-%m-%d'))"/>
+                                Al  <span t-esc="time.strftime('%d de %B de %Y',time.strptime(get_end_date(data),'%Y-%m-%d'))"/>   
+                    </h3>
+		    <h3 style="padding:0px;margin:0px;" align="center" t-if=" not data['form']['filter'] == 'filter_date'">
+                                    Periodo Fiscal <span t-esc="get_fiscalyear(data)"/>
+		    </h3>
+		    	
+
+		    </t>
+		    
+                    
+
+                    <table class="table table-condensed" t-if="data['form']['debit_credit'] == 1">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th class="text-right">Debit</th>
+                                <th class="text-right">Credit</th>
+                                <th class="text-right">Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="get_lines(data)" t-as="a">
+                                <t t-if="a['level'] != 0">
+                                    <t t-if="a.get('level') &gt; 3"><t t-set="style" t-value="'font-weight: normal;'"/></t>
+                                    <t t-if="not a.get('level') &gt; 3"><t t-set="style" t-value="'font-weight: bold;'"/></t>
+
+                                    <td>
+                                        <span style="color: white;" t-esc="'..' * a.get('level', 0)"/>
+                                        <span t-att-style="style" t-esc="a.get('name')"/>
+                                    </td>
+                                    <td class="text-right" style="white-space: nowrap;">
+                                        <span t-att-style="style" t-esc="formatLang(a.get('debit'), currency_obj=res_company.currency_id)"/>
+                                    </td>
+                                    <td class="text-right" style="white-space: nowrap;">
+                                        <span t-att-style="style" t-esc="formatLang(a.get('credit'), currency_obj=res_company.currency_id)"/>
+                                    </td>
+                                    <td class="text-right" style="white-space: nowrap;">
+                                        <span t-att-style="style" t-esc="formatLang(a.get('balance'), currency_obj=res_company.currency_id)"/>
+                                    </td>
+                                </t>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="table table-condensed" t-if="not data['form']['enable_filter'] and not data['form']['debit_credit']">
+                        
+                        <tbody>
+                            <tr t-foreach="get_lines(data)" t-as="a">
+                                <t t-if="a['level'] != 0">
+				    <t t-if="a['format']!=0">
+					<t t-if="a.get('format') == 1"><t t-set="style" t-value="'font-size:16px;font-weight: bold;text-decoration: underline;'"/></t>
+                                    	<t t-if="a.get('format') == 2"><t t-set="style" t-value="'font-size:16px;font-weight: bold;'"/></t>
+					<t t-if="a.get('format') == 3"><t t-set="style" t-value="'font-size:14px;font-weight: bold;'"/></t>
+					<t t-if="a.get('format') == 4"><t t-set="style" t-value="'font-size:14px;font-weight: normal;'"/></t>
+					<t t-if="a.get('format') == 5"><t t-set="style" t-value="'font-size:13px;font-weight: italic;'"/></t>
+					<t t-if="a.get('format') == 6"><t t-set="style" t-value="'font-size:13px;font-weight: normal;'"/></t>
+				    </t>
+				    <t t-if="not a['format']!=0">
+                                    <t t-if="a.get('level') &gt; 3"><t t-set="style" t-value="'font-weight: normal;'"/></t>
+                                    <t t-if="not a.get('level') &gt; 3"><t t-set="style" t-value="'font-weight: bold;'"/></t>
+				    </t>
+                                    <td>
+                                        <span style="color: white;" t-esc="'..' * a.get('level', 0)"/>
+                                        <span t-att-style="style" t-esc="a.get('name')"/>
+					
+                                    </td>
+				    <t t-if="a.get('mostrar')">
+					<t t-if="a.get('underline')">
+                                    		<td style="border-bottom-style:solid; border-bottom-width:2px;" class="text-right"><span t-att-style="style" t-esc="formatLang(a.get('balance'), currency_obj=res_company.currency_id)"/></td>
+				    	</t>
+					<t t-if="not a.get('underline')">
+						<td class="text-right"><span t-att-style="style" t-esc="formatLang(a.get('balance'), currency_obj=res_company.currency_id)"/></td>
+					</t>	
+					
+				    </t>
+				    <t t-if="not a.get('mostrar')">
+                                    <td class="text-right"><span t-att-style="style" /></td>
+				    
+				    </t>
+                                </t>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="table table-condensed" t-if="data['form']['enable_filter'] == 1 and not data['form']['debit_credit']">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th class="text-right"></th>
+                                <th class="text-right"><span t-esc="data['form']['label_filter']"/></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="get_lines(data)" t-as="a">
+                                <t t-if="a['level'] != 0">
+                                    <t t-if="a['format']!=0">
+					<t t-if="a.get('format') == 1"><t t-set="style" t-value="'font-size:16px;font-weight: bold;text-decoration: underline;'"/></t>
+                                    	<t t-if="a.get('format') == 2"><t t-set="style" t-value="'font-size:16px;font-weight: bold;'"/></t>
+					<t t-if="a.get('format') == 3"><t t-set="style" t-value="'font-size:14px;font-weight: bold;'"/></t>
+					<t t-if="a.get('format') == 4"><t t-set="style" t-value="'font-size:14px;font-weight: normal;'"/></t>
+					<t t-if="a.get('format') == 5"><t t-set="style" t-value="'font-size:13px;font-weight: italic;'"/></t>
+					<t t-if="a.get('format') == 6"><t t-set="style" t-value="'font-size:13px;font-weight: normal;'"/></t>
+				    </t>
+				    <t t-if="not a['format']!=0">
+                                    <t t-if="a.get('level') &gt; 3"><t t-set="style" t-value="'font-weight: normal;'"/></t>
+                                    <t t-if="not a.get('level') &gt; 3"><t t-set="style" t-value="'font-weight: bold;'"/></t>
+				    </t>
+
+                                    <td>
+                                        <span style="color: white;" t-esc="'..' * a.get('level', 0)"/>
+                                        <span t-att-style="style" t-esc="a.get('name')"/>
+					
+                                    </td>
+				    <t t-if="a.get('mostrar')">
+					<t t-if="a.get('underline')">
+                                    		<td style="border-bottom-style:solid; border-bottom-width:2px;" class="text-right"><span t-att-style="style" t-esc="formatLang(a.get('balance'), currency_obj=res_company.currency_id)"/></td>
+						<td style="border-bottom-style:solid; border-bottom-width:2px;" class="text-right"><span t-att-style="style" t-esc="formatLang(a.get('balance_cmp'), currency_obj=res_company.currency_id)"/></td>				    	
+					</t>
+					<t t-if="not a.get('underline')">
+						<td class="text-right"><span t-att-style="style" t-esc="formatLang(a.get('balance'), currency_obj=res_company.currency_id)"/></td>
+						<td class="text-right"><span t-att-style="style" t-esc="formatLang(a.get('balance_cmp'), currency_obj=res_company.currency_id)"/></td>
+					</t>	
+					
+				    </t>
+				    <t t-if="not a.get('mostrar')">
+                                    <td class="text-right"><span t-att-style="style" /></td>
+				    <td class="text-right"><span t-att-style="style" /></td>
+				    </t>
+
+                                </t>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            
+        </t>
+
+	<template id="external_layout_footer">
+    <div class="footer">
+        <div class="text-right" style="border-top: 1px solid black;">        
+
+            <ul class="list-inline">
+                <li><span class="page"/></li>
+                <li>/</li>
+                <li><span class="topage"/></li>
+            </ul>
+        </div>
+    </div>     
+
+</template>
+
+    </t>
+</template>
+</data>
+</openerp>

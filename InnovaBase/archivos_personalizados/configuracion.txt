@@ -1,0 +1,58 @@
+#  -*- coding: utf-8 -*-
+
+#   Install XlsxWriter
+#   sudo easy_install XlsxWriter
+
+# El Archivo que desea sustituir debe estar dentro de la carpeta Archivos dentro de InnovaBase
+# Separado por el simbolo "mayor que" debe escribir la ruta incluyendo el nombre de como se llamará el archivo en su nueva ubicación
+# la ruta donde se copiara o sustiuira el archivo debe ser a partir de la carpeta raiz odoo 
+
+#Powered by Odoo--> Odoo | Powered by Innova
+> webclient_templates.xml > addons/web/views/webclient_templates.xml
+> database_manager.html > addons/web/views/database_manager.html
+> database_selector.html > addons/web/views/database_selector.html
+
+#Localización
+> base_i18n_es_HN.po > openerp/addons/base/i18n/es_HN.po
+> account_i18n_es_HN.po > addons/account/i18n/es_HN.po
+> purchase_i18n_es_HN.po > addons/purchase/i18n/es_HN.po
+> sale_i18n_es_HN.po > addons/sale/i18n/es_HN.po
+> stock_i18n_es_HN.po > addons/stock/i18n/es_HN.po
+
+#Corrección General Ledger
+#         en linea 301 -->Tomar la cuenta correcta cuando el reporte es lanzado desde la cuenta
+#         Corregir el formato del reporte
+> account_general_ledger.py > addons/account/report/account_general_ledger.py
+> report_generalledger.xml > addons/account/views/report_generalledger.xml
+> account_report_general_ledger.py > addons/account/wizard/account_report_general_ledger.py
+> account_report_general_ledger_view.xml > addons/account/wizard/account_report_general_ledger_view.xml
+
+# Corrección factura
+> report_invoice.xml > addons/account/views/report_invoice.xml
+# agrega en la factura impresa el cai, rango de secuencia y los rtn respectivos
+> addons/account/views/report_invoice.xml > addons/account/views/report_invoice.xml 
+
+#Logos
+> logo.png > addons/web/static/src/img/nologo.png
+> logo.png > addons/web/static/src/img/logo2.png
+> logo.png > addons/web/static/src/img/logo.png
+
+# modificados archivos del wizard de account én los cuales se agrega la opcion de exportacion a excel y se modifico el archivo python del 
+# reporte y el xml para agregar cambios de saldo inicial y estetica del reporte en pdf
+> account_balance.py > addons/account/report/account_balance.py
+> report_trialbalance.xml > addons/account/views/report_trialbalance.xml
+
+# Agrega botones de excel a los reportes al libro mayor y balance de comprobacion
+> account_report_account_balance.py > addons/account/wizard/account_report_account_balance.py
+> account_report_account_balance_view.xml > addons/account/wizard/account_report_account_balance_view.xml 
+
+# pendiente de Agregar descripcion, modificaciones de Hector
+> addons/account/account_financial_report.py > addons/account/account_financial_report.py
+> addons/account/account_view.xml > addons/account/account_view.xml
+
+# pendiente de Agregar descripcion, modificaciones de Hector
+> addons/account/report/account_financial_report.py > addons/account/report/account_financial_report.py
+# addons/account/report/report_financial.xml # addons/account/report/report_financial.xml
+> addons/account/wizard/account_financial_report.py > addons/account/wizard/account_financial_report.py
+> addons/account/wizard/account_financial_report_view.xml > addons/account/wizard/account_financial_report_view.xml
+

@@ -1,0 +1,9 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<openerp>
+  <data>
+	<menuitem id="msgcenter_menu_raiz_id" name="MsgCenter" sequence="1" />
+	<menuitem id="msgcenter_menu_id"	  name="MsgCenter" parent="msgcenter_menu_raiz_id" sequence="10" />
+	  <menuitem id="messages_id"		  name="messages"  parent="msgcenter_menu_id"      sequence="10" action="messages_action_id" />
+	  <menuitem id="groups_id"		  	  name="Groups"    parent="msgcenter_menu_id"      sequence="10" action="msgcenter_groups_action_id" />
+  </data>
+</openerp>

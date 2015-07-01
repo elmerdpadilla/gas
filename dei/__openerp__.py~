@@ -1,0 +1,21 @@
+# -*- coding: utf-8 -*-
+{
+	'name'		:'Facturacion Honduras',
+	'version'	:'1.0',
+	'author'	:'Grupo Innova',
+	'description'	:"""
+					Nuevo Regimen de facturacion en Honduras 2015
+	""",
+	'depends'	:['base','account','point_of_sale'],
+	'data'		:['views/cai_view.xml',
+				'views/ir_sequence_view.xml',
+				'/views/res_partner_view.xml'],
+	'update_xml'	:[
+			'security/groups.xml',
+                        'security/ir.model.access.csv',
+
+			],
+#	'data'		:['views/ir_sequence_view.xml'],
+	'installable':True,
+}
+

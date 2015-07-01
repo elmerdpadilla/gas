@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	<record model="ir.ui.view" id="res_company_view_inh">
+      		<field name="name">res.company.view.inh</field>
+      		<field name="model">res.company</field>
+      		<field name="inherit_id" ref="base.view_company_form" />
+			<field name="arch" type="xml">
+				<field name="company_registry" position="after">
+					<field name="cai"/>
+				</field>
+	   		</field>
+   	</record>
+	</data>
+</openerp>

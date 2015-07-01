@@ -1,0 +1,45 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<openerp>
+	<data>
+		<record id="replace_files_form_view" model="ir.ui.view">
+			<field name="name">innovabase_replace_files_form_view</field>
+			<field name="model">innovabase.replace.files</field>
+			<field name="arch" type="xml">
+			  <form string="Replace files configuration" class="oe_form_configuration">
+				<header>
+                  <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                  <!--or
+                  <button string="Cancel" type="object" name="cancel" class="oe_link"/-->
+                </header>
+                <separator string="Replace Files Configuration"/>
+				<group>
+				  <field name="name"/>
+				</group>
+				<notebook>
+				  <page>
+					<field name="line">
+					  <tree editable="Top">
+						<!--field name="replacement_file"/-->
+						<field name="name"/>
+						<field name="description"/>
+						<field name="enable"/>
+					  </tree>
+					</field>
+				  </page>
+				</notebook>
+			  </form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="innova_replace_action">
+			<field name="name">p.manage.action</field>
+            <field name="type">ir.actions.act_window</field>
+			<field name ="res_model">innovabase.replace.files</field>
+			<field name="view_mode">form</field>
+			<field name="target">inline</field>
+		</record>
+
+		<menuitem id="innova_menu_id" name="Innova"    parent="base.menu_administration" sequence="10" />
+		<menuitem id="innova_replace" name="Replace Files" parent="innova_menu_id"       sequence="10" action="innova_replace_action" />
+	</data>
+</openerp>

@@ -43,12 +43,23 @@
         </div>
 <div class="row text-center">
        <p>
+       <strong>CAI:</strong>
+                	<span t-field="o.cai_shot"/><br/>
+                	<strong>Fecha Expiración: </strong>
+                	<span t-field="o.cai_expires_shot"/><br/>
+                		<strong>Rango: </strong>
+                	<span t-field="o.min_number_shot"/> Al <span t-field="o.max_number_shot"/><br/>
                 	<strong>Factura N:</strong>
                 	<span t-field="o.name"/>
 			<br/>
+			<t t-if="o.partner_id">
  			<strong>Cliente:</strong>
-                        <span t-field="o.partner_id"
+                        <span t-field="o.partner_id.name"
+                           /><br/>
+                           <strong>RTN:</strong>
+                        <span t-field="o.partner_id.rtn"
                            />
+                           </t>
            	  </p>
 </div>
                 <div class="row">
@@ -114,6 +125,9 @@
                             </tr>
                         </table>
                     </div>
+                </div>
+                <div>
+                SON: <span t-field="line.product_id"/>amount_total_text
                 </div>
                 <table class="table table-condensed">
                     <thead>

@@ -21,6 +21,6 @@
 			'security/groups.xml',
 			'security/ir.model.access.csv',
 	],
-	'depends': ['base','sale','hr','point_of_sale'],
+	'depends': ['base','sale','hr','point_of_sale','dei'],
     	'installable': True,
 }

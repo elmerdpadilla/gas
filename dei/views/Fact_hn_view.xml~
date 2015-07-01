@@ -1,0 +1,104 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<openerp>
+  <data>
+	<record id="billing_hn_cai_form_view" model="ir.ui.view">
+      <field name="name">facthn_doc_requested_form_view</field>
+      <field name="model">facthn_doc_requested</field>
+	  <field name='type'>form</field>
+      <field name="arch" type="xml">
+		<form string="document request qqqq">
+		  <field name="description"/>
+		  <field name="emission_point"/>
+		  <field name="fiscal_document"/>
+		  <!--field name="req_quantity"/-->
+		  <field name="gra_quantity"/>
+		  <field name="prefix"/>
+		  <!--field name="padding"/-->
+		  <field name="start_number"/>
+		  <!--field name="dis_start_num"/-->
+		  <!--field name="final_number"/-->
+		  <field name="journal"/>
+		  <!--field name="sequence"/-->
+		</form>
+	  </field>
+	</record>
+
+	<record id="billing_hn_cai_tree_view" model="ir.ui.view">
+      <field name="name">billing_hn_cai_form_view</field>
+      <field name="model">billing_hn_cai</field>
+      <field name="arch" type="xml">
+        <tree>
+		  <field name="name"/>
+		  <field name="expiration_date"/>
+		  <field name="active"/>
+		  <field name="company"/>
+		</tree>
+      </field>
+    </record>
+
+	<record id="billing_hn_cai_form_view" model="ir.ui.view">
+      <field name="name">billing_hn_cai_form_view</field>
+      <field name="model">billing_hn_cai</field>
+      <field name="arch" type="xml">
+        <form string="Documentos Solicitados">
+		  <group cols="2" colspan="2">
+		   <field name="id" invisible="1"/>
+ 		   <field name="name" col="1"/>
+		   <field name="company" col="3"/>
+		   <field name="active" />
+		   <field name="expiration_date" />
+ 		  </group>
+			<group>
+				<notebook>
+				  <page>
+					<field name="doc_requested">
+					  <tree>
+						<field name="description"/>
+						<field name="emission_point"/>
+						<field name="fiscal_document"/>
+						<field name="gra_quantity"/>
+						<field name="dis_start_num"/>
+						<field name="dis_final_num"/>
+						<field name="journal">
+						<field name="percentage" widget='progressbar'/>								
+						</field>
+
+						<field name="journal"/>
+					  </tree>
+					  <form>
+						<sheet col="4">
+						  <group col="4" string="Doc Requested">
+						  <field name="description"/>
+						  <field name="emission_point"/>
+						  <field name="fiscal_document"/>
+						  <field name="journal"/>
+						  </group>
+						  <group col="4" string="Sequence">
+						  <field name="prefix"/>
+						  <field name="padding"/>
+						  <field name="start_number"/>
+						  <field name="gra_quantity"/>
+						  <field name="percentage_alert"/>
+						  </group>
+						</sheet>
+					  </form>
+					</field>
+				  </page>
+				</notebook>
+			</group>
+        </form>
+      </field>
+    </record>
+
+
+	<record model="ir.actions.act_window" id="Facthn_cai_action_id">
+	  <field name="name">billing_hn_cai_action</field>
+	  <field name="res_model">billing_hn_cai</field>
+	  <field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem id="1" name="1" sequence="1"/>
+	  <menuitem id="2" name="2" sequence="2" parent="1"/>
+		<menuitem id="Facthn_Cai_menu_id"  name="CAI"  parent="2"  sequence="10" action="Facthn_cai_action_id" />
+  </data>
+</openerp>

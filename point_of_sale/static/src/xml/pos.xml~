@@ -367,9 +367,9 @@
                         <span class='label'>Barcode</span>
                         <input class='detail barcode'       name='ean13'    t-att-value='partner.ean13 || ""'></input>
                     </div>
-                    <div class='client-detail'>
-                        <span class='label'>Tax ID</span>
-                        <input class='detail vat'           name='vat'     t-att-value='partner.vat || ""'></input>
+                   <div class='client-detail'>
+                        <span class='label'>RTN/ID</span>
+                        <input class='detail vat'           name='rtn'     t-att-value='partner.rtn || ""'></input>
                     </div>
                 </div>
             </div>
@@ -414,12 +414,12 @@
                             <span class='detail client-id empty'>N/A</span>
                         </t>
                     </div>
-                    <div class='client-detail'>
-                        <span class='label'>Tax ID</span>
-                        <t t-if='partner.vat'>
-                            <span class='detail vat'><t t-esc='partner.vat'/></span>
+                              <div class='client-detail'>
+                        <span class='label'>RTN/ID</span>
+                        <t t-if='partner.rtn'>
+                            <span class='detail vat'><t t-esc='partner.rtn'/></span>
                         </t>
-                        <t t-if='!partner.vat'>
+                        <t t-if='!partner.rtn'>
                             <span class='detail vat empty'>N/A</span>
                         </t>
                     </div>
@@ -966,17 +966,33 @@
    <div class="pos-center-align"><strong>Email:</strong> <t t-esc="widget.pos.company.email || ''"/><br /></div>
    <div class="pos-center-align"><strong>Tel:</strong> <t t-esc="widget.pos.company.phone || ''"/><br /></div>	    
 	    <br />
-  	    
-<div class="pos-center-align"><t t-esc="order.getName()"/><br /></div>	
+	<t t-if="order.getCai()">
+ 		CAI: <t t-esc="order.getCai()"/>
+ 	<br/>
+ 	</t>
+ 	 <t t-if="order.getexpd()">
+ 	Fecha Expiración: <t t-esc="order.getexpd()"/>
+ 	<br/>
+ 	</t>
+   	<t t-if="order.getRange()">
+ 	Rango: <t t-esc="order.getRange()"/>
+	 <br/>
+ 
+ </t>
+   <br/>
+
+	
+	<div class="pos-center-align"><t t-esc="order.getName()"/><br /></div>		
+       <div class="pos-center-align">Fecha <t t-esc="new Date().toString(Date.CultureInfo.formatPatterns.shortDate + ' ' +
+                Date.CultureInfo.formatPatterns.longTime)"/> <br /></div>
+                <div class="pos-center-align">User: <t t-esc="widget.pos.cashier ? widget.pos.cashier.name : widget.pos.user.name"/><br /><br />
+            </div>	 
+            
 <div class="pos-center-align"><t t-if="order.get_client()">
             Cliente: <t t-esc="order.get_client().name"/><br />
+             RTN: <t t-esc="order.get_client().rtn"/><br />
             <br />
-	    </t></div>	
-	<div class="pos-center-align">User: <t t-esc="widget.pos.cashier ? widget.pos.cashier.name : widget.pos.user.name"/><br />
-            <br /></div>	
-       <div class="pos-center-align">Fecha <t t-esc="new Date().toString(Date.CultureInfo.formatPatterns.shortDate + ' ' +
-                Date.CultureInfo.formatPatterns.longTime)"/> <br /></div>	 
-
+	    </t></div>
 
 <br/>
             
@@ -1055,6 +1071,12 @@
                     <td>Total:</td>
                     <td class="pos-right-align">
                         <t t-esc="widget.format_currency(order.getTotalTaxIncluded())"/>
+                    </td>
+                </tr>
+                                                <tr>
+                    <td>SON:</td>
+                    <td class="pos-right-align">
+                        <t t-esc="order.getTotalTaxIncludedText()"/>
                     </td>
                 </tr>
             </table>

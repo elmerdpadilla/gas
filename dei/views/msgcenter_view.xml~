@@ -1,0 +1,19 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<openerp>
+	<data>
+		<record model="msgcenter.message" id="messages_view_id">
+			<field name = "User"/>
+			<field name = "Group"/>
+			<field name = "Estado"/>
+			<field name = "Contenido"/>
+		</record>
+
+		<record model="ir.actions.act_window" id="messages_action_id">
+			<field name="name">messages.action</field>
+			<field name="res_model">msgcenter.message</field>
+			<field name="view_type">form|tree</field>
+			<field name="view_mode">form</field>
+		</record>
+		
+	</data>
+</openerp>

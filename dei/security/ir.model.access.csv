@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dei_ir_sequence,ir.sequence,model_ir_sequence,group_dei,1,1,1,1
+access_dei_cai,cai,model_dei_cai,group_dei,1,1,1,1
+access_dei_fiscal_regime,fiscal_regime,model_dei_fiscal_regime,group_dei,1,1,1,1
+
+access_dei_fiscal_regime_user,dei.fiscal_regime,model_dei_fiscal_regime,group_dei_user,1,0,0,0
+access_dei_cai_user,dei.cai,model_dei_cai,group_dei_user,1,0,0,0
+access_dei_ir_sequence_user,ir.sequence,model_ir_sequence,group_dei_user,1,0,0,0

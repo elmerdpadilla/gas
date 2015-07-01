@@ -1,0 +1,70 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<openerp>
+  <data>
+
+	<record id="dei_cai_tree_view" model="ir.ui.view">
+      <field name="name">dei_cai_form_view</field>
+      <field name="model">dei.cai</field>
+      <field name="arch" type="xml">
+        <tree>
+		  <field name="name"/>
+		  <field name="expiration_date"/>
+		  <!--field name="active"/-->
+		  <field name="company"/>
+		</tree>
+      </field>
+    </record>
+
+	<record id="dei_cai_form_view" model="ir.ui.view">
+      <field name="name">dei_cai_form_view</field>
+      <field name="model">dei.cai</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Documentos Solicitados">
+		  <group cols="2" colspan="2">
+		   <field name="id" invisible="1"/>
+ 		   <field name="name" col="1"/>
+		   <field name="company" col="3"/>
+		   <!--field name="active" /-->
+		   <field name="expiration_date" />
+ 		  </group>
+			<group>
+				<notebook>
+				  <page>
+					<field name="fiscal_regimes">
+					  <tree editable="top">
+						<field name="sequence"/>
+						<!--field name="next"/-->
+						<field name="desde"/>
+						<field name="hasta"/>
+						<!--field name="next_number"/-->
+						<!--field name="estado"/-->
+					  </tree>
+					  <form>
+						<sheet col="4">
+						  <group col="4" string="Doc Requested">
+						  <!--field name="description"/-->
+
+						  </group>
+						</sheet>
+					  </form>
+					</field>
+				  </page>
+				</notebook>
+			</group>
+        </form>
+      </field>
+    </record>
+
+
+	<record model="ir.actions.act_window" id="dei_cai_action_id">
+	  <field name="name">dei_cai_action</field>
+	  <field name="res_model">dei.cai</field>
+	  <field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem id="1" name="1" sequence="1"/>
+	  <menuitem id="2" name="2" sequence="2" parent="1"/>
+		<menuitem id="cai"  name="CAI"  parent="account.menu_finance_configuration"  sequence="10" action="dei_cai_action_id" />
+  </data>
+</openerp>

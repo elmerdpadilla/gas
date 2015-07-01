@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+	
+	<record model="ir.ui.view" id="res_currency_add_rate_view">
+      <field name="name">res.currency.add.rate.view</field>
+      <field name="model">res.currency.rate</field>
+	  <field name="arch" type="xml">
+	  	<form create="true" edit="true">
+			<group col="4">
+				<field name="get_date" colspan="2"/>
+				<field name="rate" colspan="2"/>
+				<field name="name" colspan="2" invisible="1"/>
+				<field name="display_date" colspan="2" invisible="1"/>
+			</group>
+			<footer>
+<button string="Save &amp; Close" type="object" name="save_close" class="oe_highlight" context="{'get_date':get_date,'rate':rate}"/>
+<!--el boton Save & new puede guardar correctamente pero se cierra, deberia mantener el formulario sin cerrar limpiar el formulario para crear un nuevo rate -->				
+<!--button string="Save &amp; New" type="object" name="save_new" class="oe_highlight" context="{'display_date':display_date,'rate':rate}"/-->
+				or
+				<button string="Discard" type="action" class="oe_link" special="cancel"/>
+			</footer>
+		</form>
+	  </field>
+	</record>
+
+	<!--record model="ir.actions.act_window" id="add_rate_button_action">
+		<field name="name">add.rate.button.action</field>
+		<field name="res_model">res.currency.rate.wizard</field>
+		<field name="src_model">res.currency.rate</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">form</field>
+		<field name="target">new</field>
+	</record-->
+	<record model="ir.actions.act_window" id="add_rate_button_action">
+		<field name="name">Add Rate</field>
+	    <field name="res_model">res.currency.rate</field>
+	    <field name="view_type">form</field>
+	    <field name="view_mode">form</field>
+	    <field name="usage">menu</field>
+	    <field name="target">new</field>
+	</record>
+
+	<record model="ir.ui.view" id="res_currency_view_inh">
+      <field name="name">res.currency.form.view.inh</field>
+      <field name="model">res.currency</field>
+      <field name="inherit_id" ref="base.view_currency_form" />
+	  <field name="arch" type="xml">
+		
+		<form position="replace">
+		<form string="Currency">
+                    <group col="4">
+                        <field name="name"/>
+                        <field name="rate_silent"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+
+                    <group>
+                        <group string="Price Accuracy">
+                            <field name="rounding"/>
+                            <field name="accuracy"/>
+                        </group>
+
+                        <group string="Display">
+                            <field name="symbol"/>
+                            <field name="position"/>
+                        </group>
+
+                        <group string="Miscellaneous">
+                            <field name="base"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+    
+			  <button name='%(add_rate_button_action)d' string="Add an item" type="action" class="oe_link" col="2" />
+			  <!--button name='add_rate_button_action' string="Add Rate object" type="object" /-->
+
+                    <field mode="tree" name="rate_ids" attrs="{'readonly':[('base','=',True)]}">
+                        <tree string="Rates" editable="top">
+                            <field name="name" invisible="1"/>
+			  			    <!--field name="name"/-->
+			  			    <!--field name="get_date"/-->
+						    <field name="display_date"/>
+						    <field name="rate"/>
+        				    <field name="write_uid"/>
+            			    <field name="write_date"/>
+                        </tree>
+                    </field>
+                </form>
+		</form>
+	  </field>
+   	</record>
+
+	</data>
+</openerp>
+

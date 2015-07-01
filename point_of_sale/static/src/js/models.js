@@ -30,6 +30,7 @@ function openerp_pos_models(instance, module){ //module is instance.point_of_sal
             this.debug = jQuery.deparam(jQuery.param.querystring()).debug !== undefined;    //debug mode 
             
             // Business data; loaded from the server at launch
+			this.dt="true";
             this.accounting_precision = 2; //TODO
             this.company_logo = null;
             this.company_logo_base64 = '';
@@ -112,12 +113,12 @@ function openerp_pos_models(instance, module){ //module is instance.point_of_sal
         models: [
         {
             model:  'res.users',
-            fields: ['name','company_id','price_edit','discount_edit'],
+            fields: ['name','company_id'],
             domain: function(self){ return [['id','=',self.session.uid]]; },
-            loaded: function(self,users){ self.user = users[0];console.log(users); },
+            loaded: function(self,users){ self.user = users[0]; },
         },{ 
             model:  'res.company',
-            fields: [ 'currency_id', 'email', 'website', 'company_registry', 'vat', 'name', 'phone', 'partner_id' , 'country_id','company_registry','street','street2','city','rml_header1'],
+            fields: [ 'currency_id', 'email', 'website', 'company_registry', 'vat', 'name', 'phone', 'partner_id' , 'country_id','company_registry','street','city','rml_header1'],
             domain: function(self){ return [['id','=',self.user.company_id[0]]]; },
             loaded: function(self,companies){ self.company = companies[0]; },
         },{
@@ -141,7 +142,7 @@ function openerp_pos_models(instance, module){ //module is instance.point_of_sal
             loaded: function(self,users){ self.users = users; },
         },{
             model:  'res.partner',
-            fields: ['name','street','city','state_id','country_id','vat','phone','zip','mobile','email','ean13','write_date'],
+            fields: ['name','street','city','state_id','country_id','vat','phone','zip','mobile','email','ean13','write_date','rtn'],
             domain: null,
             loaded: function(self,partners){
                 self.partners = partners;
@@ -241,7 +242,7 @@ function openerp_pos_models(instance, module){ //module is instance.point_of_sal
             model:  'product.product',
             fields: ['display_name', 'list_price','price','pos_categ_id', 'taxes_id', 'ean13', 'default_code', 
                      'to_weight', 'uom_id', 'uos_id', 'uos_coeff', 'mes_type', 'description_sale', 'description',
-                     'product_tmpl_id','name'],
+                     'product_tmpl_id','name','income_pdt','expense_pdt'],
             domain:  function(self){ return [['sale_ok','=',true],['available_in_pos','=',true]]; },
             context: function(self){ return { pricelist: self.pricelist.id, display_default_code: false }; },
             loaded: function(self, products){
@@ -925,7 +926,12 @@ function openerp_pos_models(instance, module){ //module is instance.point_of_sal
 	    this.cpsn= this.sequence_number;
 	    this.sequence=null;	
             this.uid =     this.generateUniqueId2();
+            this.cai= null;
+            this.expirationDate=null;
+            this.range=null;
 	    this.next=null;
+		this.type="nr"
+		this.npos=null;
             this.set({
                 creationDate:   new Date(),
                 orderLines:     new module.OrderlineCollection(),
@@ -935,7 +941,6 @@ function openerp_pos_models(instance, module){ //module is instance.point_of_sal
 		sequence: 	null,
             });
 	    this.value_sequence=null;
-
             this.selected_orderline   = undefined;
             this.selected_paymentline = undefined;
             this.screen_data = {};  // see ScreenSelector
@@ -1022,11 +1027,28 @@ function openerp_pos_models(instance, module){ //module is instance.point_of_sal
             var self = this;
             var def  = new $.Deferred();
 	try {
-
-
+			if(!self.getretire()){
             new instance.web.Model('ir.sequence')
                 .query(['prefix','number_next_actual'])
                 .filter([['id','=',this.pos.config.sequence_id[0]]])
+                .first({'timeout':2000, 'shadow': true})
+                .then(function(sequence){
+                    if (self.value_sequence=sequence) {   // check if the partners we got were real updates
+                        def.resolve();
+			self.sequence_number=(self.value_sequence.number_next_actual);
+			self.uid =     self.generateUniqueId2();
+			            self.set({
+                name:           _t("sdasd ") + self.uid, });
+                    } else {
+                        def.reject();
+			
+                    }
+                }, function(){ def.reject(); });
+}
+			if(self.getretire()){
+            new instance.web.Model('ir.sequence')
+                .query(['prefix','number_next_actual'])
+                .filter([['code','=','money.retire']])
                 .first({'timeout':2000, 'shadow': true})
                 .then(function(sequence){
                     if (self.value_sequence=sequence) {   // check if the partners we got were real updates
@@ -1035,17 +1057,20 @@ function openerp_pos_models(instance, module){ //module is instance.point_of_sal
 			self.sequence_number=(self.value_sequence.number_next_actual);
 			self.uid =     self.generateUniqueId2();
 			            self.set({
-                name:           _t("Factura ") + self.uid, });
+                name:           _t("Retiro ") + self.uid, });
                     } else {
                         def.reject();
 			
                     }
                 }, function(){ def.reject(); });
 }
+
+
+}
 catch(err) {
 self.uid =     self.generateUniqueId3();
 			            self.set({
-                name:           _t("Factura ") + self.uid, });
+                name:           _t("Factura2 ") + self.uid, });
 }
 
 
@@ -1122,17 +1147,197 @@ self.uid =     self.generateUniqueId3();
         getName: function() {
             return this.get('name');
         },
+        getCai: function() {
+            return this.get('cai');
+        },
+        getexpd: function() {
+        return this.get('expirationDate');
+        },
+        getRange: function() {
+        return this.get('range');
+        },
         getSubtotal : function(){
 	    
             return (this.get('orderLines')).reduce((function(sum, orderLine){
                 return sum + orderLine.get_display_price();
             }), 0);
         },
+        getretire : function(){
+            return (this.get('orderLines')).reduce((function(sum, orderLine){
+                return sum || orderLine.product.expense_pdt;
+            }), false);
+        },
+        getdeposit : function(){
+            return (this.get('orderLines')).reduce((function(sum, orderLine){
+                return sum || orderLine.product.income_pdt;
+            }), false);
+        },
         getTotalTaxIncluded: function() {
             return (this.get('orderLines')).reduce((function(sum, orderLine) {
                 return sum + orderLine.get_price_with_tax();
             }), 0);
         },
+        getTotalTaxIncludedText: function() {
+          function Unidades(num){
+  switch(num)
+  {
+    case 1: return "UN";
+    case 2: return "DOS";
+    case 3: return "TRES";
+    case 4: return "CUATRO";
+    case 5: return "CINCO";
+    case 6: return "SEIS";
+    case 7: return "SIETE";
+    case 8: return "OCHO";
+    case 9: return "NUEVE";
+  }
+
+  return "";
+}
+
+function Decenas(num){
+
+  decena = Math.floor(num/10);
+  unidad = num - (decena * 10);
+
+  switch(decena)
+  {
+    case 1:   
+      switch(unidad)
+      {
+        case 0: return "DIEZ";
+        case 1: return "ONCE";
+        case 2: return "DOCE";
+        case 3: return "TRECE";
+        case 4: return "CATORCE";
+        case 5: return "QUINCE";
+        default: return "DIECI" + Unidades(unidad);
+      }
+    case 2:
+      switch(unidad)
+      {
+        case 0: return "VEINTE";
+        default: return "VEINTI" + Unidades(unidad);
+      }
+    case 3: return DecenasY("TREINTA", unidad);
+    case 4: return DecenasY("CUARENTA", unidad);
+    case 5: return DecenasY("CINCUENTA", unidad);
+    case 6: return DecenasY("SESENTA", unidad);
+    case 7: return DecenasY("SETENTA", unidad);
+    case 8: return DecenasY("OCHENTA", unidad);
+    case 9: return DecenasY("NOVENTA", unidad);
+    case 0: return Unidades(unidad);
+  }
+}//Unidades()
+
+function DecenasY(strSin, numUnidades){
+  if (numUnidades > 0)
+    return strSin + " Y " + Unidades(numUnidades)
+
+  return strSin;
+}//DecenasY()
+
+function Centenas(num){
+
+  centenas = Math.floor(num / 100);
+  decenas = num - (centenas * 100);
+
+  switch(centenas)
+  {
+    case 1:
+      if (decenas > 0)
+        return "CIENTO " + Decenas(decenas);
+      return "CIEN";
+    case 2: return "DOSCIENTOS " + Decenas(decenas);
+    case 3: return "TRESCIENTOS " + Decenas(decenas);
+    case 4: return "CUATROCIENTOS " + Decenas(decenas);
+    case 5: return "QUINIENTOS " + Decenas(decenas);
+    case 6: return "SEISCIENTOS " + Decenas(decenas);
+    case 7: return "SETECIENTOS " + Decenas(decenas);
+    case 8: return "OCHOCIENTOS " + Decenas(decenas);
+    case 9: return "NOVECIENTOS " + Decenas(decenas);
+  }
+
+  return Decenas(decenas);
+}//Centenas()
+
+function Seccion(num, divisor, strSingular, strPlural){
+  cientos = Math.floor(num / divisor)
+  resto = num - (cientos * divisor)
+
+  letras = "";
+
+  if (cientos > 0)
+    if (cientos > 1)
+      letras = Centenas(cientos) + " " + strPlural;
+    else
+      letras = strSingular;
+
+  if (resto > 0)
+    letras += "";
+
+  return letras;
+}//Seccion()
+
+function Miles(num){
+  divisor = 1000;
+  cientos = Math.floor(num / divisor)
+  resto = num - (cientos * divisor)
+
+  strMiles = Seccion(num, divisor, "UN MIL", "MIL");
+  strCentenas = Centenas(resto);
+
+  if(strMiles == "")
+    return strCentenas;
+
+  return strMiles + " " + strCentenas;
+
+  //return Seccion(num, divisor, "UN MIL", "MIL") + " " + Centenas(resto);
+}//Miles()
+
+function Millones(num){
+  divisor = 1000000;
+  cientos = Math.floor(num / divisor)
+  resto = num - (cientos * divisor)
+
+  strMillones = Seccion(num, divisor, "UN MILLON", "MILLONES");
+  strMiles = Miles(resto);
+
+  if(strMillones == "")
+    return strMiles;
+
+  return strMillones + " " + strMiles;
+
+  //return Seccion(num, divisor, "UN MILLON", "MILLONES") + " " + Miles(resto);
+}//Millones()
+
+function NumeroALetras(num){
+  var data = {
+    numero: num,
+    enteros: Math.floor(num),
+    centavos: (((Math.round(num * 100)) - (Math.floor(num) * 100))),
+    letrasCentavos: "",
+    letrasMonedaPlural: "LEMPIRAS",
+    letrasMonedaSingular: "LEMPIRA"
+  };
+
+  if (data.centavos > 0)
+    data.letrasCentavos = "CON " + data.centavos + "/100";
+
+  if(data.enteros == 0)
+    return "CERO " + data.letrasMonedaPlural + " " + data.letrasCentavos;
+  if (data.enteros == 1)
+    return Millones(data.enteros) + " " + data.letrasMonedaSingular + " " + data.letrasCentavos;
+  else
+    return Millones(data.enteros) + " " + data.letrasMonedaPlural + " " + data.letrasCentavos;
+}//NumeroALetras()
+            var x= (this.get('orderLines')).reduce((function(sum, orderLine) {
+                dato= sum + orderLine.get_price_with_tax();
+                return dato;
+            }), 0);
+            return NumeroALetras(x);
+        },
+
         getDiscountTotal: function() {
             return (this.get('orderLines')).reduce((function(sum, orderLine) {
                 return sum + (orderLine.get_unit_price() * (orderLine.get_discount()/100) * orderLine.get_quantity());
@@ -1248,6 +1453,7 @@ self.uid =     self.generateUniqueId3();
                 paymentlines: paymentlines,
                 subtotal: this.getSubtotal(),
                 total_with_tax: this.getTotalTaxIncluded(),
+                total_with_tax_text: this.getTotalTaxIncludedText(),
                 total_without_tax: this.getTotalTaxExcluded(),
                 total_tax: this.getTax(),
                 total_paid: this.getPaidTotal(),
@@ -1314,16 +1520,18 @@ self.uid =     self.generateUniqueId3();
                 name: this.getName(),
                 amount_paid: this.getPaidTotal(),
                 amount_total: this.getTotalTaxIncluded(),
+                amount_text_total:this.getTotalTaxIncludedText(),
                 amount_tax: this.getTax(),
                 amount_return: this.getChange(),
                 lines: orderLines,
                 statement_ids: paymentLines,
                 pos_session_id: this.pos.pos_session.id,
                 partner_id: this.get_client() ? this.get_client().id : false,
-		client: cliente,
+				client: cliente,
                 user_id: this.pos.cashier ? this.pos.cashier.id : this.pos.user.id,
                 uid: this.uid,
                 sequence_number: this.sequence_number,
+				type: this.type,
             };
         },
         getSelectedLine: function(){

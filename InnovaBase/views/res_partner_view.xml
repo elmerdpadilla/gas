@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	<record model="ir.ui.view" id="res_partner_view_inh">
+      		<field name="name">res.partner.view.inh</field>
+      		<field name="model">res.partner</field>
+      		<field name="inherit_id" ref="base.view_partner_form" />
+			<field name="arch" type="xml">
+				<field name="function" position="before">
+					<field name="rtn"/>
+				</field>
+	   		</field>
+   	</record>
+	</data>
+</openerp>

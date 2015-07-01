@@ -1,0 +1,9 @@
+from openerp.osv import fields, osv
+
+class res_partner(osv.Model):
+    _inherit = 'res.partner'
+    _columns = {
+        'rtn': fields.char('RTN') 
+    }
+
+print "QQQQQQQQQQQQQQsss"*50
